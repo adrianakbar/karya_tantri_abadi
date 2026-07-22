@@ -148,15 +148,16 @@ erDiagram
 | Plafon max | Rp 5.000.000 |
 | Tenor max | 3 bulan |
 | Frekuensi | mingguan / bulanan |
-| Biaya angsuran | 11% dari nominal |
-| Admin fee | 5% |
-| UTJ | 22% |
-| Cair bersih | 73% |
+| Biaya angsuran | 11% dari nominal (fee dilunasi; bukan potongan cair) |
+| Admin fee | 5% (potong di awal) |
+| UTJ (tier) | ≤ Rp2.500.000 → 22%; ≥ Rp2.600.000 → 11% |
+| Cair bersih | ≤ Rp2.500.000 → 73%; ≥ Rp2.600.000 → 84% (= nominal − admin − UTJ) |
 | Total dilunasi | nominal + 11% |
 | Cicilan weekly | tenor × 4 |
 
-Implementasi: `App\Services\LoanCalculator` dan `LoanService::generatePaymentSchedule` (dijalankan saat pencairan).  
-Contoh: nominal Rp1.000.000, tenor 3 bulan weekly → cair bersih Rp730.000, total dilunasi Rp1.110.000, 12 cicilan.
+Implementasi: `App\Services\LoanCalculator` (threshold tier UTJ = Rp2.500.000) dan `LoanService::generatePaymentSchedule` (dijalankan saat pencairan).  
+Contoh: nominal Rp1.000.000, tenor 3 bulan weekly → UTJ 22%, cair bersih Rp730.000, total dilunasi Rp1.110.000, 12 cicilan.  
+Contoh tier tinggi: nominal Rp2.600.000 → UTJ 11%, cair bersih Rp2.184.000.
 
 #### c. Alur tabungan
 
@@ -225,7 +226,7 @@ Uji skala terbatas (Siklus 1) melibatkan pengembang dan 1–2 perwakilan pengelo
 | :--- | :--- |
 | Login multi-panel | Redirect role ke panel benar (admin/spv/kasir/anggota) |
 | Input tabungan | Transaksi tersimpan; validasi nominal 0/negatif menolak input |
-| Input pinjaman pending | Fee 11/5/22 dan cair 73% terhitung otomatis |
+| Input pinjaman pending | Fee tier terhitung otomatis (≤2,5jt: UTJ 22%/cair 73%; ≥2,6jt: UTJ 11%/cair 84%) |
 | Akses silang panel | Anggota tidak dapat mengakses `/admin` |
 
 Temuan awal: label UI masih campur “Simpanan/Tabungan”; sisa redirect legacy `/petugas`; modul POS/SHU masih muncul di sebagian draft navigasi.
@@ -270,21 +271,37 @@ Uji skala operasional (Siklus 3) diarahkan pada pengguna sistem aktif: **Admin, 
 
 #### a. Ringkasan Black Box Testing
 
-Teknik: Equivalence Class Partitioning (ECP), Boundary Value Analysis (BVA), Error Guessing. Skenario lengkap ada di `BLACK_BOX_UAT_TESTING.md`.
+Teknik: Equivalence Class Partitioning (ECP), Boundary Value Analysis (BVA), Error Guessing. Skenario lengkap ada di `BLACK_BOX_UAT_TESTING.md` dan form peneliti `CHECKLIST_DEMO_BLACKBOX.docx`.
 
-Contoh hasil verifikasi fungsional (uji internal/demo sistem):
+Pengujian fungsional dijalankan ulang pada basis data bersih (`migrate:fresh` + seed) melalui probe sistem `scripts/blackbox_probe.php` (tanggal 22 Juli 2026). Rekap hasil:
+
+| Modul | Jumlah kasus | Lulus (L) | Tidak lulus (TL) | % Lulus |
+| :--- | ---: | ---: | ---: | ---: |
+| Login & multi-panel | 9 | 9 | 0 | 100% |
+| Tabungan | 6 | 6 | 0 | 100% |
+| Pinjaman kelompok (+fee tier) | 16 | 16 | 0 | 100% |
+| Laporan & scope | 5 | 5 | 0 | 100% |
+| **TOTAL** | **36** | **36** | **0** | **100%** |
+
+Contoh hasil verifikasi fungsional:
 
 | ID | Fitur | Hasil |
 | :--- | :--- | :--- |
 | login-01..04 | Login per role | Redirect ke panel sesuai role |
-| login-08 | Akses silang | Ditolak/redirect |
+| login-08 / login-captcha | Akses silang & CAPTCHA | Akses silang ditolak; login email+password only |
 | tb-01/tb-02 | Tabungan nominal valid/invalid | Valid disimpan; invalid ditolak |
-| ln-01 | Input pinjaman 1jt, 3 bln weekly | Cair 730rb; total 1,11jt; 12 cicilan |
+| ln-01 | Input pinjaman 1jt, 3 bln weekly | UTJ 22%; cair Rp730.000; total Rp1.110.000; 12 cicilan |
+| ln-01b | Input pinjaman 2,6jt (tier tinggi) | UTJ 11%; cair Rp2.184.000 |
+| ln-01c | Input pinjaman 2,5jt (batas tier rendah) | UTJ 22%; cair Rp1.825.000 |
 | ln-02/ln-03 | Plafon/tenor di atas batas | Divalidasi/ditolak |
-| ln-04..06 | Approve SPV + cair kasir | Status & jadwal sesuai |
-| ln-08/ln-09 | Catat cicilan admin vs kasir | Admin bisa; kasir tidak |
-| ln-10 | Anggota lihat | Hanya pinjaman sendiri |
-| sc-01/sc-02 | POS/SHU & petugas login | Tidak tersedia di UI aktif |
+| ln-04..08 | Approve SPV + cair kasir + catat cicilan | Status, 12 baris jadwal, bayar 1 cicilan OK |
+| ln-09/ln-10 | Wewenang cicilan & anggota | Admin catat; anggota hanya pinjaman sendiri |
+| sc-01/sc-02 | POS/SHU & petugas login | Tidak tersedia; `/petugas` 404 |
+| seed-tier-high/low | Seed PinjamanSeeder | 5jt → cair 4.200.000; 1jt → cair 730.000 |
+
+Bukti angka disimpan di `HASIL_BLACKBOX_SESI.md` / `.docx` dan `storage/app/blackbox_probe_latest.json`. Bukti UI fee tier ada di `bukti-blackbox/19-fee-tier-1jt-cair-730rb.png`, `20-fee-tier-26jt-cair-2184jt.png`, dan `21-daftar-pinjaman-fee-tier.png`.
+
+> Catatan: 100% lulus pada probe fungsional internal/demo **bukan** skor UAT lapangan mitra.
 
 #### b. Instrumen UAT
 
@@ -317,7 +334,8 @@ Penyesuaian akhir sebelum serah terima:
 2. Petugas offline dikunci (tanpa panel/login).
 3. Role aktif hanya admin, SPV, kasir, anggota.
 4. Scope POS/SHU tetap nonaktif.
-5. Seed demo dan dokumentasi diselaraskan dengan code.
+5. Fee pinjaman disesuaikan tabel mitra (UTJ 22%/11%, cair 73%/84%).
+6. Seed demo, probe black box, dan dokumentasi diselaraskan dengan code.
 
 ### 4.1.10 Dissemination and Implementation
 
@@ -342,7 +360,7 @@ Dengan demikian, perancangan dan pembangunan sistem tidak hanya menghasilkan fit
 
 ### 4.2.2 Menjawab rumusan masalah kedua (evaluasi efisiensi, transparansi, akuntabilitas)
 
-Evaluasi dilakukan melalui Black Box (fungsional) dan instrumen UAT (penerimaan pengguna). Dari sisi fungsional, alur utama berjalan sesuai aturan bisnis: fee otomatis, jadwal cicilan saat pencairan, pembatasan aksi per role, dan isolasi data anggota.
+Evaluasi dilakukan melalui Black Box (fungsional) dan instrumen UAT (penerimaan pengguna). Dari sisi fungsional, setelah reset basis data dan seed ulang, 36 kasus verifikasi lulus 100%: fee berjenjang otomatis (contoh Rp1.000.000 → cair Rp730.000; Rp2.600.000 → cair Rp2.184.000), jadwal cicilan saat pencairan, pembatasan aksi per role, dan isolasi data anggota.
 
 | Parameter | Sebelum | Sesudah |
 | :--- | :--- | :--- |
@@ -376,10 +394,10 @@ Metode R&D cocok karena kebutuhan mitra bersifat dinamis: istilah tabungan vs si
 ## 4.3 Ringkasan Hasil
 
 1. Sistem multi-panel Karya Tantri Abadi berhasil diimplementasikan untuk simpan pinjam.
-2. Alur pinjaman kelompok dan fee (11/5/22, cair 73%) tertanam di layanan kalkulasi.
+2. Alur pinjaman kelompok dan fee tier (angsuran 11%, admin 5%, UTJ 22%/11%, cair 73%/84%) tertanam di layanan kalkulasi.
 3. Tabungan tercatat di sistem dengan label mitra, tanpa mengubah kerangka formal simpan pinjam.
 4. Petugas tetap offline; pengguna sistem = admin, SPV, kasir, anggota.
-5. Black Box memverifikasi alur utama; UAT disiapkan dengan instrumen Likert 1–4 (data lapangan menyusul).
+5. Black Box: 36 kasus verifikasi lulus 100% (termasuk fee tier); UAT disiapkan Likert 1–4 (data lapangan menyusul).
 6. Tiga siklus revisi R&D menghasilkan sistem yang selaras aturan bisnis mitra dan batasan penelitian.
 
 ---
@@ -389,7 +407,10 @@ Metode R&D cocok karena kebutuhan mitra bersifat dinamis: istilah tabungan vs si
 | Dokumen | Isi |
 | :--- | :--- |
 | `BLACK_BOX_UAT_TESTING.md` | Skenario black box + kuesioner UAT |
-| `PANDUAN_DAN_FORM_PENGUJIAN.md` | Walkthrough demo + form cetak + berita acara |
+| `HASIL_BLACKBOX_SESI.md` / `.docx` | Rekap hasil black box sesi reset DB (36/36 L) |
+| `CHECKLIST_DEMO_BLACKBOX.docx` | Form demo + checklist (diisi peneliti) |
+| `bukti-blackbox/` | Screenshot UI (login, panel, fee tier) |
+| `PANDUAN_DAN_FORM_PENGUJIAN.md` | Walkthrough demo + form UAT + berita acara |
 | `DESKRIPSI_WEBSITE.md` | Deskripsi arsitektur & fitur sistem |
 | `ACTIVITY_DIAGRAM.md` | Diagram alur tabungan, pinjaman, cicilan, login |
 

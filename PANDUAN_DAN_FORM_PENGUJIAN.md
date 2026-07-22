@@ -21,7 +21,7 @@ Petugas lapangan: **offline** (tidak login); perannya disimulasikan dengan menye
 1. Login di `/auth/login` → masuk panel `/admin`.
 2. Kelola/cek data anggota (user anggota).
 3. Input pinjaman kelompok (pending): nominal, tenor, frekuensi.
-4. Pastikan fee tampil (admin 5%, UTJ 22%, angsuran 11%, cair 73%).
+4. Pastikan fee tampil sesuai tier (angsuran 11%, admin 5%; UTJ 22% & cair 73% jika ≤2,5jt; UTJ 11% & cair 84% jika ≥2,6jt).
 5. Setelah SPV approve & kasir cairkan: buka detail pinjaman → **Catat Bayar** cicilan (simulasikan uang dari petugas).
 6. Cek laporan pinjaman/tabungan/keuangan + backup (opsional).
 

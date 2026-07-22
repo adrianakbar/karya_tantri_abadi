@@ -35,4 +35,11 @@ CAPTCHA: dihapus dari sistem
 
 ## Catatan
 - Beberapa halaman mungkin masih menampilkan tour/banner UI; overlay tour disembunyikan saat capture.
-- Bukti fungsional numerik (fee 73%, 12 cicilan, dsb.) ada di `HASIL_BLACKBOX_SESI.docx`.
+- Bukti fungsional numerik (fee tier 73%/84%, 12 cicilan, dsb.) ada di `HASIL_BLACKBOX_SESI.docx`.
+
+## Capture fee tier (2026-07-22 20:20+)
+| File | Isi |
+|------|-----|
+| 19-fee-tier-1jt-cair-730rb.png | Form create pinjaman 1jt: UTJ 22%, cair 730.000 |
+| 20-fee-tier-26jt-cair-2184jt.png | Form create pinjaman 2,6jt: UTJ 11%, cair 2.184.000 |
+| 01b-login-no-captcha-browser.png | Login tanpa CAPTCHA (refresh) |

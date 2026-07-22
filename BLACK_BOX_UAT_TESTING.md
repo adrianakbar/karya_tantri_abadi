@@ -63,6 +63,7 @@ Teknik: ECP, BVA, Error Guessing.
 | ID | Fitur | Input | Hasil diharapkan | Metode | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | ln-01 | Input pinjaman (admin) | Nominal 1.000.000, tenor 3 bln, weekly | Fee terhitung: admin 5%, UTJ 22%, angsuran 11%, cair 730.000; status pending | ECP | |
+| ln-01b | Input pinjaman tier tinggi | Nominal 2.600.000, tenor 3 bln, weekly | Fee terhitung: admin 5%, UTJ 11%, angsuran 11%, cair 2.184.000; status pending | BVA | |
 | ln-02 | Plafon | Nominal > 5.000.000 | Ditolak/divalidasi batas plafon | BVA | |
 | ln-03 | Tenor | Tenor > 3 bulan | Ditolak/divalidasi batas tenor | BVA | |
 | ln-04 | Approve SPV | Pinjaman pending | Status approved, tercatat approved_by/date | ECP | |

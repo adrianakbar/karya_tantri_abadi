@@ -87,14 +87,15 @@ Jenis pinjaman aktif: **Kelompok** (jenis lain nonaktif).
 | Plafon max | Rp 5.000.000 |
 | Tenor max | 3 bulan |
 | Frekuensi | Mingguan (default) / bulanan |
-| Biaya angsuran | 11% dari nominal |
-| Admin fee | 5% |
-| UTJ | 22% |
-| Cair bersih | 73% |
+| Biaya angsuran | 11% dari nominal (fee dilunasi; bukan potongan cair) |
+| Admin fee | 5% (potong di awal) |
+| UTJ (tier) | ≤ Rp2.500.000 → 22%; ≥ Rp2.600.000 → 11% |
+| Cair bersih | ≤ Rp2.500.000 → 73%; ≥ Rp2.600.000 → 84% (= nominal − admin − UTJ) |
 | Total dilunasi | nominal + 11% |
 
-Kalkulasi: `App\Services\LoanCalculator`.
+Kalkulasi: `App\Services\LoanCalculator` (threshold tier UTJ = Rp2.500.000).
 Jadwal cicilan digenerate saat **pencairan** oleh kasir.
+Contoh: Rp1.000.000 → cair Rp730.000; Rp2.600.000 → cair Rp2.184.000.
 
 #### Alur pinjaman
 

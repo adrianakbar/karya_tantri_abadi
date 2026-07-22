@@ -42,7 +42,8 @@ Status: `L` = Lulus · `TL` = Tidak Lulus · `B` = Bug minor (lulus bersyarat)
 - [ ] Minimal 1 anggota aktif
 - [ ] 1 jenis tabungan aktif
 - [ ] Rencana input pinjaman A: **Rp1.000.000**, tenor **3 bulan**, frekuensi **weekly**  
-  Harapan hitung: cair **Rp730.000**, total dilunasi **Rp1.110.000**, cicilan **12**
+  Harapan hitung: UTJ **22%**, cair **Rp730.000**, total dilunasi **Rp1.110.000**, cicilan **12**
+- [ ] (Opsional tier tinggi) pinjaman B: **Rp2.600.000** → UTJ **11%**, cair **Rp2.184.000**
 - [ ] (Opsional) 1 pinjaman pending lain untuk skenario tolak SPV
 - [ ] Simulasi petugas offline: data pengajuan + “uang cicilan” diserahkan ke admin (lisan/kertas)
 
@@ -84,7 +85,7 @@ Urutan demo ke mitra. Centang jika sudah ditunjukkan.
 
 ### 1.4 Pinjaman kelompok end-to-end (8–10 menit)
 1. [ ] **Offline:** petugas “serahkan” pengajuan ke admin
-2. [ ] **Admin:** input pinjaman pending + tunjukkan fee 11/5/22 & cair 73%
+2. [ ] **Admin:** input pinjaman pending + tunjukkan fee tier (≤2,5jt: 11/5/22 & cair 73%; ≥2,6jt: 11/5/11 & cair 84%)
 3. [ ] **SPV:** setujui pinjaman
 4. [ ] **Kasir:** cairkan pinjaman
 5. [ ] Tunjukkan jadwal cicilan ter-generate (weekly 3 bln = 12 baris)
@@ -147,6 +148,7 @@ Urutan demo ke mitra. Centang jika sudah ditunjukkan.
 | ID | Fitur | Langkah / Input | Hasil diharapkan | Hasil aktual | Status | Catatan |
 | :--- | :--- | :--- | :--- | :--- | :-: | :--- |
 | ln-01 | Input pinjaman | Admin: 1.000.000; 3 bln; weekly | Fee admin 5%, UTJ 22%, angsuran 11%, cair 730.000; status pending | | | |
+| ln-01b | Input pinjaman tier tinggi | Admin: 2.600.000; 3 bln; weekly | Fee admin 5%, UTJ 11%, angsuran 11%, cair 2.184.000; status pending | | | |
 | ln-02 | Plafon | Nominal > 5.000.000 | Ditolak/divalidasi | | | |
 | ln-03 | Tenor | Tenor > 3 bulan | Ditolak/divalidasi | | | |
 | ln-04 | Approve SPV | Pinjaman pending | Status approved | | | |

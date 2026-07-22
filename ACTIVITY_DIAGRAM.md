@@ -40,7 +40,7 @@ flowchart TD
 ```mermaid
 flowchart TD
     Offline[Petugas ajukan offline] --> Admin[Admin input pinjaman pending]
-    Admin --> Calc[Sistem hitung fee 11/5/22 + cair 73%]
+    Admin --> Calc[Sistem hitung fee tier: 11/5 + UTJ 22atau11 + cair 73atau84]
     Calc --> SPV{SPV setujui?}
     SPV -- Tolak --> Rejected[Status rejected]
     SPV -- Ya --> Approved[Status approved]
