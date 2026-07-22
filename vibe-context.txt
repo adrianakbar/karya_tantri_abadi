@@ -1,0 +1,65 @@
+/catatan untuk fitur pengaturan system dan hak akses :
+
+detail fitur/resource:
+Kelola Pengguna & Hak Akses (Admin, Bendahara, Manajer, Anggota)
+Backup & Restore Data
+Pengaturan Identitas Koperasi
+Pengaturan Tema Warna UI
+Pengaturan Waktu Otomatis (untuk laporan bulanan)
+
+model terkait (sudah diibuat tidak perlu generate lagi) :
+Permission.php
+UserRole.php
+User.php
+Role.php
+RolePermission.php
+SystemSetting.php
+
+semua tabel sudah terbuat di migrasi dengan struktur berikut :
+Table system_settings {
+  id integer [primary key, increment]
+  cooperation_id integer [ref: > cooperations.id]
+  category enum('general', 'ui_theme', 'notification', 'backup', 'report_schedule', 'financial', 'inventory') [not null]
+  key varchar(100) [not null]
+  value text
+  type enum('string', 'number', 'boolean', 'json', 'file') [default: 'string']
+  description text
+  is_system boolean [default: false] // true jika tidak bisa diedit user
+  updated_by integer [ref: > users.id]
+  created_at timestamp [default: 'now()']
+  updated_at timestamp [default: 'now()']
+}
+
+
+Table roles {
+  id integer [primary key, increment]
+  cooperation_id integer [ref: > cooperations.id]
+  name varchar(100) [not null] // admin, bendahara, manajer, anggota, kepala_yayasan
+  description text
+  is_active boolean [default: true]
+  created_at timestamp [default: 'now()']
+  updated_at timestamp [default: 'now()']
+}
+
+Table user_roles {
+  id integer [primary key, increment]
+  user_id integer [ref: > users.id]
+  role_id integer [ref: > roles.id]
+  assigned_at timestamp [default: 'now()']
+}
+
+Table permissions {
+  id integer [primary key, increment]
+  name varchar(100) [not null] // view_dashboard, manage_members, etc
+  module varchar(50) [not null] // dashboard, members, transactions, etc
+  description text
+  created_at timestamp [default: 'now()']
+}
+
+Table role_permissions {
+  id integer [primary key, increment]
+  role_id integer [ref: > roles.id]
+  permission_id integer [ref: > permissions.id]
+}
+
+

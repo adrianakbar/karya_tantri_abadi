@@ -1,0 +1,46 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: koperasi_app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./.env:/var/www/html/.env
+      - storage-data:/var/www/html/storage
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - koperasi_net
+
+  db:
+    image: mysql:8.0
+    container_name: koperasi_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: db_koperasi_karya_tantri_abadi
+      MYSQL_USER: adrianakbar
+      MYSQL_PASSWORD: Akbar_29102005
+      MYSQL_ROOT_PASSWORD: root_secure_password_992
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u$$MYSQL_USER", "-p$$MYSQL_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - koperasi_net
+
+volumes:
+  db-data:
+  storage-data:
+
+networks:
+  koperasi_net:
+    driver: bridge

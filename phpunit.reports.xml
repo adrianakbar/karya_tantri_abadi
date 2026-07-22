@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         executionOrder="random"
+         failOnWarning="true"
+         failOnRisky="true"
+         failOnEmptyTestSuite="true"
+         beStrictAboutOutputDuringTests="true"
+         verbose="true"
+         timeoutForSmallTests="60"
+         timeoutForMediumTests="10"
+         timeoutForLargeTests="60">
+    <testsuites>
+        <testsuite name="Reports">
+            <directory suffix="Test.php">./tests/Feature/Reports</directory>
+        </testsuite>
+        <testsuite name="Reports Integration">
+            <file>./tests/Feature/ReportsTestSuite.php</file>
+        </testsuite>
+        <testsuite name="Financial Reports">
+            <file>./tests/Feature/Reports/FinancialReportTest.php</file>
+        </testsuite>
+        <testsuite name="Savings Reports">
+            <file>./tests/Feature/Reports/SavingsReportTest.php</file>
+        </testsuite>
+        <testsuite name="Loan Reports">
+            <file>./tests/Feature/Reports/LoanReportTest.php</file>
+        </testsuite>
+        <testsuite name="Expense Reports">
+            <file>./tests/Feature/Reports/ExpenseReportTest.php</file>
+        </testsuite>
+        <testsuite name="SHU Reports">
+            <file>./tests/Feature/Reports/ShuReportTest.php</file>
+        </testsuite>
+        <testsuite name="Inventory Reports">
+            <file>./tests/Feature/Reports/InventoryReportTest.php</file>
+        </testsuite>
+        <testsuite name="Dashboard Reports">
+            <file>./tests/Feature/Reports/ReportDashboardTest.php</file>
+        </testsuite>
+    </testsuites>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./app/Filament/Pages</directory>
+            <directory suffix=".php">./app/Models</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">./app/Console</directory>
+            <directory suffix=".php">./vendor</directory>
+        </exclude>
+        <report>
+            <html outputDirectory="coverage/html"/>
+            <text outputFile="coverage/coverage.txt"/>
+            <clover outputFile="coverage/clover.xml"/>
+        </report>
+    </coverage>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="BCRYPT_ROUNDS" value="4"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="DB_CONNECTION" value="mysql"/>
+        <env name="DB_HOST" value="127.0.0.1"/>
+        <env name="DB_PORT" value="3306"/>
+        <env name="DB_DATABASE" value="db_koperasi_karya_tantri_abadi"/>
+        <env name="DB_USERNAME" value="adrianakbar"/>
+        <env name="DB_PASSWORD" value="12345"/>
+        <env name="MAIL_MAILER" value="array"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="TELESCOPE_ENABLED" value="false"/>
+    </php>
+    <logging>
+        <junit outputFile="reports/junit.xml"/>
+    </logging>
+</phpunit>

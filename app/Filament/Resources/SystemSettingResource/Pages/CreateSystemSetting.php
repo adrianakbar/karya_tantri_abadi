@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Filament\Resources\SystemSettingResource\Pages;
+
+use App\Filament\Resources\SystemSettingResource;
+use Filament\Actions;
+use Filament\Resources\Pages\CreateRecord;
+
+class CreateSystemSetting extends CreateRecord
+{
+    protected static string $resource = SystemSettingResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
+    public function getTitle(): string
+    {
+        return 'Tambah Pengaturan Sistem';
+    }
+}

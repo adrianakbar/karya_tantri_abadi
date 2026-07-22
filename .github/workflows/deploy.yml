@@ -1,0 +1,75 @@
+# .github/workflows/deploy.yml
+# Auto-deploy: saat push ke master, self-hosted runner
+# di homeserver langsung build dan restart container Docker.
+
+name: Deploy to Homeserver
+
+on:
+  push:
+    branches: [master, main]
+
+jobs:
+  deploy:
+    name: Build & Restart Docker
+    runs-on: self-hosted
+
+    steps:
+      - name: 📂 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 📋 Log Status
+        run: |
+          echo "::group::Deploy Info"
+          echo "Repo    : ${{ github.repository }}"
+          echo "Branch  : ${{ github.ref_name }}"
+          echo "Commit  : ${{ github.sha }}"
+          echo "Runner  : $(hostname)"
+          echo "WorkDir : ${{ github.workspace }}"
+          echo "User    : $(whoami)"
+          echo "::endgroup::"
+
+      - name: 🔗 Copy .env dari project asli
+        run: |
+          # .env tidak di-commit, tapi dibutuhkan untuk build.
+          # Ambil dari folder proyek asli di homeserver.
+          PROJECT_DIR="/home/adrianakbar/karya-tantri-abadi"
+          if [ -f "$PROJECT_DIR/.env" ]; then
+            cp "$PROJECT_DIR/.env" .env
+            echo "✅ .env copied from $PROJECT_DIR/.env"
+          else
+            echo "⚠️  .env not found at $PROJECT_DIR/.env, using .env.example"
+            cp .env.example .env
+          fi
+
+      - name: 🏗️ Build & Restart Docker
+        run: |
+          echo "::group::Docker Build & Deploy"
+          echo "🚀 Rebuilding containers..."
+          docker compose up -d --build
+          echo "✅ Deployment complete!"
+          echo "::endgroup::"
+
+      - name: ✅ Health Check
+        run: |
+          echo "::group::Health Check"
+          sleep 5
+          CONTAINER="koperasi_app"
+          if docker ps --format '{{.Names}}' | grep -q "^$CONTAINER$"; then
+            STATUS=$(docker inspect --format='{{.State.Status}}' "$CONTAINER")
+            echo "✅ Container $CONTAINER is $STATUS"
+            IP=$(hostname -I 2>/dev/null | awk '{print $1}')
+            echo "🌐 App running at: http://$IP:8000"
+          else
+            echo "❌ Container $CONTAINER not found!"
+            echo "--- Running containers ---"
+            docker ps
+            exit 1
+          fi
+          echo "::endgroup::"
+
+      - name: 🧹 Clean Up
+        run: |
+          echo "::group::Clean Up"
+          docker image prune -f --filter "until=24h"
+          echo "✅ Cleaned up unused images"
+          echo "::endgroup::"
