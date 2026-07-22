@@ -325,7 +325,58 @@ $$\text{Persentase Kelayakan (\%)} = \frac{\text{Total Skor Aktual}}{\text{Total
 
 Total skor maksimum = jumlah responden × 10 × 4.
 
-> **Status data UAT lapangan:** angka distribusi skor dan persentase kelayakan final diisi setelah uji lapangan riil mitra. Template form & berita acara tersedia di `PANDUAN_DAN_FORM_PENGUJIAN.md`.
+Form lapangan: `FORM_UAT_KARYA_TANTRI_ABADI.docx` (kuesioner + berita acara).  
+Responden target: Admin, SPV, Kasir, dan Anggota (**ketua kelompok**).
+
+#### c. Template hasil UAT lapangan (isi setelah data mitra)
+
+> **Jangan fabrikasi skor.** Isi hanya setelah kuesioner UAT dikembalikan responden. Sel selama masih kosong = belum ada data lapangan.
+
+**Tabel rekap responden**
+
+| No | Nama / inisial | Peran sistem | Total skor (10–40) | Kategori* |
+| :-: | :--- | :--- | ---: | :--- |
+| 1 | _______________ | Admin | ___ | ________ |
+| 2 | _______________ | SPV | ___ | ________ |
+| 3 | _______________ | Kasir | ___ | ________ |
+| 4 | _______________ | Anggota (Ketua Kelompok) | ___ | ________ |
+| … | _______________ | ________ | ___ | ________ |
+
+\*Kategori per responden (skor 10–40): 10–19 tidak baik; 20–29 cukup; 30–34 baik; 35–40 sangat baik.
+
+**Tabel rekap keseluruhan**
+
+| Uraian | Nilai |
+| :--- | :--- |
+| Jumlah responden (N) | ___ |
+| Total skor aktual | ___ |
+| Total skor maksimum (N × 10 × 4) | ___ |
+| **Persentase kelayakan** | **___ %** |
+| Interpretasi kelayakan** | _______________ |
+
+**Interpretasi global (usulan; sesuaikan proposal bila dospem minta lain):  
+< 50% kurang; 50–69% cukup; 70–84% baik; ≥ 85% sangat baik.
+
+**Distribusi jawaban per butir (opsional, isi frekuensi)**
+
+| No butir | STS (1) | TS (2) | S (3) | SS (4) | Rata-rata |
+| :-: | :-: | :-: | :-: | :-: | :-: |
+| 1 |  |  |  |  |  |
+| 2 |  |  |  |  |  |
+| 3 |  |  |  |  |  |
+| 4 |  |  |  |  |  |
+| 5 |  |  |  |  |  |
+| 6 |  |  |  |  |  |
+| 7 |  |  |  |  |  |
+| 8 |  |  |  |  |  |
+| 9 |  |  |  |  |  |
+| 10 |  |  |  |  |  |
+
+**Kalimat siap tempel setelah data lengkap** (ganti angka):
+
+> User Acceptance Testing melibatkan __ responden (admin, SPV, kasir, dan ketua kelompok). Total skor aktual __ dari skor maksimum __ menghasilkan persentase kelayakan __%. Berdasarkan kriteria interpretasi, sistem dinilai ________ oleh pengguna mitra.
+
+> **Status data UAT lapangan:** template di atas siap diisi; angka final menunggu pelaksanaan kuesioner mitra.
 
 ### 4.1.9 Final Product Revision (Revisi Produk Akhir)
 
