@@ -102,16 +102,20 @@ class LoanResource extends Resource
             ]),
 
             Section::make('Rincian Biaya (Admin)')
-                ->description('Biaya angsuran 11% · Admin 5% · UTJ 22% · Cair bersih 73%')
+                ->description(fn (Get $get) => LoanCalculator::feeDescription(
+                    floatval($get('principal_amount') ?: 0)
+                ))
                 ->schema([
                     Grid::make(2)->schema([
                         TextInput::make('installment_fee')->label('Biaya Angsuran (11%)')
                             ->numeric()->prefix('Rp')->readonly()->dehydrated(),
                         TextInput::make('admin_fee')->label('Biaya Admin (5%)')
                             ->numeric()->prefix('Rp')->readonly()->dehydrated(),
-                        TextInput::make('utj_fee')->label('UTJ (22%)')
+                        TextInput::make('utj_fee')
+                            ->label(fn (Get $get) => 'UTJ (' . LoanCalculator::utjRatePercent(floatval($get('principal_amount') ?: 0)) . '%)')
                             ->numeric()->prefix('Rp')->readonly()->dehydrated(),
-                        TextInput::make('net_disbursement')->label('Cair Bersih (73%)')
+                        TextInput::make('net_disbursement')
+                            ->label(fn (Get $get) => 'Cair Bersih (' . LoanCalculator::netRatePercent(floatval($get('principal_amount') ?: 0)) . '%)')
                             ->numeric()->prefix('Rp')->readonly()->dehydrated()
                             ->extraInputAttributes(['class' => 'font-bold']),
                     ]),

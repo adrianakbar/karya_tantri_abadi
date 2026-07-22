@@ -50,7 +50,7 @@ class LoanResource extends Resource
                     ->numeric()
                     ->prefix('Rp')
                     ->disabled()
-                    ->helperText('Jumlah dana yang diterima (73% dari nominal)'),
+                    ->helperText('Jumlah dana yang diterima (73% jika plafon ≤2,5jt; 84% jika >2,5jt)'),
                 Forms\Components\TextInput::make('tenor_months')
                     ->label('Tenor')
                     ->suffix(' bulan')

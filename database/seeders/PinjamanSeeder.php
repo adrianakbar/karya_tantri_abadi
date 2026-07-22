@@ -34,7 +34,7 @@ class PinjamanSeeder extends Seeder
                 'max_amount' => LoanCalculator::MAX_PRINCIPAL,
                 'interest_rate' => LoanCalculator::INSTALLMENT_FEE_RATE * 100,
                 'max_tenor_months' => LoanCalculator::MAX_TENOR_MONTHS,
-                'description' => 'Pinjaman kelompok — angsuran 11%, admin 5%, UTJ 22%, cair bersih 73%. Plafon max 5jt, tenor max 3 bulan (mingguan/bulanan).',
+                'description' => 'Pinjaman kelompok — angsuran 11%, admin 5%, UTJ 22% (≤2,5jt) / 11% (>2,5jt), cair 73%/84%. Plafon max 5jt, tenor max 3 bulan (mingguan/bulanan).',
                 'is_active' => true,
             ]
         );
@@ -211,6 +211,6 @@ class PinjamanSeeder extends Seeder
 
         $this->command->info("\n📊 {$created} pinjaman kelompok di-seed.");
         $this->command->line('   Jenis: Kelompok | Plafon max 5jt | Tenor max 3 bln');
-        $this->command->line('   Biaya: angsuran 11% · admin 5% · UTJ 22% · cair bersih 73%');
+        $this->command->line('   Biaya: angsuran 11% · admin 5% · UTJ 22%/11% (tier 2,5jt) · cair 73%/84%');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\LoanResource\Pages;
 
 use App\Filament\Resources\LoanResource;
+use App\Services\LoanCalculator;
 use Filament\Actions;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
@@ -66,15 +67,19 @@ class ViewLoan extends ViewRecord
                     Infolists\Components\TextEntry::make('purpose')->label('Tujuan')->columnSpanFull(),
                 ])->columns(3),
 
-            // Rincian biaya hanya admin
+            // Rincian biaya hanya admin (UTJ/cair mengikuti tier plafon mitra)
             Infolists\Components\Section::make('Rincian Biaya')
-                ->description('Angsuran 11% · Admin 5% · UTJ 22% · Cair bersih 73%')
+                ->description(fn () => LoanCalculator::feeDescription((float) ($this->record->principal_amount ?? 0)))
                 ->visible($isAdmin)
                 ->schema([
                     Infolists\Components\TextEntry::make('installment_fee')->label('Biaya Angsuran (11%)')->money('IDR'),
                     Infolists\Components\TextEntry::make('admin_fee')->label('Admin (5%)')->money('IDR'),
-                    Infolists\Components\TextEntry::make('utj_fee')->label('UTJ (22%)')->money('IDR'),
-                    Infolists\Components\TextEntry::make('net_disbursement')->label('Cair Bersih (73%)')->money('IDR'),
+                    Infolists\Components\TextEntry::make('utj_fee')
+                        ->label(fn () => 'UTJ (' . LoanCalculator::utjRatePercent((float) ($this->record->principal_amount ?? 0)) . '%)')
+                        ->money('IDR'),
+                    Infolists\Components\TextEntry::make('net_disbursement')
+                        ->label(fn () => 'Cair Bersih (' . LoanCalculator::netRatePercent((float) ($this->record->principal_amount ?? 0)) . '%)')
+                        ->money('IDR'),
                 ])->columns(4),
         ]);
     }
