@@ -26,11 +26,12 @@ Studi literatur, wawancara, dan observasi pada Karya Tantri Abadi menunjukkan pe
 | Admin | user sistem | input pinjaman, catat cicilan, kelola data, pantau tabungan & laporan |
 | SPV | user sistem | setujui/tolak pinjaman, pantau laporan |
 | Kasir | user sistem | cairkan pinjaman, catat tabungan, lihat cicilan, laporan |
-| Anggota | user sistem | lihat pinjaman sendiri (read-only) |
+| Anggota | user sistem | lihat pinjaman kelompok (read-only); akun dipegang **ketua kelompok** |
 | Petugas lapangan | **offline** | cari/dampingi nasabah, ajukan offline, kumpulkan cicilan; **tidak login** |
 
 **Anggota** = nasabah yang sudah terdaftar di koperasi/sistem.  
-**Nasabah** = sebutan lapangan sebelum/ saat dilayani petugas.
+**Nasabah** = sebutan lapangan sebelum/saat dilayani petugas.  
+**Pemegang akun anggota** = **ketua kelompok** (wakil/penanggung jawab); 1 pinjaman → 1 `user_id` ketua; anggota biasa kelompok tidak wajib punya akun.
 
 #### b. Use Case Diagram (ringkas)
 

@@ -58,9 +58,10 @@ Role legacy (`petugas`, `bendahara`, `kepalayayasan`, dll.) dinonaktifkan di see
 | Istilah | Arti |
 | :--- | :--- |
 | Nasabah | Sebutan lapangan (orang yang dilayani petugas) |
-| Anggota | Nasabah yang sudah terdaftar di koperasi/sistem |
+| Anggota (sistem) | Nasabah yang sudah terdaftar di koperasi/sistem |
+| Pemegang akun `anggota` | **Ketua kelompok** — wakil/penanggung jawab kelompok |
 
-Anggota hanya melihat data pinjaman miliknya. Tidak mengajukan pinjaman di sistem, tidak mencatat cicilan, tidak mengelola tabungan.
+Akun panel `/anggota` dipegang **ketua kelompok**. Satu pinjaman kelompok terikat satu `user_id` (ketua). Anggota biasa dalam kelompok tidak wajib punya akun website. Panel anggota **read-only**: lihat cair bersih, sisa, angsuran. Tidak mengajukan pinjaman di sistem, tidak mencatat cicilan, tidak mengelola tabungan.
 
 ---
 
