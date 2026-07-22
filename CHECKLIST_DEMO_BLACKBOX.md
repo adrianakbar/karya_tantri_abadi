@@ -3,6 +3,16 @@
 **Sistem:** Koperasi simpan pinjam berbasis website  
 **Tujuan:** bahan BAB 4.1.4–4.1.8 (uji fungsional & log revisi R&D)
 
+## Siapa mengisi dokumen ini?
+
+| Bagian | Diisi oleh | Peran |
+| :--- | :--- | :--- |
+| Identitas sesi, checklist demo, tabel Black Box, rekap L/TL/Bug, log 3 siklus R&D | **Peneliti** (Adrian Akbar Ramadhani) | Mengamati & mencatat hasil uji fungsional |
+| Operasi sistem saat demo (klik menu, input data) | **Mitra** (admin / SPV / kasir / anggota) | Menjalankan alur, **bukan** mengisi tabel black box |
+| Kuesioner UAT + berita acara | **Mitra** (responden) + peneliti fasilitator | Form terpisah: `PANDUAN_DAN_FORM_PENGUJIAN` |
+
+**Ringkas:** dokumen ini **diisi oleh peneliti**. Mitra mengoperasikan sistem; masukan lisan mitra dicatat peneliti di kolom temuan.
+
 Isi kolom **Hasil aktual**, **Status**, **Catatan** saat uji.  
 Status: `L` = Lulus · `TL` = Tidak Lulus · `B` = Bug minor (lulus bersyarat)
 
@@ -50,6 +60,8 @@ Status: `L` = Lulus · `TL` = Tidak Lulus · `B` = Bug minor (lulus bersyarat)
 
 ## 1. Checklist demo alur (15–25 menit)
 
+**Diisi oleh: Peneliti** sambil/setelah mitra mengoperasikan sistem.
+
 Urutan demo ke mitra. Centang jika sudah ditunjukkan.
 
 ### 1.1 Pembuka (2 menit)
@@ -96,6 +108,8 @@ Urutan demo ke mitra. Centang jika sudah ditunjukkan.
 ---
 
 ## 2. Tabel Black Box siap isi
+
+**Diisi oleh: Peneliti** (bukan mitra).
 
 **Cara isi Status:** `L` / `TL` / `B`  
 **Hasil aktual:** tuliskan apa yang benar-benar terjadi (bukan copy “diharapkan”).
@@ -161,6 +175,8 @@ Urutan demo ke mitra. Centang jika sudah ditunjukkan.
 ---
 
 ## 3. Rekap Black Box (untuk BAB 4)
+
+**Diisi oleh: Peneliti.**
 
 | Modul | Jumlah kasus | L | TL | B | % Lulus |
 | :--- | ---: | ---: | ---: | ---: | ---: |
