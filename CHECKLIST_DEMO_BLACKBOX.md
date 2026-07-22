@@ -24,7 +24,7 @@ Status: `L` = Lulus · `TL` = Tidak Lulus · `B` = Bug minor (lulus bersyarat)
 - [ ] Server/app bisa diakses (lokal/LAN/hosting)
 - [ ] Login path: `/auth/login`
 - [ ] Browser siap (Chrome/Edge/Firefox)
-- [ ] Login tanpa CAPTCHA (CAPTCHA dinonaktifkan di environment aktif)
+- [ ] Login email + password 
 
 ### 0.2 Akun seed (default password: `password`)
 

@@ -46,7 +46,7 @@ flowchart LR
     end
 
     subgraph Batasan Sistem Koperasi
-        UC_Login(1. Login & Keamanan CAPTCHA)
+        UC_Login(1. Login email/password)
         UC_LihatProfile(2. Lihat Saldo & Riwayat Pribadi)
         UC_AjukanPinjaman(3. Ajukan Pinjaman Mandiri)
         UC_KelolaAnggota(4. Kelola Data Anggota)

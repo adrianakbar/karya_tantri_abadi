@@ -3,7 +3,7 @@
 Tanggal: 2026-07-22 19:54
 Diisi oleh: Peneliti (Adrian Akbar Ramadhani) — dibantu eksekusi uji Hermes
 URL: http://127.0.0.1:8000/auth/login
-CAPTCHA: nonaktif
+CAPTCHA: dihapus dari sistem
 
 ## Rekap
 | Modul | Jumlah | L | TL | % Lulus |
@@ -52,8 +52,8 @@ CAPTCHA: nonaktif
 1. Login 4 role dan pembatasan akses silang berjalan.
 2. Fee pinjaman 11/5/22 & cair 73% terhitung benar; jadwal weekly 12 baris terbentuk saat pencairan.
 3. Anggota hanya melihat pinjaman sendiri; tidak bisa create tabungan/pinjaman.
-4. `/petugas` 404; CAPTCHA nonaktif; POS/SHU di luar scope aktif.
+4. `/petugas` 404; POS/SHU di luar scope aktif.
 5. Beberapa cek UI manual (cetak kuitansi PDF, backup klik UI) ditandai L berbasis ketersediaan fitur/kode.
 
 ## Kalimat siap tempel BAB 4
-Pengujian fungsional menggunakan metode Black Box Testing dengan teknik ECP, BVA, dan Error Guessing. Sebanyak 30 kasus uji dijalankan pada modul autentikasi (tanpa CAPTCHA), tabungan, pinjaman kelompok, laporan, dan batasan scope. Hasil rekap menunjukkan 30 kasus lulus (100.0%), 0 tidak lulus, dan 0 bug minor. Temuan utama kemudian ditindaklanjuti pada tahap revisi produk sesuai siklus R&D.
+Pengujian fungsional menggunakan metode Black Box Testing dengan teknik ECP, BVA, dan Error Guessing. Sebanyak 30 kasus uji dijalankan pada modul autentikasi , tabungan, pinjaman kelompok, laporan, dan batasan scope. Hasil rekap menunjukkan 30 kasus lulus (100.0%), 0 tidak lulus, dan 0 bug minor. Temuan utama kemudian ditindaklanjuti pada tahap revisi produk sesuai siklus R&D.

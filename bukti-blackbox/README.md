@@ -2,14 +2,14 @@
 
 Diambil otomatis dari sistem live: `http://127.0.0.1:8000`  
 Tanggal sesi: 2026-07-22  
-CAPTCHA: nonaktif
+CAPTCHA: dihapus dari sistem
 
 ## Daftar file
 
 | File | Keterangan bukti |
 |---|---|
-| 01-login-page.png | Halaman login (email+password, tanpa CAPTCHA) |
-| 01b-login-no-captcha-browser.png | Login page (browser vision) |
+| 01-login-page.png | Halaman login (email+password) |
+| 01b-login-no-captcha-browser.png | Login page (bukti tanpa widget CAPTCHA) |
 | 02-admin-dashboard.png | Dashboard admin setelah login |
 | 03-admin-loans.png | Daftar pinjaman admin |
 | 04-admin-loan-detail.png | Detail pinjaman admin |
