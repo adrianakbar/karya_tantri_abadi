@@ -39,9 +39,9 @@ Petugas lapangan: **offline** (tidak login); perannya disimulasikan dengan menye
 4. Pastikan jadwal cicilan muncul; kasir **tidak** menekan Catat Bayar.
 5. Buka laporan tabungan/pinjaman/keuangan.
 
-### D. Anggota
-1. Login → `/anggota`.
-2. Buka daftar pinjaman: hanya milik sendiri.
+### D. Anggota (Ketua Kelompok)
+1. Login → `/anggota` (akun dipegang **ketua kelompok**).
+2. Buka daftar pinjaman: hanya milik kelompok yang diwakilinya (`user_id` sendiri).
 3. Lihat cair bersih, angsuran, sisa hutang, status.
 4. Pastikan tidak bisa membuat/edit pinjaman atau mengelola tabungan.
 
@@ -55,7 +55,7 @@ Petugas lapangan: **offline** (tidak login); perannya disimulasikan dengan menye
 ## 2. Lembar Kuesioner UAT (Siap Cetak)
 
 **Nama Responden :** ________________________________________  
-**Peran (Role)   :** [ ] Admin  [ ] SPV  [ ] Kasir  [ ] Anggota  
+**Peran (Role)   :** [ ] Admin  [ ] SPV  [ ] Kasir  [ ] Anggota (Ketua Kelompok)  
 **Tanggal Uji    :** _______________________ 2026
 
 **Petunjuk:** centang jawaban yang sesuai.  
@@ -67,7 +67,7 @@ SS=4, S=3, TS=2, STS=1
 | 1 | Aplikasi mempermudah pencatatan tabungan dan pinjaman. | | | | |
 | 2 | Alur pinjaman admin → SPV → kasir sesuai kebutuhan. | | | | |
 | 3 | Pencatatan cicilan oleh admin memudahkan rekap setoran petugas. | | | | |
-| 4 | Anggota dapat memantau pinjaman sendiri dengan jelas. | | | | |
+| 4 | Ketua kelompok (akun anggota) dapat memantau pinjaman kelompok dengan jelas. | | | | |
 | **B** | **Ease of Use** | | | | |
 | 5 | Navigasi menu dan tombol mudah dipahami. | | | | |
 | 6 | Proses login berjalan lancar dan aman. | | | | |
@@ -94,7 +94,7 @@ Pengujian dilakukan oleh:
 1. **Nama :** ..................................................... (Admin)
 2. **Nama :** ..................................................... (SPV)
 3. **Nama :** ..................................................... (Kasir)
-4. **Nama :** ..................................................... (Anggota)
+4. **Nama :** ..................................................... (Anggota / Ketua Kelompok)
 
 Hasil pengujian:
 * Fungsionalitas inti (tabungan, pinjaman, cicilan, laporan, login multi-panel): **[ ] Berfungsi Penuh / [ ] Cukup / [ ] Perlu Perbaikan**
@@ -111,7 +111,7 @@ Demikian berita acara ini dibuat untuk kelengkapan laporan skripsi.
 1. Admin: ( ............................................ )  
 2. SPV: ( ............................................ )  
 3. Kasir: ( ............................................ )  
-4. Anggota: ( ............................................ )  
+4. Anggota (Ketua Kelompok): ( ............................................ )  
 
 **Mengetahui,**  
 **Peneliti,**

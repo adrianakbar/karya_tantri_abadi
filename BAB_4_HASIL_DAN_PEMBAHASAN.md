@@ -311,7 +311,7 @@ Skala Likert 1–4 (SS=4, S=3, TS=2, STS=1). Sepuluh pernyataan:
 1. Aplikasi mempermudah pencatatan tabungan dan pinjaman.
 2. Alur pinjaman admin → SPV → kasir sesuai kebutuhan.
 3. Pencatatan cicilan oleh admin memudahkan rekap setoran petugas.
-4. Anggota dapat memantau pinjaman sendiri dengan jelas.
+4. Ketua kelompok (akun anggota) dapat memantau pinjaman kelompok dengan jelas.
 5. Menu dan tombol mudah dipahami.
 6. Proses login berjalan lancar dan aman.
 7. Akses/unduh laporan mudah dilakukan.

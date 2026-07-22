@@ -109,7 +109,7 @@ Responden: Admin / SPV / Kasir / Anggota.
 | 1 | Aplikasi mempermudah pencatatan tabungan dan pinjaman. | Usefulness |
 | 2 | Alur pinjaman (admin input → SPV setujui → kasir cairkan) sesuai kebutuhan. | Usefulness |
 | 3 | Pencatatan cicilan oleh admin memudahkan rekap setelah petugas setor uang. | Usefulness |
-| 4 | Anggota dapat memantau data pinjaman sendiri dengan jelas. | Usefulness |
+| 4 | Ketua kelompok (akun anggota) dapat memantau pinjaman kelompok dengan jelas. | Usefulness |
 | 5 | Menu dan tombol mudah dipahami. | Ease of Use |
 | 6 | Proses login berjalan lancar dan aman. | Ease of Use |
 | 7 | Pengunduhan/akses laporan mudah dilakukan. | Ease of Use |
