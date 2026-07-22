@@ -1,4 +1,4 @@
-# BAB IV: HASIL DAN PEMBAHASAN
+# BAB 4 HASIL DAN PEMBAHASAN
 
 Bab ini menyajikan hasil pengembangan sistem informasi koperasi simpan pinjam berbasis website pada mitra **Karya Tantri Abadi**. Penulisan mengikuti metode *Research and Development* (R&D) yang diadaptasi dari model Borg & Gall (Mufadhol dkk., 2017). Pembahasan difokuskan pada analisis kebutuhan, perancangan, implementasi, pengujian fungsional (*Black Box Testing*), serta evaluasi penerimaan pengguna (*User Acceptance Testing*).
 
@@ -6,11 +6,11 @@ Bab ini menyajikan hasil pengembangan sistem informasi koperasi simpan pinjam be
 
 ---
 
-## A. HASIL PENELITIAN
+## 4.1 Hasil Penelitian
 
-Hasil diuraikan mengikuti 10 tahapan R&D.
+Hasil penelitian diuraikan mengikuti 10 tahapan R&D pada subbab 4.1.1 sampai 4.1.10.
 
-### 1. Research and Information Collection (Analisis Kebutuhan)
+### 4.1.1 Research and Information Collection (Analisis Kebutuhan)
 
 Studi literatur, wawancara, dan observasi pada Karya Tantri Abadi menunjukkan pengelolaan masih mengandalkan pencatatan manual/*spreadsheet* yang tidak terintegrasi. Temuan utama:
 
@@ -19,7 +19,7 @@ Studi literatur, wawancara, dan observasi pada Karya Tantri Abadi menunjukkan pe
 3. Transparansi data pinjaman bagi anggota rendah (harus menanyakan pengelola).
 4. Alur lapangan (petugas mencari nasabah dan menarik cicilan) berjalan offline dan belum tercatat rapi di sistem.
 
-#### Aktor sistem
+#### a. Aktor sistem
 
 | Aktor | Status | Peran |
 | :--- | :--- | :--- |
@@ -32,7 +32,7 @@ Studi literatur, wawancara, dan observasi pada Karya Tantri Abadi menunjukkan pe
 **Anggota** = nasabah yang sudah terdaftar di koperasi/sistem.  
 **Nasabah** = sebutan lapangan sebelum/ saat dilayani petugas.
 
-#### Use Case Diagram (ringkas)
+#### b. Use Case Diagram (ringkas)
 
 ```mermaid
 flowchart LR
@@ -76,7 +76,7 @@ flowchart LR
     Anggota --> UC_Lihat
 ```
 
-### 2. Planning (Perencanaan Sistem)
+### 4.1.2 Planning (Perencanaan Sistem)
 
 Stack teknologi yang ditetapkan:
 
@@ -101,9 +101,9 @@ Batasan perencanaan (sesuai mitra):
 2. POS/SHU tidak diaktifkan.
 3. Petugas tidak diberi akun sistem.
 
-### 3. Develop Preliminary Form of Product (Desain & Implementasi)
+### 4.1.3 Develop Preliminary Form of Product (Desain & Implementasi)
 
-#### A. ERD inti
+#### a. ERD inti
 
 ```mermaid
 erDiagram
@@ -140,7 +140,7 @@ erDiagram
     }
 ```
 
-#### B. Parameter pinjaman kelompok
+#### b. Parameter pinjaman kelompok
 
 | Item | Nilai |
 | :--- | :--- |
@@ -158,7 +158,7 @@ erDiagram
 Implementasi: `App\Services\LoanCalculator` dan `LoanService::generatePaymentSchedule` (dijalankan saat pencairan).  
 Contoh: nominal Rp1.000.000, tenor 3 bulan weekly → cair bersih Rp730.000, total dilunasi Rp1.110.000, 12 cicilan.
 
-#### C. Alur tabungan
+#### c. Alur tabungan
 
 ```mermaid
 flowchart TD
@@ -173,7 +173,7 @@ flowchart TD
     PDF --> End
 ```
 
-#### D. Alur pinjaman & cicilan
+#### d. Alur pinjaman & cicilan
 
 ```mermaid
 flowchart TD
@@ -190,7 +190,7 @@ flowchart TD
     Cek -->|Ya| Completed[Status completed]
 ```
 
-#### E. Sequence pencairan
+#### e. Sequence pencairan
 
 ```mermaid
 sequenceDiagram
@@ -205,7 +205,7 @@ sequenceDiagram
     LoanResource-->>Kasir: Sukses + jadwal cicilan tampil
 ```
 
-#### F. Hak akses per role
+#### f. Hak akses per role
 
 | Role | Panel | Aksi utama |
 | :--- | :--- | :--- |
@@ -217,7 +217,7 @@ sequenceDiagram
 
 Modul nonaktif di UI: POS/inventaris, SHU, manajemen jenis pinjaman, Role/Permission UI.
 
-### 4. Preliminary Field Testing (Uji Coba Lapangan Awal)
+### 4.1.4 Preliminary Field Testing (Uji Coba Lapangan Awal)
 
 Uji skala terbatas (Siklus 1) melibatkan pengembang dan 1–2 perwakilan pengelola (admin/kasir). Fokus: stabilitas dasar.
 
@@ -230,7 +230,7 @@ Uji skala terbatas (Siklus 1) melibatkan pengembang dan 1–2 perwakilan pengelo
 
 Temuan awal: label UI masih campur “Simpanan/Tabungan”; sisa redirect legacy `/petugas`; modul POS/SHU masih muncul di sebagian draft navigasi.
 
-### 5. Main Product Revision (Revisi Produk Utama)
+### 4.1.5 Main Product Revision (Revisi Produk Utama)
 
 Perbaikan berdasarkan uji awal:
 
@@ -240,7 +240,7 @@ Perbaikan berdasarkan uji awal:
 4. Rapikan validasi form dan pesan error.
 5. Perjelas alur role admin–SPV–kasir–anggota.
 
-### 6. Main Field Testing (Uji Coba Lapangan Utama)
+### 4.1.6 Main Field Testing (Uji Coba Lapangan Utama)
 
 Uji skala menengah (Siklus 2) melibatkan admin, SPV, kasir, dan beberapa anggota. Fokus: integritas alur bisnis end-to-end.
 
@@ -254,7 +254,7 @@ Uji skala menengah (Siklus 2) melibatkan admin, SPV, kasir, dan beberapa anggota
 | Anggota lihat pinjaman | Hanya data miliknya; cair bersih & sisa terlihat |
 | Laporan tabungan/pinjaman/keuangan | Data muncul sesuai filter |
 
-### 7. Operational Product Revision (Revisi Produk Operasional)
+### 4.1.7 Operational Product Revision (Revisi Produk Operasional)
 
 Perbaikan lanjutan:
 
@@ -264,11 +264,11 @@ Perbaikan lanjutan:
 4. Role legacy (`petugas`, `bendahara`, `kepalayayasan`) dinonaktifkan di seeder.
 5. Dokumentasi sistem/UAT diselaraskan ke code final.
 
-### 8. Operational Field Testing (Uji Operasional + UAT)
+### 4.1.8 Operational Field Testing (Uji Operasional + UAT)
 
 Uji skala operasional (Siklus 3) diarahkan pada pengguna sistem aktif: **Admin, SPV, Kasir, Anggota**. Petugas diuji sebagai aktor offline (menyerahkan data/uang ke admin).
 
-#### A. Ringkasan Black Box Testing
+#### a. Ringkasan Black Box Testing
 
 Teknik: Equivalence Class Partitioning (ECP), Boundary Value Analysis (BVA), Error Guessing. Skenario lengkap ada di `BLACK_BOX_UAT_TESTING.md`.
 
@@ -286,7 +286,7 @@ Contoh hasil verifikasi fungsional (uji internal/demo sistem):
 | ln-10 | Anggota lihat | Hanya pinjaman sendiri |
 | sc-01/sc-02 | POS/SHU & petugas login | Tidak tersedia di UI aktif |
 
-#### B. Instrumen UAT
+#### b. Instrumen UAT
 
 Skala Likert 1–4 (SS=4, S=3, TS=2, STS=1). Sepuluh pernyataan:
 
@@ -309,7 +309,7 @@ Total skor maksimum = jumlah responden × 10 × 4.
 
 > **Status data UAT lapangan:** angka distribusi skor dan persentase kelayakan final diisi setelah uji lapangan riil mitra. Template form & berita acara tersedia di `PANDUAN_DAN_FORM_PENGUJIAN.md`.
 
-### 9. Final Product Revision (Revisi Produk Akhir)
+### 4.1.9 Final Product Revision (Revisi Produk Akhir)
 
 Penyesuaian akhir sebelum serah terima:
 
@@ -319,7 +319,7 @@ Penyesuaian akhir sebelum serah terima:
 4. Scope POS/SHU tetap nonaktif.
 5. Seed demo dan dokumentasi diselaraskan dengan code.
 
-### 10. Dissemination and Implementation
+### 4.1.10 Dissemination and Implementation
 
 Sistem diarahkan untuk operasional simpan pinjam mitra Karya Tantri Abadi. Diseminasi mencakup:
 
@@ -330,9 +330,9 @@ Sistem diarahkan untuk operasional simpan pinjam mitra Karya Tantri Abadi. Disem
 
 ---
 
-## B. PEMBAHASAN
+## 4.2 Pembahasan
 
-### 1. Menjawab rumusan masalah pertama (proses perancangan & pengembangan)
+### 4.2.1 Menjawab rumusan masalah pertama (proses perancangan & pengembangan)
 
 Proses pengembangan mengikuti metode R&D 10 tahap dengan tiga siklus uji–revisi. Analisis kebutuhan memetakan aktor online (admin, SPV, kasir, anggota) dan aktor offline (petugas). Perancangan menghasilkan multi-panel Filament, ERD simpan pinjam, serta layanan kalkulasi pinjaman kelompok. Implementasi menanamkan alur:
 
@@ -340,7 +340,7 @@ Proses pengembangan mengikuti metode R&D 10 tahap dengan tiga siklus uji–revis
 
 Dengan demikian, perancangan dan pembangunan sistem tidak hanya menghasilkan fitur teknis, tetapi juga menyesuaikan wewenang operasional mitra.
 
-### 2. Menjawab rumusan masalah kedua (evaluasi efisiensi, transparansi, akuntabilitas)
+### 4.2.2 Menjawab rumusan masalah kedua (evaluasi efisiensi, transparansi, akuntabilitas)
 
 Evaluasi dilakukan melalui Black Box (fungsional) dan instrumen UAT (penerimaan pengguna). Dari sisi fungsional, alur utama berjalan sesuai aturan bisnis: fee otomatis, jadwal cicilan saat pencairan, pembatasan aksi per role, dan isolasi data anggota.
 
@@ -354,17 +354,17 @@ Evaluasi dilakukan melalui Black Box (fungsional) dan instrumen UAT (penerimaan 
 
 Transparansi meningkat karena anggota dapat melihat cair bersih, angsuran, dan sisa hutang. Akuntabilitas meningkat karena status pinjaman berjenjang, pencatatan cicilan memuat jejak admin, dan log aktivitas tersedia di panel admin.
 
-### 3. Kesesuaian metode R&D
+### 4.2.3 Kesesuaian metode R&D
 
 Metode R&D cocok karena kebutuhan mitra bersifat dinamis: istilah tabungan vs simpanan, pemisahan wewenang SPV/kasir, dan keputusan petugas tetap offline muncul selama iterasi. Siklus uji berjenjang mengurangi risiko mengoperasikan sistem keuangan sebelum alur stabil. Berbeda dengan *Waterfall* yang kaku dan *Agile* yang menekankan kecepatan rilis, R&D menekankan validasi lapangan dan revisi terdokumentasi.
 
-### 4. Pemetaan istilah dan batasan
+### 4.2.4 Pemetaan istilah dan batasan
 
 1. **Simpanan (formal)** = **Tabungan (mitra/UI)**. Tidak mengubah judul skripsi.
 2. Petugas mencari nasabah adalah proses bisnis offline, bukan fitur marketing/CRM di website.
 3. POS dan SHU tidak dibahas sebagai fitur aktif agar selaras batasan masalah simpan pinjam.
 
-### 5. Keterbatasan
+### 4.2.5 Keterbatasan
 
 1. Angka UAT lapangan final menunggu pelaksanaan kuesioner mitra.
 2. Sebagian test otomatis legacy masih memakai asumsi bunga lama/POS; perlu penyesuaian terpisah.
@@ -373,7 +373,7 @@ Metode R&D cocok karena kebutuhan mitra bersifat dinamis: istilah tabungan vs si
 
 ---
 
-## C. RINGKASAN HASIL
+## 4.3 Ringkasan Hasil
 
 1. Sistem multi-panel Karya Tantri Abadi berhasil diimplementasikan untuk simpan pinjam.
 2. Alur pinjaman kelompok dan fee (11/5/22, cair 73%) tertanam di layanan kalkulasi.
@@ -384,7 +384,7 @@ Metode R&D cocok karena kebutuhan mitra bersifat dinamis: istilah tabungan vs si
 
 ---
 
-## D. LAMPIRAN RINGKAS BAHAN UJI
+## 4.4 Lampiran Ringkas Bahan Uji
 
 | Dokumen | Isi |
 | :--- | :--- |
