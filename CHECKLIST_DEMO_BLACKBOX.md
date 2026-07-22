@@ -14,7 +14,7 @@ Status: `L` = Lulus · `TL` = Tidak Lulus · `B` = Bug minor (lulus bersyarat)
 - [ ] Server/app bisa diakses (lokal/LAN/hosting)
 - [ ] Login path: `/auth/login`
 - [ ] Browser siap (Chrome/Edge/Firefox)
-- [ ] CAPTCHA bisa dilewati di lingkungan uji (atau kunci uji disiapkan)
+- [ ] Login tanpa CAPTCHA (CAPTCHA dinonaktifkan di environment aktif)
 
 ### 0.2 Akun seed (default password: `password`)
 
@@ -110,7 +110,7 @@ Urutan demo ke mitra. Centang jika sudah ditunjukkan.
 | login-04 | Login anggota | Kredensial anggota valid | Masuk `/anggota` | | | |
 | login-05 | Login kosong | Email/password kosong | Validasi required | | | |
 | login-06 | Login salah | Password salah | Pesan credentials tidak cocok | | | |
-| login-07 | CAPTCHA | CAPTCHA tidak valid / dikosongkan | Ditolak | | | |
+| login-07 | Rate limit / spam attempt (opsional) | Percobaan login gagal berulang | Dibatasi rate limit / pesan error | | | |
 | login-08 | Akses silang | Anggota buka `/admin` | Ditolak/redirect | | | |
 
 **Ringkas 2.1:** Lulus __ / 8 · TL __ · Bug __

@@ -74,7 +74,7 @@ Kasir/SPV dapat **melihat** jadwal cicilan, tetapi tidak mencatat pembayaran.
 
 ```mermaid
 flowchart TD
-    Start([Buka /auth/login]) --> Isi[Isi email, password, CAPTCHA]
+    Start([Buka /auth/login]) --> Isi[Isi email dan password]
     Isi --> Valid{Valid?}
     Valid -- Tidak --> Error[Pesan error] --> Isi
     Valid -- Ya --> Role{Role?}

@@ -38,13 +38,13 @@ Teknik: ECP, BVA, Error Guessing.
 
 | ID | Fitur | Input | Hasil diharapkan | Metode | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| login-01 | Login | Kredensial admin valid + CAPTCHA | Masuk ke `/admin` | ECP | |
+| login-01 | Login | Kredensial admin valid | Masuk ke `/admin` | ECP | |
 | login-02 | Login | Kredensial spv valid | Masuk ke `/spv` | ECP | |
 | login-03 | Login | Kredensial kasir valid | Masuk ke `/kasir` | ECP | |
 | login-04 | Login | Kredensial anggota valid | Masuk ke `/anggota` | ECP | |
 | login-05 | Login | Email/password kosong | Validasi required | BVA | |
 | login-06 | Login | Kredensial salah | Pesan credentials tidak cocok | ECP | |
-| login-07 | Login | CAPTCHA tidak valid | Ditolak | Error Guessing | |
+| login-07 | Login | Percobaan gagal berulang (opsional) | Rate limit / tetap ditolak | Error Guessing | |
 | login-08 | Akses silang | Anggota buka `/admin` | Ditolak/redirect | Error Guessing | |
 
 ### 1.2 Modul Tabungan (formal: simpanan)

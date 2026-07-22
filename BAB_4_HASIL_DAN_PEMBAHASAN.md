@@ -83,7 +83,7 @@ Stack teknologi yang ditetapkan:
 1. Backend: PHP 8.2+ / Laravel
 2. UI multi-panel: Filament v3 (Livewire, Alpine.js, Tailwind)
 3. Database: MySQL
-4. Pustaka: DomPDF, Maatwebsite Excel, Spatie Backup, reCAPTCHA
+4. Pustaka: DomPDF, Maatwebsite Excel, Spatie Backup (reCAPTCHA tersedia tetapi dinonaktifkan)
 
 Arsitektur multi-panel:
 

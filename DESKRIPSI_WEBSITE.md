@@ -15,7 +15,7 @@ Dokumen ini mendeskripsikan arsitektur, fitur, hak akses, dan alur bisnis aplika
   * `spatie/laravel-backup` — backup database
   * `barryvdh/laravel-dompdf` — kuitansi/PDF
   * `maatwebsite/excel` — ekspor laporan
-  * `anhskohbo/no-captcha` — reCAPTCHA login
+  * `anhskohbo/no-captcha` — tersedia di codebase, **dinonaktifkan** di environment aktif (`CAPTCHA_DISABLED=true`)
 
 ---
 
@@ -25,7 +25,7 @@ Dokumen ini mendeskripsikan arsitektur, fitur, hak akses, dan alur bisnis aplika
 
 | Panel | Path | Role | Fungsi utama |
 | :--- | :--- | :--- | :--- |
-| Login | `/auth/login` | semua | Gerbang masuk + CAPTCHA |
+| Login | `/auth/login` | semua | Gerbang masuk (tanpa CAPTCHA aktif) |
 | Admin | `/admin` | `admin` | Input pinjaman, catat cicilan, kelola anggota/user, pantau tabungan, laporan, backup, log |
 | Kasir | `/kasir` | `kasir` | Cairkan pinjaman, catat tabungan, lihat cicilan (read-only), laporan |
 | SPV | `/spv` | `spv` | Setujui/tolak pinjaman, pantau laporan pinjaman/keuangan |
@@ -120,7 +120,7 @@ Jadwal cicilan digenerate saat **pencairan** oleh kasir.
 
 ### D. Keamanan & administrasi
 
-* reCAPTCHA login
+* Login tanpa CAPTCHA aktif (opsi reCAPTCHA bisa diaktifkan lewat config)
 * Auth log / activity log / data change log (admin)
 * Backup database (admin)
 * Pengaturan identitas koperasi (`SystemSetting`)
