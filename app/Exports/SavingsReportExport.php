@@ -28,7 +28,7 @@ class SavingsReportExport implements FromCollection, WithHeadings, WithStyles, W
                     'No. Transaksi' => $transaction->transaction_number,
                     'Anggota' => $transaction->user->name ?? 'Unknown',
                     'No. Anggota' => $transaction->user->member_number ?? '-',
-                    'Jenis Simpanan' => $transaction->savingsType->name ?? 'Unknown',
+                    'Jenis Tabungan' => $transaction->savingsType->name ?? 'Unknown',
                     'Jumlah' => 'Rp ' . number_format($transaction->amount, 0, ',', '.'),
                     'Status' => 'Completed',
                     'Diproses Oleh' => $transaction->processor->name ?? '-',
@@ -43,7 +43,7 @@ class SavingsReportExport implements FromCollection, WithHeadings, WithStyles, W
             'No. Transaksi',
             'Anggota',
             'No. Anggota',
-            'Jenis Simpanan',
+            'Jenis Tabungan',
             'Jumlah',
             'Status',
             'Diproses Oleh',
@@ -52,14 +52,14 @@ class SavingsReportExport implements FromCollection, WithHeadings, WithStyles, W
 
     public function title(): string
     {
-        return 'Laporan Simpanan';
+        return 'Laporan Tabungan';
     }
 
     public function styles(Worksheet $sheet)
     {
         // Title style
         $sheet->mergeCells('A1:H1');
-        $sheet->setCellValue('A1', 'Laporan Simpanan - Karya Tantri Abadi');
+        $sheet->setCellValue('A1', 'Laporan Tabungan - Karya Tantri Abadi');
         $sheet->getStyle('A1')->applyFromArray([
             'font' => [
                 'bold' => true,

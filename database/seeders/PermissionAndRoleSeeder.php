@@ -93,7 +93,7 @@ class PermissionAndRoleSeeder extends Seeder
                     ],
                     'kasir' => [
                         'name' => 'kasir',
-                        'description' => 'Kasir — mencairkan pinjaman & mencatat transaksi keuangan',
+                        'description' => 'Kasir — mencairkan pinjaman, mencatat tabungan, laporan',
                         'permissions' => [
                             'view_dashboard',
                             'view_users',
@@ -107,7 +107,7 @@ class PermissionAndRoleSeeder extends Seeder
                     ],
                     'anggota' => [
                         'name' => 'anggota',
-                        'description' => 'Anggota — hanya melihat data pinjaman',
+                        'description' => 'Anggota — nasabah terdaftar, hanya melihat data pinjaman sendiri',
                         'permissions' => [
                             'view_dashboard',
                             'view_transactions',
@@ -141,5 +141,9 @@ class PermissionAndRoleSeeder extends Seeder
 
             $role->permissions()->sync($permissionIds);
         }
+
+        // Legacy roles (petugas/bendahara/kepalayayasan): nonaktifkan, bukan user sistem aktif
+        $legacyRoleNames = ['petugas', 'bendahara', 'kepalayayasan', 'kepala_yayasan', 'cashier', 'manager'];
+        Roles::whereIn('name', $legacyRoleNames)->update(['is_active' => false]);
     }
 }

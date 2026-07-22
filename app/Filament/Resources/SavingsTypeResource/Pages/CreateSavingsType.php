@@ -17,6 +17,6 @@ class CreateSavingsType extends CreateRecord
 
     public function getTitle(): string
     {
-        return 'Tambah Jenis Simpanan';
+        return 'Tambah Jenis Tabungan';
     }
 }

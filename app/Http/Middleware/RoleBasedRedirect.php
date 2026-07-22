@@ -33,7 +33,6 @@ class RoleBasedRedirect
                         }
                         break;
                     case 'anggota':
-                    case 'petugas':
                         if (!$request->is('anggota*')) {
                             return redirect('/anggota');
                         }

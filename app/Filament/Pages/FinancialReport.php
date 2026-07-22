@@ -100,7 +100,8 @@ class FinancialReport extends Page implements Tables\Contracts\HasTable, Forms\C
                         // Define colors for different categories
                         $colors = [
                             'Penjualan Produk' => 'primary',
-                            'Simpanan Anggota' => 'success',
+                            'Tabungan Anggota' => 'success',
+                            'Simpanan Anggota' => 'success', // alias legacy cash flow
                             'Cicilan Pinjaman' => 'info',
                             'Pembelian/Restok' => 'danger',
                             'Pencairan Pinjaman' => 'secondary',
@@ -157,7 +158,8 @@ class FinancialReport extends Page implements Tables\Contracts\HasTable, Forms\C
                         $categories = \App\Models\ExpenseCategory::where('cooperation_id', $cooperationId)->pluck('name', 'name')->toArray();
                         return array_merge([
                             'Penjualan Produk' => 'Penjualan Produk',
-                            'Simpanan Anggota' => 'Simpanan Anggota',
+                            'Tabungan Anggota' => 'Tabungan Anggota',
+                            'Simpanan Anggota' => 'Simpanan Anggota (lama)',
                             'Cicilan Pinjaman' => 'Cicilan Pinjaman',
                             'Pembelian/Restok' => 'Pembelian/Restok',
                             'Pencairan Pinjaman' => 'Pencairan Pinjaman',

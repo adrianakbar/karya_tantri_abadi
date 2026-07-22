@@ -34,12 +34,13 @@ class CustomLoginResponse implements LoginResponse
             $role = Roles::find($userRole->role_id);
 
             if ($role) {
+                // Role aktif: admin, spv, kasir, anggota. Petugas offline (tanpa panel).
                 $redirectUrl = match ($role->name) {
                     'admin', 'manager' => '/admin',
                     'kasir', 'cashier', 'bendahara' => '/kasir',
                     'spv', 'kepalayayasan', 'kepala_yayasan' => '/spv',
-                    'petugas', 'anggota' => '/anggota',
-                    default => '/admin',
+                    'anggota' => '/anggota',
+                    default => '/auth/login',
                 };
 
                 Log::info('CustomLoginResponse: Redirecting user', [

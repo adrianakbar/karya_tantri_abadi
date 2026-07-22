@@ -61,12 +61,13 @@ class SavingsReport extends Page implements Tables\Contracts\HasTable, Forms\Con
                     ->label('No. Anggota')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('savingsType.name')
-                    ->label('Jenis Simpanan')
+                    ->label('Jenis Tabungan')
                     ->badge()
                     ->colors([
                         'primary' => 'Simpanan Pokok',
                         'success' => 'Simpanan Wajib',
                         'warning' => 'Simpanan Sukarela',
+                        'info' => 'Tabungan',
                     ]),
                 Tables\Columns\TextColumn::make('amount')
                     ->label('Jumlah')
@@ -114,10 +115,10 @@ class SavingsReport extends Page implements Tables\Contracts\HasTable, Forms\Con
                                 fn (Builder $query, $date): Builder => $query->whereDate('transaction_date', '<=', $date),
                             );
                     }),
-                Filter::make('jenis_simpanan')
+                Filter::make('jenis_tabungan')
                     ->form([
                         Select::make('savings_type_id')
-                            ->label('Jenis Simpanan')
+                            ->label('Jenis Tabungan')
                             ->options(SavingsType::all()->pluck('name', 'id'))
                             ->placeholder('Semua Jenis'),
                     ])

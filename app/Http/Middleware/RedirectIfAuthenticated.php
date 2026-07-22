@@ -26,11 +26,11 @@ class RedirectIfAuthenticated
                 
                 if ($role) {
                     $redirectUrl = match ($role->name) {
-                        'admin' => '/admin',
-                        'anggota', 'petugas' => '/anggota',
-                        'kasir' => '/kasir',
+                        'admin', 'manager' => '/admin',
+                        'anggota' => '/anggota',
+                        'kasir', 'cashier', 'bendahara' => '/kasir',
                         'spv', 'kepalayayasan', 'kepala_yayasan' => '/spv',
-                        default => '/anggota'
+                        default => '/auth/login',
                     };
                     
                     return redirect($redirectUrl);

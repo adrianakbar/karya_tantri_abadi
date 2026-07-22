@@ -138,44 +138,44 @@ class Login extends BaseLogin
         
         if (!$user) {
             Log::warning('Login: No authenticated user found');
-            return '/petugas';
+            return '/auth/login';
         }
-        
+
         Log::info('Login: Processing redirect for user', [
-            'user_id' => $user->id, 
-            'email' => $user->email
+            'user_id' => $user->id,
+            'email' => $user->email,
         ]);
-        
+
         // Get user's role using UserRole model
         $userRole = UserRole::where('user_id', $user->id)->first();
-        
+
         if ($userRole) {
             $role = Roles::find($userRole->role_id);
-            
+
             if ($role) {
+                // Petugas offline — tidak diarahkan ke panel manapun
                 $redirectUrl = match ($role->name) {
-                    'admin' => '/admin',
-                    'petugas' => '/petugas',
-                    'kasir' => '/kasir',
+                    'admin', 'manager' => '/admin',
+                    'kasir', 'cashier', 'bendahara' => '/kasir',
                     'spv', 'kepalayayasan', 'kepala_yayasan' => '/spv',
-                    default => '/petugas'
+                    'anggota' => '/anggota',
+                    default => '/auth/login',
                 };
-                
+
                 Log::info('Login: Redirecting user', [
                     'user_id' => $user->id,
                     'role' => $role->name,
-                    'redirect_url' => $redirectUrl
+                    'redirect_url' => $redirectUrl,
                 ]);
-                
+
                 return $redirectUrl;
             }
         }
-        
+
         Log::warning('Login: No role found for user, using default redirect', [
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
-        
-        // Default fallback
-        return '/petugas';
+
+        return '/auth/login';
     }
 }

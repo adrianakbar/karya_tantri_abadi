@@ -24,10 +24,11 @@ class LoanResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        // Anggota melihat pinjaman organisasinya (read-only)
+        // Anggota hanya melihat pinjaman miliknya sendiri (read-only)
         $user = Auth::user();
 
         return parent::getEloquentQuery()
+            ->where('user_id', $user?->id)
             ->where('cooperation_id', $user?->cooperation_id);
     }
 

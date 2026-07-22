@@ -64,7 +64,7 @@ class SavingResource extends Resource
                             }
                         }
                     })
-                    ->label('Jenis Simpanan'),
+                    ->label('Jenis Tabungan'),
 
                 Forms\Components\TextInput::make('amount')
                     ->label('Nominal')
@@ -110,7 +110,7 @@ class SavingResource extends Resource
                     ->label('Anggota')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('savingsType.name')
-                    ->label('Jenis Simpanan')
+                    ->label('Jenis Tabungan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('amount')
                     ->label('Nominal')
@@ -143,7 +143,7 @@ class SavingResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('savings_type_id')
                     ->relationship('savingsType', 'name')
-                    ->label('Jenis Simpanan')
+                    ->label('Jenis Tabungan')
                     ->preload()
                     ->multiple(),
                 Tables\Filters\SelectFilter::make('status')
@@ -293,5 +293,35 @@ class SavingResource extends Resource
     {
         return parent::getEloquentQuery()
             ->with(['user', 'savingsType']);
+    }
+
+    /**
+     * Kasir mencatat tabungan; admin pantau + boleh edit.
+     * Anggota/SPV tidak kelola tabungan di panel ini.
+     */
+    public static function canViewAny(): bool
+    {
+        $roles = auth()->user()?->roles->pluck('name')->toArray() ?? [];
+
+        return (bool) array_intersect(['admin', 'kasir', 'cashier', 'bendahara'], $roles);
+    }
+
+    public static function canCreate(): bool
+    {
+        $roles = auth()->user()?->roles->pluck('name')->toArray() ?? [];
+
+        return (bool) array_intersect(['admin', 'kasir', 'cashier', 'bendahara'], $roles);
+    }
+
+    public static function canEdit($record): bool
+    {
+        $roles = auth()->user()?->roles->pluck('name')->toArray() ?? [];
+
+        return (bool) array_intersect(['admin', 'kasir', 'cashier', 'bendahara'], $roles);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->hasRole('admin') ?? false;
     }
 }

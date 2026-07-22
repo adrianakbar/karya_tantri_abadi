@@ -23,11 +23,11 @@ Route::get('/check-auth-redirect', function () {
         
         if ($role) {
             $redirectUrl = match ($role->name) {
-                'admin' => '/admin',
-                'anggota', 'petugas' => '/anggota',
-                'kasir' => '/kasir',
+                'admin', 'manager' => '/admin',
+                'anggota' => '/anggota',
+                'kasir', 'cashier', 'bendahara' => '/kasir',
                 'spv', 'kepalayayasan', 'kepala_yayasan' => '/spv',
-                default => '/anggota'
+                default => '/auth/login',
             };
             
             return response()->json(['redirect' => $redirectUrl]);
@@ -45,21 +45,16 @@ Route::get('/', function () {
         if ($userRole) {
             $role = Roles::find($userRole->role_id);
             if ($role) {
-                switch ($role->name) {
-                    case 'admin':
-                        return redirect('/admin');
-                    case 'anggota':
-                    case 'petugas':
-                        return redirect('/anggota');
-                    case 'kasir':
-                        return redirect('/kasir');
-                    case 'kepala_yayasan':
-                    case 'spv':
-                        return redirect('/spv');
-                }
+                return match ($role->name) {
+                    'admin', 'manager' => redirect('/admin'),
+                    'anggota' => redirect('/anggota'),
+                    'kasir', 'cashier', 'bendahara' => redirect('/kasir'),
+                    'spv', 'kepalayayasan', 'kepala_yayasan' => redirect('/spv'),
+                    default => redirect('/auth/login'),
+                };
             }
         }
-        return redirect('/anggota');
+        return redirect('/auth/login');
     }
     return redirect('/auth/login');
 });
@@ -77,26 +72,19 @@ Route::get('/home', function () {
             $role = Roles::find($userRole->role_id);
             
             if ($role) {
-                switch ($role->name) {
-                    case 'admin':
-                        return redirect('/admin');
-                    case 'anggota':
-                    case 'petugas':
-                        return redirect('/anggota');
-                    case 'kasir':
-                        return redirect('/kasir');
-                    case 'kepala_yayasan':
-                    case 'spv':
-                        return redirect('/spv');
-                    default:
-                        return redirect('/anggota');
-                }
+                return match ($role->name) {
+                    'admin', 'manager' => redirect('/admin'),
+                    'anggota' => redirect('/anggota'),
+                    'kasir', 'cashier', 'bendahara' => redirect('/kasir'),
+                    'spv', 'kepalayayasan', 'kepala_yayasan' => redirect('/spv'),
+                    default => redirect('/auth/login'),
+                };
             }
         }
-        return redirect('/anggota');
+        return redirect('/auth/login');
     }
     // If not authenticated, show login page
-    return redirect('/login');
+    return redirect('/auth/login');
 });
 
 // Login ditangani oleh Filament LoginPanelProvider (path: /auth)

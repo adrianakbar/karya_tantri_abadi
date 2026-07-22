@@ -40,7 +40,7 @@ class SavingsTypeResource extends Resource
                     ->label('Nominal')
                     ->numeric()
                     ->rules(['nullable', 'numeric', 'min:0'])
-                    ->helperText('Kosongkan untuk simpanan sukarela')
+                    ->helperText('Kosongkan untuk tabungan sukarela')
                     ->prefix('Rp'),
                 Forms\Components\Toggle::make('is_mandatory')
                     ->label('Wajib')
@@ -117,5 +117,27 @@ class SavingsTypeResource extends Resource
             'create' => Pages\CreateSavingsType::route('/create'),
             'edit' => Pages\EditSavingsType::route('/{record}/edit'),
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        $roles = auth()->user()?->roles->pluck('name')->toArray() ?? [];
+
+        return (bool) array_intersect(['admin', 'kasir', 'cashier', 'bendahara'], $roles);
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->hasRole('admin') ?? false;
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()?->hasRole('admin') ?? false;
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()?->hasRole('admin') ?? false;
     }
 }

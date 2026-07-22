@@ -38,11 +38,11 @@ class Authenticate extends BaseAuthenticate
                 $role = Roles::find($userRole->role_id);
                 if ($role) {
                     $redirectUrl = match ($role->name) {
-                        'admin' => '/admin',
-                        'anggota', 'petugas' => '/anggota',
+                        'admin', 'manager' => '/admin',
+                        'anggota' => '/anggota',
                         'kasir', 'cashier', 'bendahara' => '/kasir',
                         'spv', 'kepalayayasan', 'kepala_yayasan' => '/spv',
-                        default => null
+                        default => null,
                     };
 
                     if ($redirectUrl) {
