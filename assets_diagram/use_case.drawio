@@ -1,0 +1,102 @@
+<mxfile host="app.diagrams.net" agent="Hermes" version="24.7.17" type="device">
+  <diagram id="ucd-code-aligned" name="Use Case Diagram">
+    <mxGraphModel dx="1200" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="Use Case Diagram — Sistem Koperasi Simpan Pinjam&#xa;Koperasi Karya Tantri Abadi (selaras implementasi kode)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="180" y="10" width="680" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- System boundary -->
+        <mxCell id="sys" value="Sistem Koperasi Simpan Pinjam" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=center;spacingTop=8;fillColor=none;strokeColor=#000000;strokeWidth=2;fontStyle=1;fontSize=13;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="300" y="70" width="420" height="1000" as="geometry"/>
+        </mxCell>
+
+        <!-- Use cases top to bottom -->
+        <mxCell id="uc1" value="Login multi-panel" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="120" width="200" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc2" value="Kelola data anggota" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="200" width="200" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc3" value="Input pinjaman kelompok" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="280" width="200" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc4" value="Setujui / tolak pinjaman" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="360" width="200" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc5" value="Cairkan pinjaman" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="440" width="200" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc6" value="Catat cicilan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="520" width="200" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc7" value="Catat tabungan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="600" width="200" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc8" value="Lihat laporan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="680" width="200" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc9" value="Pantau pinjaman sendiri" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="760" width="200" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="uc10" value="Backup / pengaturan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="840" width="200" height="48" as="geometry"/>
+        </mxCell>
+
+        <!-- Actors LEFT: Kasir, Anggota, Petugas -->
+        <mxCell id="kasir" value="Kasir" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="400" width="40" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="anggota" value="Anggota&#xa;(Ketua Kelompok)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="90" y="700" width="40" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="petugas" value="Petugas lapangan&#xa;(offline)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="90" y="900" width="40" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Actors RIGHT: SPV, Admin -->
+        <mxCell id="spv" value="SPV" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="880" y="300" width="40" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="admin" value="Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="880" y="560" width="40" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Admin associations: login, kelola, input, cicilan, tabungan, laporan, backup -->
+        <mxCell id="ad1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="admin" target="uc1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ad2" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="admin" target="uc2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ad3" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="admin" target="uc3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ad4" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="admin" target="uc6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ad5" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="admin" target="uc7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ad6" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="admin" target="uc8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ad7" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="admin" target="uc10"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- SPV: login, setujui/tolak, laporan ONLY -->
+        <mxCell id="s1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="spv" target="uc1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="s2" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="spv" target="uc4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="s3" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="spv" target="uc8"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Kasir: login, cairkan, catat tabungan, laporan -->
+        <mxCell id="k1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="kasir" target="uc1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="k2" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="kasir" target="uc5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="k3" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="kasir" target="uc7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="k4" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="kasir" target="uc8"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Anggota: login, pantau pinjaman sendiri ONLY -->
+        <mxCell id="an1" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="anggota" target="uc1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="an2" style="endArrow=none;html=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="anggota" target="uc9"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Petugas offline dashed support -->
+        <mxCell id="pt1" value="setor data" style="endArrow=open;html=1;dashed=1;strokeColor=#666666;strokeWidth=1.2;fontSize=10;" edge="1" parent="1" source="petugas" target="uc3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="pt2" value="setor cicilan" style="endArrow=open;html=1;dashed=1;strokeColor=#666666;strokeWidth=1.2;fontSize=10;" edge="1" parent="1" source="petugas" target="uc6"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="note" value="Asosiasi = hak akses sistem (kode). SPV tidak input/cicilan/tabungan. Kasir tidak Catat Bayar. Anggota read-only pinjaman sendiri. Status cair = disbursed." style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1120" width="900" height="36" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

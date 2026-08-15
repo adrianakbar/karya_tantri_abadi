@@ -9,7 +9,7 @@
 | :--- | :--- | :--- |
 | Identitas sesi, checklist demo, tabel Black Box, rekap L/TL/Bug, log 3 siklus R&D | **Peneliti** (Adrian Akbar Ramadhani) | Mengamati & mencatat hasil uji fungsional |
 | Operasi sistem saat demo (klik menu, input data) | **Mitra** (admin / SPV / kasir / anggota) | Menjalankan alur, **bukan** mengisi tabel black box |
-| Kuesioner UAT + berita acara | **Mitra** (responden) + peneliti fasilitator | Form terpisah: `PANDUAN_DAN_FORM_PENGUJIAN` |
+| Kuesioner UAT + berita acara | **Mitra** (responden) + peneliti fasilitator | Form terpisah: `FORM_UAT_KARYA_TANTRI_ABADI.docx` (+ `PANDUAN_DAN_FORM_PENGUJIAN`) |
 
 **Ringkas:** dokumen ini **diisi oleh peneliti**. Mitra mengoperasikan sistem; masukan lisan mitra dicatat peneliti di kolom temuan.
 
@@ -160,7 +160,7 @@ Urutan demo ke mitra. Centang jika sudah ditunjukkan.
 | ln-10 | Anggota lihat | Login anggota | Hanya pinjaman sendiri; cair bersih & sisa terlihat | | | |
 | ln-11 | Anggota aksi | Coba create/edit pinjaman | Tidak diizinkan | | | |
 
-**Ringkas 2.3:** Lulus __ / 11 · TL __ · Bug __
+**Ringkas 2.3:** Lulus __ / 12 · TL __ · Bug __  (termasuk ln-01b)
 
 ### 2.4 Laporan & batasan scope
 
@@ -184,9 +184,10 @@ Urutan demo ke mitra. Centang jika sudah ditunjukkan.
 | :--- | ---: | ---: | ---: | ---: | ---: |
 | Login & multi-panel | 8 | | | | |
 | Tabungan | 6 | | | | |
-| Pinjaman kelompok | 11 | | | | |
+| Pinjaman kelompok (termasuk ln-01b) | 12 | | | | |
 | Laporan & scope | 5 | | | | |
-| **Total** | **30** | | | | |
+| **Total form lapangan** | **31** | | | | |
+| *(Opsional probe backend penuh)* | *36* | | | | |
 
 Rumus:  
 `% Lulus = (L + 0,5×B) / Total × 100%`  
@@ -209,8 +210,8 @@ Rumus:
 
 ## 4. Setelah Black Box (lanjutan singkat)
 
-1. [ ] Isi kuesioner UAT (`PANDUAN_DAN_FORM_PENGUJIAN.md` bagian 2)
-2. [ ] Isi berita acara (bagian 3 dokumen yang sama)
+1. [ ] Isi kuesioner UAT (`FORM_UAT_KARYA_TANTRI_ABADI.docx`; mirror di `PANDUAN_DAN_FORM_PENGUJIAN.md`)
+2. [ ] Isi berita acara (halaman 2 form UAT / bagian 3 panduan)
 3. [ ] Foto/screenshot bukti (login tiap role, fee pinjaman, jadwal cicilan, panel anggota)
 4. [ ] Pindahkan rekap ke BAB 4 (`BAB_4_HASIL_DAN_PEMBAHASAN.md` / `Skripsi.tex` 4.1.8)
 5. [ ] TL/bug → daftar revisi Final Product Revision
@@ -219,7 +220,7 @@ Rumus:
 
 ## 5. Kalimat siap tempel BAB 4 (setelah tabel terisi)
 
-> Pengujian fungsional menggunakan metode *Black Box Testing* dengan teknik ECP, BVA, dan *Error Guessing*. Sebanyak **30** kasus uji dijalankan pada modul autentikasi, tabungan, pinjaman kelompok, laporan, dan batasan scope. Hasil rekap menunjukkan **___** kasus lulus (**___%**), **___** tidak lulus, dan **___** bug minor. Temuan utama kemudian ditindaklanjuti pada tahap revisi produk sesuai siklus R&D.
+> Pengujian fungsional menggunakan metode *Black Box Testing* dengan teknik ECP, BVA, dan *Error Guessing*. Sebanyak **31** kasus uji form lapangan (atau **36** jika memakai probe backend penuh) dijalankan pada modul autentikasi, tabungan, pinjaman kelompok, laporan, dan batasan scope. Hasil rekap menunjukkan **___** kasus lulus (**___%**), **___** tidak lulus, dan **___** bug minor. Temuan utama kemudian ditindaklanjuti pada tahap revisi produk sesuai siklus R&D.
 
 *(Ganti angka setelah uji selesai.)*
 
@@ -227,6 +228,7 @@ Rumus:
 
 ## Referensi file terkait
 - Skenario ringkas: `BLACK_BOX_UAT_TESTING.md`
-- Form UAT + berita acara: `PANDUAN_DAN_FORM_PENGUJIAN.md`
+- Form UAT + berita acara: `FORM_UAT_KARYA_TANTRI_ABADI.docx`
+- Mirror panduan cetak: `PANDUAN_DAN_FORM_PENGUJIAN.md`
 - Draft BAB 4: `BAB_4_HASIL_DAN_PEMBAHASAN.md`
 - Naskah LaTeX: `~/Pribadi/Skripsi/Skripsi.tex`

@@ -1,6 +1,6 @@
 # Analisis & Deskripsi Sistem Karya Tantri Abadi
 
-Dokumen ini mendeskripsikan arsitektur, fitur, hak akses, dan alur bisnis aplikasi **Karya Tantri Abadi** sesuai implementasi sistem terkini. Sistem difokuskan pada **koperasi simpan pinjam berbasis website** (data anggota, tabungan/simpanan, pinjaman kelompok, angsuran, dan laporan keuangan). Modul retail/POS dan SHU **tidak diaktifkan** pada lingkup mitra ini.
+Dokumen ini mendeskripsikan arsitektur, fitur, hak akses, dan alur bisnis aplikasi **Karya Tantri Abadi** sesuai implementasi sistem terkini. Sistem difokuskan pada **koperasi simpan pinjam berbasis website** (data anggota, tabungan/simpanan, pinjaman kelompok, angsuran, dan laporan keuangan).
 
 > **Istilah formal vs mitra:** Dalam naskah akademik, istilah formal koperasi tetap **simpanan** / **simpan pinjam**. Dalam praktik operasional mitra dan label antarmuka sistem, simpanan disebut **tabungan** karena sifatnya menyerupai menabung. Domain kode tetap `savings` / `SavingResource`.
 
@@ -129,8 +129,6 @@ Contoh: Rp1.000.000 → cair Rp730.000; Rp2.600.000 → cair Rp2.184.000.
 
 ### E. Di luar scope aktif (nonaktif / tidak didaftarkan di panel)
 
-* POS toko / inventaris / penjualan retail
-* SHU
 * Manajemen jenis pinjaman di UI (jenis tunggal: Kelompok)
 * Panel petugas
 
@@ -150,7 +148,7 @@ Contoh: Rp1.000.000 → cair Rp730.000; Rp2.600.000 → cair Rp2.184.000.
 
 Kolom fee penting di `loans`: `admin_fee`, `utj_fee`, `installment_fee`, `net_disbursement`, `payment_frequency`, `installment_count`.
 
-Tabel retail/SHU mungkin masih ada di skema legacy, tetapi **tidak dipakai** pada UI aktif mitra ini.
+Skema basis data difokuskan pada entitas simpan pinjam yang dipakai UI aktif mitra.
 
 ---
 
@@ -190,4 +188,4 @@ Aplikasi **Karya Tantri Abadi** adalah sistem simpan pinjam berbasis website den
 2. pemisahan wewenang admin–SPV–kasir–anggota
 3. dukungan proses lapangan petugas secara offline tanpa membebani sistem dengan modul sales/CRM
 
-Sistem ini selaras dengan judul skripsi pengembangan koperasi simpan pinjam berbasis website menggunakan metode R&D, dengan penyesuaian istilah mitra (tabungan) pada antarmuka dan batasan scope tanpa POS/SHU.
+Sistem ini selaras dengan judul skripsi pengembangan koperasi simpan pinjam berbasis website menggunakan metode R&D, dengan penyesuaian istilah mitra (tabungan) pada antarmuka dan batasan scope simpan pinjam.

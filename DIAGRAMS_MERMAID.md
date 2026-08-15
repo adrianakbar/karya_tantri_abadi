@@ -141,7 +141,7 @@ flowchart TD
   SPV -- Ya --> OK[Status approved]
   OK --> Kasir[Kasir cairkan]
   Kasir --> Gen[Generate jadwal cicilan<br/>mis. 12x mingguan 3 bln]
-  Gen --> Aktif[Status active]
+  Gen --> Aktif[Status disbursed]
   Aktif --> Lihat[Anggota lihat pinjaman sendiri]
   Lihat --> End2([Selesai])
 ```
@@ -190,7 +190,7 @@ sequenceDiagram
   else Disetujui
     S->>DB: status = approved
     Kasir->>S: Cairkan
-    S->>DB: status = active + generate loan_payments
+    S->>DB: status = disbursed + generate loan_payments
     Anggota->>S: Lihat pinjaman sendiri
     S->>DB: Query by user_id
     S-->>Anggota: Detail cair/angsuran/sisa
@@ -251,7 +251,7 @@ erDiagram
     decimal admin_fee
     decimal utj_fee
     decimal net_disbursement
-    string status "pending|approved|rejected|active|completed"
+    string status "pending|approved|rejected|disbursed|active|completed"
     int tenor_months
   }
   LOAN_PAYMENTS {

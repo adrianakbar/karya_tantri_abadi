@@ -1,0 +1,102 @@
+<mxfile host="app.diagrams.net" agent="Hermes" version="24.7.17" type="device">
+  <diagram id="flowchart-rd" name="Flowchart RD 10 Tahap">
+    <mxGraphModel dx="1000" dy="1800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="Flowchart R&amp;D 10 Tahap&#xa;Pengembangan Sistem Koperasi Karya Tantri Abadi" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="150" y="20" width="560" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="start" value="Mulai" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="360" y="80" width="100" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="t1" value="1. Research and Information Collection&#xa;(studi pustaka, observasi, wawancara mitra)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="260" y="150" width="300" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="t2" value="2. Planning&#xa;(ruang lingkup, kebutuhan, rencana fitur)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="260" y="230" width="300" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="t3" value="3. Develop Preliminary Product&#xa;(prototipe Laravel + Filament multi-panel)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="260" y="310" width="300" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="t4" value="4. Preliminary Field Testing&#xa;(Black Box awal — skala terbatas)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="260" y="390" width="300" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="d1" value="Lolos?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="335" y="470" width="150" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="t5" value="5. Main Product Revision&#xa;(perbaikan berdasarkan temuan uji awal)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="40" y="485" width="240" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="t6" value="6. Main Field Testing&#xa;(uji alur multi-role: admin, SPV, kasir, anggota)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="260" y="600" width="300" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="t7" value="7. Operational Product Revision&#xa;(revisi operasional / penyesuaian mitra)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="260" y="680" width="300" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="t8" value="8. Operational Field Testing&#xa;(Black Box + UAT — skala operasional)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="260" y="760" width="300" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="d2" value="Diterima?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="335" y="840" width="150" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="t9a" value="9a. Final Product Revision&#xa;(revisi mayor → ulang uji UAT)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="40" y="855" width="240" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="t9" value="9. Final Product Revision&#xa;(non-mayor / kunci scope final)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="260" y="970" width="300" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="t10" value="10. Dissemination and Implementation&#xa;(dokumentasi, demo, penyerahan / publikasi)" style="rounded=1;whiteSpace=wrap;html=1;arcSize=20;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=11;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="260" y="1050" width="300" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="end" value="Selesai" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;fontSize=12;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="360" y="1140" width="100" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="start" target="t1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="t1" target="t2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="t2" target="t3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="t3" target="t4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="t4" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;fontSize=11;fontColor=#000000;" edge="1" parent="1" source="d1" target="t5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="t5" target="t4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="417"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" value="Ya" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;fontSize=11;fontColor=#000000;" edge="1" parent="1" source="d1" target="t6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="t6" target="t7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="t7" target="t8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="t8" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" value="Tidak" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;fontSize=11;fontColor=#000000;" edge="1" parent="1" source="d2" target="t9a"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="t9a" target="t8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="787"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13" value="Ya" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;fontSize=11;fontColor=#000000;" edge="1" parent="1" source="d2" target="t9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="t9" target="t10"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;strokeColor=#000000;strokeWidth=1.2;" edge="1" parent="1" source="t10" target="end"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="note" value="Catatan: adaptasi model R&amp;D (Borg &amp; Gall / adaptasi skripsi). Siklus revisi di tahap 4–5 dan 8–9." style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=10;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1210" width="700" height="24" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

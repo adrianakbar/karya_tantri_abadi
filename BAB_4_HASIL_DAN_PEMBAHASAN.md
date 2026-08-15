@@ -99,7 +99,7 @@ Arsitektur multi-panel:
 Batasan perencanaan (sesuai mitra):
 
 1. Scope = simpan pinjam (anggota, tabungan, pinjaman, angsuran, laporan).
-2. POS/SHU tidak diaktifkan.
+2. Fitur aktif dikunci pada domain simpan pinjam.
 3. Petugas tidak diberi akun sistem.
 
 ### 4.1.3 Develop Preliminary Form of Product (Desain & Implementasi)
@@ -217,11 +217,11 @@ sequenceDiagram
 | Anggota | `/anggota` | lihat pinjaman sendiri (`user_id` auth) |
 | Petugas | — | offline only |
 
-Modul nonaktif di UI: POS/inventaris, SHU, manajemen jenis pinjaman, Role/Permission UI.
+Fitur aktif di UI dikunci pada domain simpan pinjam: anggota, tabungan, pinjaman, angsuran, dan laporan.
 
 ### 4.1.4 Preliminary Field Testing (Uji Coba Lapangan Awal)
 
-Uji skala terbatas (Siklus 1) melibatkan pengembang dan 1–2 perwakilan pengelola (admin/kasir). Fokus: stabilitas dasar.
+Uji skala terbatas (**Siklus 1**) melibatkan pengembang dan 1–2 perwakilan pengelola (admin/kasir). Fokus: stabilitas dasar.
 
 | Area | Hasil observasi |
 | :--- | :--- |
@@ -230,21 +230,21 @@ Uji skala terbatas (Siklus 1) melibatkan pengembang dan 1–2 perwakilan pengelo
 | Input pinjaman pending | Fee tier terhitung otomatis (≤2,5jt: UTJ 22%/cair 73%; ≥2,6jt: UTJ 11%/cair 84%) |
 | Akses silang panel | Anggota tidak dapat mengakses `/admin` |
 
-Temuan awal: label UI masih campur “Simpanan/Tabungan”; sisa redirect legacy `/petugas`; modul POS/SHU masih muncul di sebagian draft navigasi.
+**Temuan:** label UI masih campur “Simpanan/Tabungan”; sisa redirect legacy `/petugas`; batasan fitur aktif belum tegas; petugas sempat dianggap butuh panel.
 
 ### 4.1.5 Main Product Revision (Revisi Produk Utama)
 
-Perbaikan berdasarkan uji awal:
+Perbaikan berdasarkan uji awal (log revisi Siklus 1):
 
-1. Seragamkan label UI **Tabungan**.
+1. Seragamkan label UI **Tabungan** (formal naskah tetap “simpanan”).
 2. Hapus redirect/akses panel petugas; petugas dikunci offline.
-3. Nonaktifkan POS/SHU di panel aktif.
+3. Kunci fitur aktif hanya domain simpan pinjam (tabungan, pinjaman, angsuran, laporan).
 4. Rapikan validasi form dan pesan error.
 5. Perjelas alur role admin–SPV–kasir–anggota.
 
 ### 4.1.6 Main Field Testing (Uji Coba Lapangan Utama)
 
-Uji skala menengah (Siklus 2) melibatkan admin, SPV, kasir, dan beberapa anggota. Fokus: integritas alur bisnis end-to-end.
+Uji skala menengah (**Siklus 2**) melibatkan admin, SPV, kasir, dan beberapa anggota. Fokus: integritas alur bisnis end-to-end.
 
 | Skenario | Hasil yang diamati |
 | :--- | :--- |
@@ -256,138 +256,146 @@ Uji skala menengah (Siklus 2) melibatkan admin, SPV, kasir, dan beberapa anggota
 | Anggota lihat pinjaman | Hanya data miliknya; cair bersih & sisa terlihat |
 | Laporan tabungan/pinjaman/keuangan | Data muncul sesuai filter |
 
+**Temuan:** cicilan harus admin (serah-terima setoran petugas); status cair perlu formal; anggota tidak boleh lihat pinjaman orang lain; fee mitra bertingkat.
+
 ### 4.1.7 Operational Product Revision (Revisi Produk Operasional)
 
-Perbaikan lanjutan:
+Perbaikan lanjutan (log revisi Siklus 2):
 
 1. Catat cicilan **admin-only**.
-2. Filter pinjaman anggota: `user_id = auth id`.
-3. Hak akses tabungan: kasir + admin; anggota tidak kelola.
-4. Role legacy (`petugas`, `bendahara`, `kepalayayasan`) dinonaktifkan di seeder.
-5. Dokumentasi sistem/UAT diselaraskan ke code final.
+2. Status pencairan formal **`disbursed`**.
+3. Filter pinjaman anggota: `user_id = auth id`.
+4. Fee dikunci di `LoanCalculator` (UTJ 22%/11%, cair 73%/84%).
+5. Hak akses tabungan: kasir + admin; anggota tidak kelola.
+6. Role legacy (`petugas`, `bendahara`, `kepalayayasan`) dinonaktifkan di seeder.
+7. Dokumentasi sistem/UAT diselaraskan ke code final.
+
+#### Log revisi R&D (ringkas 3 siklus)
+
+| Siklus | Fokus uji | Temuan | Revisi |
+| :--- | :--- | :--- | :--- |
+| 1 (terbatas) | Login multi-panel; input tabungan; input pinjaman | Istilah “tabungan”; petugas tidak perlu login; batasan fitur perlu dikunci | Label UI Tabungan; petugas offline; fitur aktif hanya simpan pinjam |
+| 2 (menengah) | Alur admin–SPV–kasir–anggota; cicilan; fee | Cicilan harus admin; status cair formal; akses anggota; fee tier | Cicilan admin-only; `disbursed`; filter `user_id`; fee 73%/84% |
+| 3 (operasional) | Black Box 36 kasus; UAT 4 responden | Stabilitas 2,75; kenyamanan tampilan 3,00 | Revisi final non-mayor: UI + stabilitas; kunci role/scope/fee |
 
 ### 4.1.8 Operational Field Testing (Uji Operasional + UAT)
 
-Uji skala operasional (Siklus 3) diarahkan pada pengguna sistem aktif: **Admin, SPV, Kasir, Anggota**. Petugas diuji sebagai aktor offline (menyerahkan data/uang ke admin).
+Uji skala operasional (**Siklus 3**) diarahkan pada pengguna sistem aktif: **Admin, SPV, Kasir, Anggota**. Petugas diuji sebagai aktor offline (menyerahkan data/uang ke admin).
 
-#### a. Ringkasan Black Box Testing
+#### a. Black Box Testing — apa arti 36/36
 
-Teknik: Equivalence Class Partitioning (ECP), Boundary Value Analysis (BVA), Error Guessing. Skenario lengkap ada di `BLACK_BOX_UAT_TESTING.md` dan form peneliti `CHECKLIST_DEMO_BLACKBOX.docx`.
+**Siapa menguji:** peneliti (bukan kuesioner mitra).  
+**Kapan:** setelah `migrate:fresh` + seed penuh; probe `scripts/blackbox_probe.php` (22 Juli 2026).  
+**Teknik:** ECP, BVA, Error Guessing.  
+**Arti 36/36:** total **36 kasus fungsional** dijalankan; **36 lulus (L)**, **0 tidak lulus (TL)** → **100%**. Bukan skor UAT.
 
-Pengujian fungsional dijalankan ulang pada basis data bersih (`migrate:fresh` + seed) melalui probe sistem `scripts/blackbox_probe.php` (tanggal 22 Juli 2026). Rekap hasil:
+Komposisi 36 kasus:
 
-| Modul | Jumlah kasus | Lulus (L) | Tidak lulus (TL) | % Lulus |
+| Modul / apa yang diuji | Jumlah | L | TL | % |
 | :--- | ---: | ---: | ---: | ---: |
-| Login & multi-panel | 9 | 9 | 0 | 100% |
-| Tabungan | 6 | 6 | 0 | 100% |
-| Pinjaman kelompok (+fee tier) | 16 | 16 | 0 | 100% |
-| Laporan & scope | 5 | 5 | 0 | 100% |
+| Login & multi-panel (auth, redirect role, akses silang) | 9 | 9 | 0 | 100% |
+| Tabungan (input valid/invalid, jenis, laporan, batasan anggota) | 6 | 6 | 0 | 100% |
+| Pinjaman kelompok (fee tier, plafon/tenor, approve–cair–cicilan, wewenang) | 16 | 16 | 0 | 100% |
+| Laporan & batasan fitur (laporan aktif, scope simpan pinjam, tanpa panel petugas) | 5 | 5 | 0 | 100% |
 | **TOTAL** | **36** | **36** | **0** | **100%** |
 
-Contoh hasil verifikasi fungsional:
+Rincian seluruh kasus (apa yang dilakukan):
 
-| ID | Fitur | Hasil |
-| :--- | :--- | :--- |
-| login-01..04 | Login per role | Redirect ke panel sesuai role |
-| login-08 / login-captcha | Akses silang & CAPTCHA | Akses silang ditolak; login email+password only |
-| tb-01/tb-02 | Tabungan nominal valid/invalid | Valid disimpan; invalid ditolak |
-| ln-01 | Input pinjaman 1jt, 3 bln weekly | UTJ 22%; cair Rp730.000; total Rp1.110.000; 12 cicilan |
-| ln-01b | Input pinjaman 2,6jt (tier tinggi) | UTJ 11%; cair Rp2.184.000 |
-| ln-01c | Input pinjaman 2,5jt (batas tier rendah) | UTJ 22%; cair Rp1.825.000 |
-| ln-02/ln-03 | Plafon/tenor di atas batas | Divalidasi/ditolak |
-| ln-04..08 | Approve SPV + cair kasir + catat cicilan | Status, 12 baris jadwal, bayar 1 cicilan OK |
-| ln-09/ln-10 | Wewenang cicilan & anggota | Admin catat; anggota hanya pinjaman sendiri |
-| sc-01/sc-02 | POS/SHU & petugas login | Tidak tersedia; `/petugas` 404 |
-| seed-tier-high/low | Seed PinjamanSeeder | 5jt → cair 4.200.000; 1jt → cair 730.000 |
+| ID | Modul | Apa yang dilakukan | Hasil aktual | Ket. |
+| :--- | :--- | :--- | :--- | :-: |
+| login-01 | Login | Login admin valid | Auth OK; panel admin | L |
+| login-02 | Login | Login SPV valid | Auth OK; panel SPV | L |
+| login-03 | Login | Login kasir valid | Auth OK; panel kasir | L |
+| login-04 | Login | Login anggota valid | Auth OK; panel anggota | L |
+| login-05 | Login | Kredensial kosong | Validasi menolak | L |
+| login-06 | Login | Password salah | Login ditolak | L |
+| login-07 | Login | Cek rate limit | Rate limit tersedia | L |
+| login-08 | Login | Anggota buka panel admin | Akses ditolak | L |
+| login-09 | Login | Cek form login | Login email+password sesuai peran | L |
+| tb-01 | Tabungan | Input nominal valid | Transaksi tersimpan | L |
+| tb-02 | Tabungan | Input 0/negatif | Ditolak validasi | L |
+| tb-03 | Tabungan | Cek jenis tabungan | Jenis tersedia | L |
+| tb-04 | Tabungan | Anggota create tabungan | `canCreate=false` | L |
+| tb-05 | Tabungan | Export laporan tabungan | Export tersedia | L |
+| tb-06 | Tabungan | Halaman laporan tabungan | Halaman tersedia | L |
+| ln-01 | Pinjaman | Fee Rp1.000.000 | UTJ 22%; cair 730.000; 12 cicilan | L |
+| ln-01b | Pinjaman | Fee Rp2.600.000 | UTJ 11%; cair 2.184.000 | L |
+| ln-01c | Pinjaman | Fee Rp2.500.000 (batas tier) | UTJ 22%; cair 1.825.000 | L |
+| ln-02 | Pinjaman | Plafon > 5 jt | Ditolak | L |
+| ln-03 | Pinjaman | Tenor > 3 bulan | Ditolak | L |
+| ln-04-create | Pinjaman | Admin buat pending | Pending + fee terhitung | L |
+| ln-04 | Pinjaman | SPV setujui | `approved` | L |
+| ln-05 | Pinjaman | SPV tolak sampel | `rejected` | L |
+| ln-06 | Pinjaman | Kasir cairkan | `disbursed`/aktif | L |
+| ln-07 | Pinjaman | Jadwal cicilan setelah cair | 12 baris | L |
+| ln-08 | Pinjaman | Admin catat 1 cicilan | 1 cicilan lunas | L |
+| ln-09 | Pinjaman | Kasir cek Catat Bayar | Admin-only | L |
+| ln-10 | Pinjaman | Anggota lihat pinjaman | Hanya milik sendiri | L |
+| ln-11 | Pinjaman | Anggota create pinjaman | `canCreate=false` | L |
+| seed-tier-high | Pinjaman | Seed 5 jt | Cair 4.200.000 | L |
+| seed-tier-low | Pinjaman | Seed 1 jt | Cair 730.000 | L |
+| rp-01 | Laporan | Resource pinjaman | Tersedia | L |
+| rp-02 | Laporan | Laporan keuangan/tabungan | Tersedia | L |
+| rp-03 | Laporan | Backup data | Terdaftar/tersedia | L |
+| sc-01 | Scope | Batasan fitur aktif | Hanya modul simpan pinjam tersedia | L |
+| sc-02 | Scope | Path/user petugas | 404; user petugas = 0 | L |
 
-Bukti angka disimpan di `HASIL_BLACKBOX_SESI.md` / `.docx` dan `storage/app/blackbox_probe_latest.json`. Bukti UI fee tier ada di `bukti-blackbox/19-fee-tier-1jt-cair-730rb.png`, `20-fee-tier-26jt-cair-2184jt.png`, dan `21-daftar-pinjaman-fee-tier.png`.
+Bukti: `HASIL_BLACKBOX_SESI.md`, `storage/app/blackbox_probe_latest.json`, `bukti-blackbox/`.  
+Screenshot fee tier (light theme) disisipkan di naskah sebagai **Gambar 4.10** (`bb_fee_1jt.png` / 1jt→730rb) dan **Gambar 4.11** (`bb_fee_26jt.png` / 2,6jt→2.184jt).
 
-> Catatan: 100% lulus pada probe fungsional internal/demo **bukan** skor UAT lapangan mitra.
+> Catatan: 36/36 = verifikasi fungsional peneliti. **Bukan** skor UAT mitra.
 
 #### b. Instrumen UAT
 
-Skala Likert 1–4 (SS=4, S=3, TS=2, STS=1). Sepuluh pernyataan:
+Skala Likert 1–4 (SS=4, S=3, TS=2, STS=1). Sepuluh pernyataan (selaras form `FORM_UAT_KARYA_TANTRI_ABADI.docx` dan sistem aktif):
 
-1. Aplikasi mempermudah pencatatan tabungan dan pinjaman.
-2. Alur pinjaman admin → SPV → kasir sesuai kebutuhan.
-3. Pencatatan cicilan oleh admin memudahkan rekap setoran petugas.
-4. Ketua kelompok (akun anggota) dapat memantau pinjaman kelompok dengan jelas.
-5. Menu dan tombol mudah dipahami.
-6. Proses login berjalan lancar dan aman.
-7. Akses/unduh laporan mudah dilakukan.
-8. Tampilan antarmuka nyaman digunakan.
-9. Aplikasi stabil selama uji coba.
-10. Secara keseluruhan saya puas dengan sistem.
+1. Aplikasi mempermudah pencatatan tabungan dan pinjaman kelompok.
+2. Alur pinjaman admin input → SPV setujui/tolak → kasir cairkan sesuai kebutuhan operasional.
+3. Pencatatan cicilan oleh admin memudahkan rekap setelah petugas lapangan menyetor uang.
+4. Ketua kelompok (akun anggota) dapat memantau pinjaman kelompok sendiri dengan jelas (cair bersih, angsuran, sisa, status).
+5. Navigasi menu dan tombol sesuai peran mudah dipahami.
+6. Proses login berjalan lancar dan aman (email + password).
+7. Informasi penting sesuai peran (pinjaman / tabungan / laporan) mudah diakses.
+8. Tampilan antarmuka nyaman dan teks mudah dibaca.
+9. Aplikasi stabil tanpa error fatal selama uji coba.
+10. Secara keseluruhan saya puas dengan sistem ini.
 
 Rumus kelayakan:
 
 $$\text{Persentase Kelayakan (\%)} = \frac{\text{Total Skor Aktual}}{\text{Total Skor Maksimum}} \times 100\%$$
 
-Total skor maksimum = jumlah responden × 10 × 4.
+Total skor maksimum = N × 10 × 4.  
+Kategori per responden (skor 10–40): 10–19 tidak baik; 20–29 cukup; 30–34 baik; 35–40 sangat baik.
 
-Form lapangan: `FORM_UAT_KARYA_TANTRI_ABADI.docx` (kuesioner + berita acara).  
-Responden target: Admin, SPV, Kasir, dan Anggota (**ketua kelompok**).
+#### c. Hasil UAT lapangan (data aktual)
 
-#### c. Template hasil UAT lapangan (isi setelah data mitra)
-
-> **Jangan fabrikasi skor.** Isi hanya setelah kuesioner UAT dikembalikan responden. Sel selama masih kosong = belum ada data lapangan.
-
-**Tabel rekap responden**
-
-| No | Nama / inisial | Peran sistem | Total skor (10–40) | Kategori* |
+| No | Nama | Peran | Skor | Kategori |
 | :-: | :--- | :--- | ---: | :--- |
-| 1 | _______________ | Admin | ___ | ________ |
-| 2 | _______________ | SPV | ___ | ________ |
-| 3 | _______________ | Kasir | ___ | ________ |
-| 4 | _______________ | Anggota (Ketua Kelompok) | ___ | ________ |
-| … | _______________ | ________ | ___ | ________ |
-
-\*Kategori per responden (skor 10–40): 10–19 tidak baik; 20–29 cukup; 30–34 baik; 35–40 sangat baik.
-
-**Tabel rekap keseluruhan**
+| 1 | Citra Puspa | Admin | 28 | Cukup |
+| 2 | Urmilatul Ummali | SPV | 36 | Sangat baik |
+| 3 | Istiyani | Kasir | 34 | Baik |
+| 4 | Martha P | Anggota | 34 | Baik |
+| | **Total** | | **132** | |
 
 | Uraian | Nilai |
 | :--- | :--- |
-| Jumlah responden (N) | ___ |
-| Total skor aktual | ___ |
-| Total skor maksimum (N × 10 × 4) | ___ |
-| **Persentase kelayakan** | **___ %** |
-| Interpretasi kelayakan** | _______________ |
+| Jumlah responden (N) | 4 |
+| Total skor aktual | 132 |
+| Total skor maksimum (4 × 10 × 4) | 160 |
+| **Persentase kelayakan** | **82,5%** |
+| Interpretasi | **Baik** |
 
-**Interpretasi global (usulan; sesuaikan proposal bila dospem minta lain):  
-< 50% kurang; 50–69% cukup; 70–84% baik; ≥ 85% sangat baik.
-
-**Distribusi jawaban per butir (opsional, isi frekuensi)**
-
-| No butir | STS (1) | TS (2) | S (3) | SS (4) | Rata-rata |
-| :-: | :-: | :-: | :-: | :-: | :-: |
-| 1 |  |  |  |  |  |
-| 2 |  |  |  |  |  |
-| 3 |  |  |  |  |  |
-| 4 |  |  |  |  |  |
-| 5 |  |  |  |  |  |
-| 6 |  |  |  |  |  |
-| 7 |  |  |  |  |  |
-| 8 |  |  |  |  |  |
-| 9 |  |  |  |  |  |
-| 10 |  |  |  |  |  |
-
-**Kalimat siap tempel setelah data lengkap** (ganti angka):
-
-> User Acceptance Testing melibatkan __ responden (admin, SPV, kasir, dan ketua kelompok). Total skor aktual __ dari skor maksimum __ menghasilkan persentase kelayakan __%. Berdasarkan kriteria interpretasi, sistem dinilai ________ oleh pengguna mitra.
-
-> **Status data UAT lapangan:** template di atas siap diisi; angka final menunggu pelaksanaan kuesioner mitra.
+Butir lebih rendah: stabilitas/error (rata-rata 2,75) dan kenyamanan tampilan (3,00) → masukan revisi final non-mayor.
 
 ### 4.1.9 Final Product Revision (Revisi Produk Akhir)
 
-Penyesuaian akhir sebelum serah terima:
+Penyesuaian akhir (Siklus 3, non-mayor pada alur bisnis):
 
-1. Label UI Tabungan diseragamkan.
-2. Petugas offline dikunci (tanpa panel/login).
-3. Role aktif hanya admin, SPV, kasir, anggota.
-4. Scope POS/SHU tetap nonaktif.
-5. Fee pinjaman disesuaikan tabel mitra (UTJ 22%/11%, cair 73%/84%).
-6. Seed demo, probe black box, dan dokumentasi diselaraskan dengan code.
+1. Rapikan UI + penekanan stabilitas operasional (temuan UAT).
+2. Kunci role aktif: admin, SPV, kasir, anggota; petugas offline.
+3. Label UI Tabungan; status cair `disbursed`; scope simpan pinjam.
+4. Fee pinjaman tetap (UTJ 22%/11%, cair 73%/84%) — tidak diubah di revisi final.
+5. Seed demo, probe black box, dan dokumentasi diselaraskan dengan code.
 
 ### 4.1.10 Dissemination and Implementation
 
@@ -412,7 +420,7 @@ Dengan demikian, perancangan dan pembangunan sistem tidak hanya menghasilkan fit
 
 ### 4.2.2 Menjawab rumusan masalah kedua (evaluasi efisiensi, transparansi, akuntabilitas)
 
-Evaluasi dilakukan melalui Black Box (fungsional) dan instrumen UAT (penerimaan pengguna). Dari sisi fungsional, setelah reset basis data dan seed ulang, 36 kasus verifikasi lulus 100%: fee berjenjang otomatis (contoh Rp1.000.000 → cair Rp730.000; Rp2.600.000 → cair Rp2.184.000), jadwal cicilan saat pencairan, pembatasan aksi per role, dan isolasi data anggota.
+Evaluasi dilakukan melalui Black Box (fungsional) dan UAT (penerimaan pengguna). Dari sisi fungsional, 36 kasus verifikasi lulus 100% (login 9, tabungan 6, pinjaman 16, laporan/scope 5): fee berjenjang otomatis (contoh Rp1.000.000 → cair Rp730.000; Rp2.600.000 → cair Rp2.184.000), jadwal cicilan saat pencairan, pembatasan aksi per role, dan isolasi data anggota. UAT 4 responden mitra memperoleh 132/160 (82,5%; baik).
 
 | Parameter | Sebelum | Sesudah |
 | :--- | :--- | :--- |
@@ -432,12 +440,12 @@ Metode R&D cocok karena kebutuhan mitra bersifat dinamis: istilah tabungan vs si
 
 1. **Simpanan (formal)** = **Tabungan (mitra/UI)**. Tidak mengubah judul skripsi.
 2. Petugas mencari nasabah adalah proses bisnis offline, bukan fitur marketing/CRM di website.
-3. POS dan SHU tidak dibahas sebagai fitur aktif agar selaras batasan masalah simpan pinjam.
+3. Pembahasan dibatasi pada fitur aktif domain simpan pinjam agar selaras batasan masalah.
 
 ### 4.2.5 Keterbatasan
 
-1. Angka UAT lapangan final menunggu pelaksanaan kuesioner mitra.
-2. Sebagian test otomatis legacy masih memakai asumsi bunga lama/POS; perlu penyesuaian terpisah.
+1. Responden UAT masih terbatas empat peran inti mitra.
+2. Sebagian test otomatis legacy masih memakai asumsi bunga lama; perlu penyesuaian terpisah.
 3. Petugas belum memiliki rekap digital khusus; rekap dapat diberikan manual/WA dari admin/kasir bila dibutuhkan.
 4. Diagram pada naskah proposal masih dapat dilengkapi aset gambar UI hasil tangkapan layar sistem.
 
@@ -449,8 +457,8 @@ Metode R&D cocok karena kebutuhan mitra bersifat dinamis: istilah tabungan vs si
 2. Alur pinjaman kelompok dan fee tier (angsuran 11%, admin 5%, UTJ 22%/11%, cair 73%/84%) tertanam di layanan kalkulasi.
 3. Tabungan tercatat di sistem dengan label mitra, tanpa mengubah kerangka formal simpan pinjam.
 4. Petugas tetap offline; pengguna sistem = admin, SPV, kasir, anggota.
-5. Black Box: 36 kasus verifikasi lulus 100% (termasuk fee tier); UAT disiapkan Likert 1–4 (data lapangan menyusul).
-6. Tiga siklus revisi R&D menghasilkan sistem yang selaras aturan bisnis mitra dan batasan penelitian.
+5. Black Box: 36 kasus verifikasi lulus 100% (login 9 + tabungan 6 + pinjaman 16 + laporan/scope 5); UAT 132/160 = 82,5% (baik).
+6. Tiga siklus revisi R&D (log temuan→revisi) menghasilkan sistem yang selaras aturan bisnis mitra dan batasan penelitian.
 
 ---
 

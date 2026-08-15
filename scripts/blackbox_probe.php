@@ -301,16 +301,39 @@ if (class_exists(\App\Filament\Pages\ShuReport::class) && method_exists(\App\Fil
 }
 $shuOff ? $pass('sc-01', 'POS/SHU out of active scope=yes') : $fail('sc-01', 'SHU still accessible');
 
-// petugas 404
-$ch = curl_init('http://127.0.0.1:8000/petugas');
-curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER=>true, CURLOPT_FOLLOWLOCATION=>false, CURLOPT_TIMEOUT=>5]);
-curl_exec($ch);
-$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-curl_close($ch);
+// petugas panel tidak disediakan
+$petugasUrl = env('APP_URL') ? rtrim(env('APP_URL'), '/').'/petugas' : 'http://127.0.0.1/petugas';
+// Di dalam container app, HTTP lokal lewat nginx :80 (bukan host :8000)
+$localCandidates = [
+    'http://127.0.0.1/petugas',
+    'http://127.0.0.1:80/petugas',
+    'http://127.0.0.1:8000/petugas',
+    $petugasUrl,
+];
+$code = 0;
+foreach ($localCandidates as $url) {
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_TIMEOUT => 5,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_SSL_VERIFYHOST => false,
+    ]);
+    curl_exec($ch);
+    $tryCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    if ($tryCode > 0) {
+        $code = $tryCode;
+        break;
+    }
+}
 $petugasUsers = DB::table('user_roles')
-    ->whereIn('role_id', DB::table('roles')->where('name','petugas')->pluck('id'))
+    ->whereIn('role_id', DB::table('roles')->where('name', 'petugas')->pluck('id'))
     ->count();
-($code == 404 && $petugasUsers==0) ? $pass('sc-02', "HTTP /petugas=$code; petugas users=$petugasUsers") : $fail('sc-02', "HTTP=$code users=$petugasUsers");
+($code == 404 && $petugasUsers == 0)
+    ? $pass('sc-02', "HTTP /petugas=$code; petugas users=$petugasUsers")
+    : $fail('sc-02', "HTTP=$code users=$petugasUsers");
 
 // seeded loans fee tier sanity
 $seedHigh = Loan::where('principal_amount', 5000000)->first();
