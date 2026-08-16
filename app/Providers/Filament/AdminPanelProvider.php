@@ -3,13 +3,9 @@
 namespace App\Providers\Filament;
 
 use App\Http\Middleware\Authenticate;
-use App\Http\Responses\CustomLoginResponse;
-use App\Http\Responses\CustomLogoutResponse;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Http\Responses\Auth\Contracts\LoginResponse;
-use Filament\Http\Responses\Auth\Contracts\LogoutResponse;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -84,12 +80,5 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
-    }
-
-    public function register(): void
-    {
-        parent::register();
-        $this->app->bind(LoginResponse::class, CustomLoginResponse::class);
-        $this->app->bind(LogoutResponse::class, CustomLogoutResponse::class);
     }
 }

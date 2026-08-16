@@ -29,16 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Remove custom login response binding - using hooks instead
-        $this->app->bind(
-            \Filament\Http\Responses\Auth\Contracts\LoginResponse::class,
-            \App\Http\Responses\CustomLoginResponse::class
-        );
-
-        $this->app->bind(
-            \Filament\Http\Responses\Auth\Contracts\LogoutResponse::class,
-            \App\Http\Responses\CustomLogoutResponse::class
-        );
+        // Binding login/logout response default Filament (role-based redirect
+        // ditangani canAccessPanel di User model, bukan custom response).
     }
 
     /**

@@ -16,12 +16,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\LogUserActivity::class,
         ]);
-        
-        // Register alias for role based redirect
-        $middleware->alias([
-            'role.redirect' => \App\Http\Middleware\RoleBasedRedirect::class,
-            'redirect.role' => \App\Http\Middleware\RedirectBasedOnRole::class,
-        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // Handle POST to GET-only routes (e.g. Livewire failure due to Cloudflare)

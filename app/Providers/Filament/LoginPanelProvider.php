@@ -2,7 +2,6 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Pages\Auth\Login;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -24,7 +23,7 @@ class LoginPanelProvider extends PanelProvider
         return $panel
             ->id('login')
             ->path('/auth')
-            ->login(Login::class)
+            ->login()
             ->loginRouteSlug('login')
             ->colors([
                 'primary' => Color::Green,
@@ -46,7 +45,6 @@ class LoginPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                \App\Http\Middleware\RedirectIfAuthenticated::class, // Redirect authenticated users to their dashboard
             ])
             ->authMiddleware([
                 Authenticate::class,
