@@ -40,8 +40,6 @@ class AdminPanelProvider extends PanelProvider
                 // Hak akses (Role/Permission/UserRole) dihapus dari UI
                 \App\Filament\Resources\LoanResource::class,
                 // LoanTypeResource dihapus — jenis pinjaman tunggal: Kelompok
-                \App\Filament\Resources\ExpenseResource::class,
-                \App\Filament\Resources\ExpenseCategoryResource::class,
                 \App\Filament\Resources\ActivityLogResource::class,
                 \App\Filament\Resources\AuthLogResource::class,
                 \App\Filament\Resources\DataChangeLogResource::class,
@@ -52,7 +50,6 @@ class AdminPanelProvider extends PanelProvider
                 \App\Filament\Pages\FinancialReport::class,
                 \App\Filament\Pages\LoanReport::class,
                 \App\Filament\Pages\SavingsReport::class,
-                \App\Filament\Pages\ExpenseReport::class,
                 \App\Filament\Pages\BackupManagement::class,
             ])
             ->brandLogo(fn () => view('components.custom-brand', [
@@ -64,7 +61,6 @@ class AdminPanelProvider extends PanelProvider
                 \App\Filament\Widgets\RekapAnggota::class,
                 \App\Filament\Widgets\RekapPinjaman::class,
                 \App\Filament\Widgets\RekapSimpanan::class,
-                \App\Filament\Widgets\RekapPengeluaran::class,
             ])
             ->middleware([
                 EncryptCookies::class,

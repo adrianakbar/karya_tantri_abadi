@@ -19,7 +19,6 @@ class Dashboard extends BaseDashboard
             \App\Filament\Widgets\RekapAnggota::class,
             \App\Filament\Widgets\RekapPinjaman::class,
             \App\Filament\Widgets\RekapSimpanan::class,
-            \App\Filament\Widgets\RekapPengeluaran::class,
         ];
     }
 }
