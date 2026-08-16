@@ -111,6 +111,25 @@ class UserSeeder extends Seeder
                     'email_verified_at' => now(),
                 ],
             ],
+            [
+                'role' => 'petugas',
+                'data' => [
+                    'cooperation_id' => $cooperationId,
+                    'member_number' => 'PTS001',
+                    'name' => 'Petugas Lapangan',
+                    'email' => 'petugas@karya-tantri-abadi.test',
+                    'phone' => '08123456782',
+                    'password' => bcrypt('password'),
+                    'address' => 'Jl. Petugas No. 2',
+                    'birth_date' => '1990-03-12',
+                    'gender' => 'male',
+                    'job' => 'Petugas',
+                    'profile_photo' => null,
+                    'join_date' => now(),
+                    'is_active' => true,
+                    'email_verified_at' => now(),
+                ],
+            ],
         ];
 
         foreach ($users as $userData) {

@@ -6,4 +6,5 @@ return [
     App\Providers\Filament\AnggotaPanelProvider::class,
     App\Providers\Filament\BendaharaPanelProvider::class,
     App\Providers\Filament\KepalayayasanPanelProvider::class,
+    App\Providers\Filament\PetugasPanelProvider::class,
 ];

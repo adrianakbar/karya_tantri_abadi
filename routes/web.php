@@ -18,6 +18,7 @@ Route::get('/', function () {
     return match ($role?->name) {
         'admin', 'manager' => redirect('/admin'),
         'anggota' => redirect('/anggota'),
+        'petugas' => redirect('/petugas'),
         'kasir', 'cashier', 'bendahara' => redirect('/kasir'),
         'spv', 'kepalayayasan', 'kepala_yayasan' => redirect('/spv'),
         default => redirect('/admin/login'),

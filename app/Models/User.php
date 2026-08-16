@@ -36,6 +36,7 @@ class User extends Authenticatable implements FilamentUser
         'profile_photo',
         'join_date',
         'is_active',
+        'created_by',
     ];
 
     /**
@@ -67,6 +68,11 @@ class User extends Authenticatable implements FilamentUser
     public function cooperation(): BelongsTo
     {
         return $this->belongsTo(Cooperation::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function roles(): BelongsToMany
@@ -133,10 +139,11 @@ class User extends Authenticatable implements FilamentUser
             return true;
         }
         
-        // Petugas lapangan offline — tidak punya akses panel manapun.
+        // Petugas lapangan: input nasabah via panel /petugas.
         return match ($panelId) {
             'admin' => $this->hasRole('admin') || $this->hasRole('manager'),
             'anggota' => $this->hasRole('anggota'),
+            'petugas' => $this->hasRole('petugas'),
             'kasir' => $this->hasRole('kasir') || $this->hasRole('cashier') || $this->hasRole('bendahara'),
             'spv' => $this->hasRole('spv') || $this->hasRole('kepalayayasan') || $this->hasRole('kepala_yayasan'),
             default => false,
