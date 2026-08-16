@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 // Home route: redirect authenticated users to their role panel
 Route::get('/', function () {
     if (! Auth::check()) {
-        return redirect('/auth/login');
+        return redirect('/admin/login');
     }
 
     $user = Auth::user();
@@ -20,11 +20,11 @@ Route::get('/', function () {
         'anggota' => redirect('/anggota'),
         'kasir', 'cashier', 'bendahara' => redirect('/kasir'),
         'spv', 'kepalayayasan', 'kepala_yayasan' => redirect('/spv'),
-        default => redirect('/auth/login'),
+        default => redirect('/admin/login'),
     };
 });
 
-Route::get('/login', fn () => redirect('/auth/login'))->name('login');
+Route::get('/login', fn () => redirect('/admin/login'))->name('login');
 
 Route::middleware('auth')->group(function () {
     Route::get('/member/{user}/card/print', [MemberCardController::class, 'printSingle'])

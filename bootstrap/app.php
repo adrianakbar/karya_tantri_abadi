@@ -18,12 +18,5 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        // Handle POST to GET-only routes (e.g. Livewire failure due to Cloudflare)
-        $exceptions->renderable(function (\Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException $e, $request) {
-            if ($request->isMethod('post') && $request->path() === 'auth/login') {
-                return redirect('/auth/login')
-                    ->with('error', 'Gagal memproses login. Silakan refresh halaman dan coba lagi.');
-            }
-            return null; // let Laravel handle normally
-        });
+        // No custom exception handling needed
     })->create();
