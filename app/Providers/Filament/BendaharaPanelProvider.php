@@ -24,6 +24,7 @@ class BendaharaPanelProvider extends PanelProvider
         return $panel
             ->id('kasir')
             ->path('/kasir')
+            ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])

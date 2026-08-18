@@ -6,26 +6,11 @@ use App\Http\Controllers\BackupDownloadController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-// Home route: redirect authenticated users to their role panel
-Route::get('/', function () {
-    if (! Auth::check()) {
-        return redirect('/admin/login');
-    }
+// Home: landing pilihan role
+Route::get('/', fn () => view('role-select'))->name('home');
 
-    $user = Auth::user();
-    $role = $user->roles()->first();
 
-    return match ($role?->name) {
-        'admin', 'manager' => redirect('/admin'),
-        'anggota' => redirect('/anggota'),
-        'petugas' => redirect('/petugas'),
-        'kasir', 'cashier', 'bendahara' => redirect('/kasir'),
-        'spv', 'kepalayayasan', 'kepala_yayasan' => redirect('/spv'),
-        default => redirect('/admin/login'),
-    };
-});
-
-Route::get('/login', fn () => redirect('/admin/login'))->name('login');
+Route::get('/login', fn () => view('role-select'))->name('login');
 
 Route::middleware('auth')->group(function () {
     Route::get('/member/{user}/card/print', [MemberCardController::class, 'printSingle'])
