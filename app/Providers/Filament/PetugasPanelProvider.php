@@ -35,7 +35,6 @@ class PetugasPanelProvider extends PanelProvider
                 NasabahResource::class,
             ])
             ->pages([
-                Pages\Dashboard::class,
             ])
             ->brandLogo(fn () => view('components.custom-brand', [
                 'logo' => asset('img/logo-karya-tantri-abadi.png'),
