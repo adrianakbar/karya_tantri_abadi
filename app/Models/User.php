@@ -36,6 +36,7 @@ class User extends Authenticatable implements FilamentUser
         'profile_photo',
         'join_date',
         'is_active',
+        'created_by',
     ];
 
     /**
@@ -67,6 +68,11 @@ class User extends Authenticatable implements FilamentUser
     public function cooperation(): BelongsTo
     {
         return $this->belongsTo(Cooperation::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function roles(): BelongsToMany
