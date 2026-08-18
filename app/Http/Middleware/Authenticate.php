@@ -40,6 +40,7 @@ class Authenticate extends BaseAuthenticate
                     $redirectUrl = match ($role->name) {
                         'admin', 'manager' => '/admin',
                         'anggota' => '/anggota',
+                        'petugas' => '/petugas',
                         'kasir', 'cashier', 'bendahara' => '/kasir',
                         'spv', 'kepalayayasan', 'kepala_yayasan' => '/spv',
                         default => null,

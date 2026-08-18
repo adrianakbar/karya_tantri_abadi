@@ -113,6 +113,15 @@ class PermissionAndRoleSeeder extends Seeder
                             'view_transactions',
                         ],
                     ],
+                    'petugas' => [
+                        'name' => 'petugas',
+                        'description' => 'Petugas lapangan — menginput data nasabah baru lewat web',
+                        'permissions' => [
+                            'view_dashboard',
+                            'view_users',
+                            'create_users',
+                        ],
+                    ],
                 ];
 
         foreach ($roles as $roleKey => $roleData) {
@@ -143,7 +152,7 @@ class PermissionAndRoleSeeder extends Seeder
         }
 
         // Legacy roles (petugas/bendahara/kepalayayasan): nonaktifkan, bukan user sistem aktif
-        $legacyRoleNames = ['petugas', 'bendahara', 'kepalayayasan', 'kepala_yayasan', 'cashier', 'manager'];
+        $legacyRoleNames = ['bendahara', 'kepalayayasan', 'kepala_yayasan', 'cashier', 'manager'];
         Roles::whereIn('name', $legacyRoleNames)->update(['is_active' => false]);
     }
 }

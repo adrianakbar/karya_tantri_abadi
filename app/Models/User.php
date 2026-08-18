@@ -139,10 +139,11 @@ class User extends Authenticatable implements FilamentUser
             return true;
         }
         
-        // Petugas lapangan offline — tidak punya akses panel manapun.
+        // Petugas lapangan: input nasabah via panel /petugas.
         return match ($panelId) {
             'admin' => $this->hasRole('admin') || $this->hasRole('manager'),
             'anggota' => $this->hasRole('anggota'),
+            'petugas' => $this->hasRole('petugas'),
             'kasir' => $this->hasRole('kasir') || $this->hasRole('cashier') || $this->hasRole('bendahara'),
             'spv' => $this->hasRole('spv') || $this->hasRole('kepalayayasan') || $this->hasRole('kepala_yayasan'),
             default => false,
