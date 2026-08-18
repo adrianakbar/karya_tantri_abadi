@@ -2,34 +2,35 @@
 ## Sistem Koperasi Simpan Pinjam — Karya Tantri Abadi
 
 **Peneliti:** Adrian Akbar Ramadhani — NIM 222410102010  
-**Sistem:** Multi-panel Laravel + Filament (Admin, SPV, Kasir, Anggota)  
+**Sistem:** Multi-panel Laravel + Filament (Admin, SPV, Kasir, Anggota, Petugas)  
 **Sumber kebenaran:** implementasi kode aktif (`PanelProvider`, `LoanResource`, `SavingResource`, `PaymentsRelationManager`, `User::canAccessPanel`, `LoanCalculator`)  
 **Scope aktif:** simpan pinjam (tabungan/simpanan, pinjaman kelompok, angsuran, laporan)  
 **Di luar scope naskah fitur aktif:** POS/retail, SHU, CAPTCHA, panel petugas digital  
 
 > **Istilah:** formal naskah = *simpanan*; label UI mitra = **Tabungan**.  
 > **Anggota (sistem):** ketua kelompok pemegang akun `/anggota`.  
-> **Petugas lapangan:** aktor offline (tidak login).  
+> **Petugas lapangan:** pemegang akun `/petugas` — input data nasabah.  
 > **Status pinjaman (kode):** `pending` → `approved` / `rejected` → `disbursed` (setelah kasir cairkan; jadwal cicilan digenerate) → pembayaran hingga lunas/`completed`.
 
 ---
 
 ## 0. Matriks use case × aktor (sesuai kode)
 
-| ID | Use Case | Admin | SPV | Kasir | Anggota | Petugas* |
+| ID | Use Case | Admin | SPV | Kasir | Anggota | Petugas |
 |---|---|:-:|:-:|:-:|:-:|:-:|
 | UC-01 | Login multi-panel | ✓ | ✓ | ✓ | ✓ | – |
+| UC-11 | Input data nasabah | – | – | – | – | ✓ |
 | UC-02 | Kelola data anggota | ✓ | – | – | – | – |
-| UC-03 | Input pinjaman kelompok | ✓ | – | – | – | mendukung offline |
+| UC-03 | Input pinjaman kelompok | ✓ | – | – | – | mendukung |
 | UC-04 | Setujui / tolak pinjaman | – | ✓ | – | – | – |
 | UC-05 | Cairkan pinjaman | – | – | ✓ | – | – |
-| UC-06 | Catat cicilan | ✓ | – | lihat saja | – | mendukung offline |
+| UC-06 | Catat cicilan | ✓ | – | lihat saja | – | mendukung |
 | UC-07 | Catat tabungan | ✓ (pantau + boleh catat/edit) | – | ✓ (catat) | – | – |
 | UC-08 | Lihat laporan | ✓ | ✓ | ✓ | – | – |
 | UC-09 | Pantau pinjaman sendiri | – | – | – | ✓ | – |
 | UC-10 | Backup / pengaturan | ✓ | – | – | – | – |
 
-\*Petugas tidak mengakses sistem; asosiasi ke UC-03 dan UC-06 **mendukung** (garis putus pada UCD).
+Petugas mengakses sistem via panel `/petugas` untuk **UC-11** (input nasabah). Asosiasi ke UC-03 dan UC-06 **mendukung** — petugas menyiapkan data nasabah dan menyetorkan cicilan lapangan ke Admin (garis putus pada UCD).
 
 ### Pemetaan panel (kode)
 
@@ -39,7 +40,8 @@
 | `spv` | `/spv` | `KepalayayasanPanelProvider` (id=`spv`) |
 | `kasir` | `/kasir` | `BendaharaPanelProvider` (id=`kasir`) |
 | `anggota` | `/anggota` | `AnggotaPanelProvider` |
-| (semua login) | `/auth/login` | `LoginPanelProvider` |
+| `petugas` | `/petugas` | `PetugasPanelProvider` |
+| (login) | `/admin/login`, `/spv/login`, `/kasir/login`, `/anggota/login`, `/petugas/login` | login bawaan tiap panel (Filament) |
 
 ---
 
@@ -60,10 +62,10 @@
 | **Aktor utama** | Admin |
 | **Deskripsi** | Admin mengautentikasi diri (email + password) dan diarahkan ke panel administrasi. |
 | **Prasyarat** | Akun aktif role `admin`; sistem berjalan. |
-| **Alur utama** | 1. Buka `/auth/login`.<br>2. Isi email + password.<br>3. Sistem validasi kredensial & role (`CustomLoginResponse`).<br>4. Redirect ke `/admin`. |
+| **Alur utama** | 1. Buka `/admin/login`.<br>2. Isi email + password.<br>3. Sistem validasi kredensial & role.<br>4. Redirect ke `/admin`. |
 | **Alur alternatif** | A1. Kredensial salah → pesan error.<br>A2. Field kosong → validasi required. |
 | **Hasil** | Session aktif di panel `/admin`. |
-| **Implementasi** | `LoginPanelProvider`, `CustomLoginResponse`, `User::canAccessPanel('admin')`. |
+| **Implementasi** | `AdminPanelProvider` (`->login()`), `User::canAccessPanel('admin')`. |
 
 ---
 
@@ -90,10 +92,10 @@
 | **ID** | UC-03 |
 | **Nama** | Input pinjaman kelompok |
 | **Aktor utama** | Admin |
-| **Aktor pendukung** | Petugas lapangan (offline) |
+| **Aktor pendukung** | Petugas lapangan |
 | **Deskripsi** | Admin mencatat pengajuan pinjaman kelompok. Sistem menghitung fee tier dan menyimpan status awal **`pending`**. Hanya admin yang `canCreate` pinjaman. |
 | **Prasyarat** | Admin login; user ketua kelompok ada; plafon max 5 jt; tenor max 3 bln. |
-| **Alur utama** | 1. Petugas serah data offline ke Admin.<br>2. Admin buka form create pinjaman.<br>3. Isi peminjam (ketua), nominal, tenor, frekuensi angsuran.<br>4. Sistem hitung: angsuran 11%, admin 5%, UTJ 22% (≤2,5 jt) / 11% (≥2,6 jt), cair bersih 73%/84% (`LoanCalculator`).<br>5. Simpan status **`pending`**. |
+| **Alur utama** | 1. Petugas mendata nasabah via panel `/petugas` (UC-11).<br>2. Admin buka form create pinjaman.<br>3. Isi peminjam (ketua), nominal, tenor, frekuensi angsuran.<br>4. Sistem hitung: angsuran 11%, admin 5%, UTJ 22% (≤2,5 jt) / 11% (≥2,6 jt), cair bersih 73%/84% (`LoanCalculator`).<br>5. Simpan status **`pending`**. |
 | **Alur alternatif** | A1. Nominal/tenor di luar batas → validasi tolak.<br>A2. Role non-admin → tidak ada aksi create. |
 | **Hasil** | Pinjaman `pending` menunggu SPV. |
 | **Implementasi** | `LoanResource::canCreate()` admin only; `LoanCalculator`; admin `canEdit` hanya jika status `pending`/`rejected`. |
@@ -107,7 +109,7 @@
 | **ID** | UC-06 |
 | **Nama** | Catat cicilan |
 | **Aktor utama** | Admin |
-| **Aktor pendukung** | Petugas lapangan (offline tarik & setor) |
+| **Aktor pendukung** | Petugas lapangan (tarik & setor) |
 | **Deskripsi** | Admin mencatat pembayaran angsuran lewat aksi **Catat Bayar** pada jadwal cicilan. Kasir/SPV hanya dapat melihat jadwal (bila membuka detail pinjaman), tanpa aksi bayar. |
 | **Prasyarat** | Admin login; pinjaman sudah **`disbursed`** sehingga `loan_payments` tergenerate. |
 | **Alur utama** | 1. Petugas setor cicilan ke Admin.<br>2. Admin buka Detail pinjaman → relasi Jadwal Cicilan.<br>3. Admin **Catat Bayar** (nominal, tanggal, catatan).<br>4. Sistem update `loan_payments` (paid/partial) dan sisa hutang pinjaman.<br>5. Jika seluruh angsuran lunas → status pinjaman menuju completed/lunas. |
@@ -178,7 +180,7 @@
 | **Aktor utama** | SPV |
 | **Deskripsi** | SPV login dan diarahkan ke `/spv`. |
 | **Prasyarat** | Role `spv` (alias legacy `kepalayayasan` diterima di `canAccessPanel`). |
-| **Alur utama** | `/auth/login` → validasi → redirect `/spv`. |
+| **Alur utama** | `/spv/login` → validasi → redirect `/spv`. |
 | **Hasil** | Masuk panel SPV. |
 
 ---
@@ -315,36 +317,50 @@
 
 ---
 
-# E. Role: Petugas Lapangan (Offline)
-**Panel:** tidak ada  
-**Login:** tidak  
+# E. Role: Petugas Lapangan
+**Panel:** `/petugas` (`PetugasPanelProvider`)  
+**Resource:** `Petugas\NasabahResource` (data nasabah, CRUD terbatas)
 
-| Use case terkait | Peran petugas |
-|---|---|
-| UC-03 Input pinjaman | Cari/dampingi nasabah, susun pengajuan offline, serah data ke Admin |
-| UC-06 Catat cicilan | Tarik cicilan lapangan, setor uang + data ke Admin |
+---
+
+### UC-11 — Input data nasabah
 
 | Item | Isi |
 |---|---|
-| **Prasyarat** | Bertugas lapangan; Admin menerima setoran. |
-| **Alur** | Interaksi offline → serah ke Admin → Admin input sistem. |
-| **Hasil** | Data siap diproses; tidak ada jejak login petugas. |
-| **Implementasi** | Tidak ada panel; `canAccessPanel` default false; komentar di `User` model & relation manager cicilan. |
+| **ID** | UC-11 |
+| **Nama** | Input data nasabah |
+| **Aktor utama** | Petugas lapangan |
+| **Deskripsi** | Petugas login ke `/petugas` dan mendata nasabah baru (nama, telepon, email opsional, tanggal lahir, gender, pekerjaan, alamat, password default `nasabah123`). Nasabah yang tampil hanya yang **diinput petugas itu sendiri** (`created_by` = id petugas). |
+| **Prasyarat** | Akun role `petugas` aktif; login di `/petugas`. |
+| **Alur utama** | 1. Login `/petugas`.<br>2. Buka Data Nasabah.<br>3. Create nasabah baru → isi form.<br>4. Sistem simpan dengan `created_by` = auth id.<br>5. List menampilkan nasabah milik petugas itu saja (filter `created_by` + `cooperation_id`). |
+| **Alur alternatif** | A1. Email duplikat → ditolak validasi (`unique`).<br>A2. Edit/delete → `canEdit`/`canDelete` = false (read-only plus create). |
+| **Hasil** | Data nasabah tercatat, siap dipakai Admin untuk input pinjaman. |
+| **Implementasi** | `PetugasPanelProvider`; `NasabahResource::getEloquentQuery()` filter `created_by` & `cooperation_id`; `canEdit`/`canDelete` = false. |
+
+**Peran lapangan (mendukung UC-03 & UC-06):**
+| Use case | Peran petugas |
+|---|---|
+| UC-03 Input pinjaman | Cari/dampingi nasabah (data sudah mereka input online), susun pengajuan, serah data ke Admin |
+| UC-06 Catat cicilan | Tarik cicilan lapangan dari nasabah, setor uang + data ke Admin untuk di-Catat Bayar |
 
 ---
 
 ## Alur bisnis (status kode)
 
 ```
+NASABAH:
+Petugas [UC-11] input data nasabah (created_by = petugas)
+  → Admin pakai data nasabah untuk pengajuan pinjaman
+
 PINJAMAN:
-Petugas offline
+Petugas (pendataan nasabah)
   → Admin [UC-03] status = pending
   → SPV [UC-04] approved | rejected
   → (jika approved) Kasir [UC-05] status = disbursed + generate loan_payments
   → Anggota [UC-09] lihat milik sendiri
 
 CICILAN:
-Petugas offline tarik
+Petugas lapangan tarik
   → Admin [UC-06] Catat Bayar pada loan_payments
   → (opsional) status pinjaman completed jika lunas
 
@@ -371,9 +387,10 @@ Kasir [UC-07] catat (Admin boleh catat/edit/hapus)
 
 1. UCD dan matriks akses **harus** mengikuti tabel di bagian 0 (bukan asosiasi longgar yang memberi SPV input/cicilan/tabungan).
 2. Setelah pencairan tulis status **`disbursed`**, lalu angsuran via `loan_payments`.
-3. Separation of duties: **input (Admin) ≠ otorisasi (SPV) ≠ pencairan (Kasir) ≠ pantau (Anggota)**.
-4. Jangan sebut POS/SHU/CAPTCHA/panel petugas digital sebagai fitur aktif.
-5. Nama file provider legacy (Bendahara/Kepalayayasan) **jangan** dipakai sebagai nama role di naskah.
+3. Separation of duties: **pendataan nasabah (Petugas) ≠ input pinjaman (Admin) ≠ otorisasi (SPV) ≠ pencairan (Kasir) ≠ pantau (Anggota)**.
+4. Petugas adalah aktor online dengan panel `/petugas` (bukan offline); asosiasi UC-03/UC-06 tetap garis putus (mendukung).
+5. Jangan sebut POS/SHU/CAPTCHA sebagai fitur aktif.
+6. Nama file provider legacy (Bendahara/Kepalayayasan) **jangan** dipakai sebagai nama role di naskah.
 
 ---
 
