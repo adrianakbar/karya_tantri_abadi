@@ -38,7 +38,10 @@ class ViewLoan extends ViewRecord
             Infolists\Components\Section::make('Informasi Pinjaman')
                 ->schema([
                     Infolists\Components\TextEntry::make('loan_number')->label('No. Pinjaman'),
-                    Infolists\Components\TextEntry::make('user.name')->label('Peminjam'),
+                    Infolists\Components\TextEntry::make('borrower_name')->label('Peminjam')
+                        ->getStateUsing(fn () => $this->record->borrower_name),
+                    Infolists\Components\ImageEntry::make('ktp_photo')->label('Foto KTP')
+                        ->height(180)->visible(fn () => filled($this->record->ktp_photo)),
                     Infolists\Components\TextEntry::make('application_date')->label('Tgl Pengajuan')->date('d M Y'),
                     Infolists\Components\TextEntry::make('disbursement_date')->label('Tgl Pencairan')->date('d M Y')->placeholder('-'),
                     Infolists\Components\TextEntry::make('principal_amount')->label('Nominal')->money('IDR'),

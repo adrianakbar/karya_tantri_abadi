@@ -48,8 +48,16 @@ class LoanResource extends Resource
                 Grid::make(2)->schema([
                     TextInput::make('loan_number')->label('Nomor Pinjaman')
                         ->default('Akan dibuat otomatis')->readonly()->disabled()->dehydrated(false),
-                    Select::make('user_id')->label('Nama Peminjam')
-                        ->relationship('user', 'name')->searchable()->preload()->required(),
+                    Select::make('user_id')->label('Akun Anggota')
+                        ->relationship('user', 'name')->searchable()->preload()
+                        ->helperText('Kosongkan bila peminjam belum punya akun (pakai nama nasabah di bawah)'),
+                ]),
+                Grid::make(2)->schema([
+                    TextInput::make('applicant_name')->label('Nama Nasabah (input petugas)')
+                        ->maxLength(255)
+                        ->helperText('Terisi otomatis dari pengajuan petugas; wajib bila akun anggota kosong'),
+                    \Filament\Forms\Components\FileUpload::make('ktp_photo')->label('Foto KTP')
+                        ->image()->directory('ktp')->maxSize(4096),
                 ]),
                 Hidden::make('loan_type_id')->default($kelompokTypeId),
             ]),
@@ -161,7 +169,12 @@ class LoanResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('loan_number')->label('No. Pinjaman')->searchable()->sortable(),
-                TextColumn::make('user.name')->label('Peminjam')->searchable()->sortable(),
+                TextColumn::make('borrower_name')->label('Peminjam')
+                    ->getStateUsing(fn (Loan $record) => $record->borrower_name)
+                    ->searchable(query: fn (Builder $q, string $search) => $q
+                        ->where('applicant_name', 'like', "%{$search}%")
+                        ->orWhereHas('user', fn ($u) => $u->where('name', 'like', "%{$search}%")))
+                    ->sortable(query: fn (Builder $q, string $dir) => $q->orderBy('applicant_name', $dir)),
                 TextColumn::make('principal_amount')->label('Nominal')->money('IDR')->sortable(),
                 TextColumn::make('net_disbursement')->label('Cair Bersih')->money('IDR')->sortable()
                     ->toggleable(),

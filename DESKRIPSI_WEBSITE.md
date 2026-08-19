@@ -30,6 +30,7 @@ Dokumen ini mendeskripsikan arsitektur, fitur, hak akses, dan alur bisnis aplika
 | Kasir | `/kasir` | `kasir` | Cairkan pinjaman, catat tabungan, lihat cicilan (read-only), laporan |
 | SPV | `/spv` | `spv` | Setujui/tolak pinjaman, pantau laporan pinjaman/keuangan |
 | Anggota | `/anggota` | `anggota` | Lihat pinjaman milik sendiri (read-only) |
+| Petugas | `/petugas` | `petugas` | Ajukan pinjaman nasabah (nama + foto KTP + detail); hanya menu Pengajuan Pinjaman |
 
 Catatan teknis: file provider legacy masih bernama `BendaharaPanelProvider` / `KepalayayasanPanelProvider`, tetapi **ID & path panel aktif** adalah `kasir` dan `spv`.
 
@@ -39,19 +40,18 @@ Catatan teknis: file provider legacy masih bernama `BendaharaPanelProvider` / `K
 * `kasir` → `/kasir`
 * `spv` → `/spv`
 * `anggota` → `/anggota`
+* `petugas` → `/petugas`
 
-### C. Petugas lapangan = offline (bukan user sistem)
+### C. Petugas lapangan = panel `/petugas`
 
-Petugas **tidak memiliki akun/panel**. Mereka:
+Petugas memiliki akun & panel `/petugas` (menu tunggal Pengajuan Pinjaman, tanpa dasbor). Mereka:
 
 1. mencari/mendampingi nasabah di lapangan
-2. mengajukan pinjaman secara offline
-3. mengumpulkan cicilan di lapangan
-4. menyerahkan uang + data ke admin
+2. mengajukan pinjaman via `/petugas`: isi nama nasabah + unggah foto KTP + pilih nominal/tenor/frekuensi/tujuan
+3. pengajuan tersimpan status `pending` → admin mengoreksi/memproses
+4. cicilan lapangan tetap disetor ke admin (di luar sistem)
 
-Sistem mulai mencatat setelah data diterima pengelola.
-
-Role legacy (`petugas`, `bendahara`, `kepalayayasan`, dll.) dinonaktifkan di seeder dan tidak dipakai operasional.
+Petugas **tidak** membuat akun anggota dan **tidak** bisa mengedit/menghapus pengajuan setelah submit.
 
 ### D. Siapa anggota
 
@@ -100,8 +100,8 @@ Contoh: Rp1.000.000 → cair Rp730.000; Rp2.600.000 → cair Rp2.184.000.
 
 #### Alur pinjaman
 
-1. Petugas ajukan offline
-2. **Admin** input ke sistem (`pending`)
+1. **Petugas** ajukan pinjaman nasabah via `/petugas` (`pending`, nama + foto KTP + detail)
+2. **Admin** koreksi/proses pengajuan (bisa kaitkan akun anggota)
 3. **SPV** setujui / tolak
 4. **Kasir** cairkan (`disbursed` → jadwal cicilan)
 5. **Anggota** hanya lihat
@@ -130,7 +130,6 @@ Contoh: Rp1.000.000 → cair Rp730.000; Rp2.600.000 → cair Rp2.184.000.
 ### E. Di luar scope aktif (nonaktif / tidak didaftarkan di panel)
 
 * Manajemen jenis pinjaman di UI (jenis tunggal: Kelompok)
-* Panel petugas
 
 ---
 
@@ -156,8 +155,8 @@ Skema basis data difokuskan pada entitas simpan pinjam yang dipakai UI aktif mit
 
 ```mermaid
 flowchart TD
-    P[Petugas lapangan offline] -->|cari nasabah / ajukan pinjaman offline| A[Admin input data]
-    P -->|kumpulkan cicilan offline| A
+    P[Petugas /petugas] -->|ajukan pinjaman nasabah: nama + KTP + detail| A[Admin koreksi/proses]
+    P -.->|kumpulkan cicilan offline| A
     A --> S[SPV setujui/tolak pinjaman]
     S -->|approved| K[Kasir cairkan dana]
     K --> J[Sistem generate jadwal cicilan]
@@ -177,6 +176,7 @@ flowchart TD
 | `spv@karya-tantri-abadi.test` | spv | `password` |
 | `kasir@karya-tantri-abadi.test` | kasir | `password` |
 | `anggota@karya-tantri-abadi.test` | anggota | `password` |
+| `petugas@karya-tantri-abadi.test` | petugas | `password` |
 
 ---
 
@@ -185,7 +185,7 @@ flowchart TD
 Aplikasi **Karya Tantri Abadi** adalah sistem simpan pinjam berbasis website dengan multi-panel Filament. Fokus implementasinya adalah:
 
 1. digitalisasi pencatatan anggota, tabungan, pinjaman kelompok, dan angsuran
-2. pemisahan wewenang admin–SPV–kasir–anggota
-3. dukungan proses lapangan petugas secara offline tanpa membebani sistem dengan modul sales/CRM
+2. pemisahan wewenang admin–SPV–kasir–anggota–petugas
+3. petugas lapangan mengajukan pinjaman nasabah via panel `/petugas` (nama + foto KTP), dikoreksi admin, tanpa modul sales/CRM
 
 Sistem ini selaras dengan judul skripsi pengembangan koperasi simpan pinjam berbasis website menggunakan metode R&D, dengan penyesuaian istilah mitra (tabungan) pada antarmuka dan batasan scope simpan pinjam.

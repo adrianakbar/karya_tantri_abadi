@@ -2,7 +2,7 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Resources\Petugas\NasabahResource;
+use App\Filament\Resources\Petugas\PengajuanResource;
 use App\Http\Middleware\Authenticate;
 use Filament\Pages;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -32,10 +32,9 @@ class PetugasPanelProvider extends PanelProvider
             ->favicon(asset('img/logo-karya-tantri-abadi.png'))
             ->brandName('Karya Tantri Abadi - Petugas')
             ->resources([
-                NasabahResource::class,
+                PengajuanResource::class,
             ])
-            ->pages([
-            ])
+            ->pages([])
             ->brandLogo(fn () => view('components.custom-brand', [
                 'logo' => asset('img/logo-karya-tantri-abadi.png'),
                 'title' => 'Karya Tantri Abadi',

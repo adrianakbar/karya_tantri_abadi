@@ -14,6 +14,9 @@ class Loan extends Model
     protected $fillable = [
         'cooperation_id',
         'user_id',
+        'applicant_name',
+        'ktp_photo',
+        'created_by',
         'loan_type_id',
         'loan_number',
         'principal_amount',
@@ -67,6 +70,17 @@ class Loan extends Model
     public function approver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /** Nama peminjam: dari akun anggota kalau ada, else applicant_name (input petugas) */
+    public function getBorrowerNameAttribute(): string
+    {
+        return $this->user?->name ?? $this->applicant_name ?? '-';
     }
 
     public function payments(): HasMany

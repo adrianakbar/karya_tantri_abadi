@@ -9,7 +9,7 @@
 
 > **Istilah:** formal naskah = *simpanan*; label UI mitra = **Tabungan**.  
 > **Anggota (sistem):** ketua kelompok pemegang akun `/anggota`.  
-> **Petugas lapangan:** pemegang akun `/petugas` — input data nasabah.  
+> **Petugas lapangan:** pemegang akun `/petugas` — **ajukan pinjaman untuk nasabah** (nama + foto KTP + detail pinjaman).  
 > **Status pinjaman (kode):** `pending` → `approved` / `rejected` → `disbursed` (setelah kasir cairkan; jadwal cicilan digenerate) → pembayaran hingga lunas/`completed`.
 
 ---
@@ -19,9 +19,9 @@
 | ID | Use Case | Admin | SPV | Kasir | Anggota | Petugas |
 |---|---|:-:|:-:|:-:|:-:|:-:|
 | UC-01 | Login multi-panel | ✓ | ✓ | ✓ | ✓ | – |
-| UC-11 | Input data nasabah | – | – | – | – | ✓ |
+| UC-11 | Ajukan pinjaman nasabah | – | – | – | – | ✓ |
 | UC-02 | Kelola data anggota | ✓ | – | – | – | – |
-| UC-03 | Input pinjaman kelompok | ✓ | – | – | – | mendukung |
+| UC-03 | Koreksi & proses pinjaman | ✓ | – | – | – | – |
 | UC-04 | Setujui / tolak pinjaman | – | ✓ | – | – | – |
 | UC-05 | Cairkan pinjaman | – | – | ✓ | – | – |
 | UC-06 | Catat cicilan | ✓ | – | lihat saja | – | mendukung |
@@ -30,7 +30,7 @@
 | UC-09 | Pantau pinjaman sendiri | – | – | – | ✓ | – |
 | UC-10 | Backup / pengaturan | ✓ | – | – | – | – |
 
-Petugas mengakses sistem via panel `/petugas` untuk **UC-11** (input nasabah). Asosiasi ke UC-03 dan UC-06 **mendukung** — petugas menyiapkan data nasabah dan menyetorkan cicilan lapangan ke Admin (garis putus pada UCD).
+Petugas mengakses sistem via panel `/petugas` untuk **UC-11** (ajukan pinjaman nasabah). Petugas mengisi nama nasabah + foto KTP + detail pinjaman; status otomatis `pending`, lalu Admin mengoreksi/memproses (UC-03) dan SPV menyetujui (UC-04).
 
 ### Pemetaan panel (kode)
 
@@ -93,9 +93,9 @@ Petugas mengakses sistem via panel `/petugas` untuk **UC-11** (input nasabah). A
 | **Nama** | Input pinjaman kelompok |
 | **Aktor utama** | Admin |
 | **Aktor pendukung** | Petugas lapangan |
-| **Deskripsi** | Admin mencatat pengajuan pinjaman kelompok. Sistem menghitung fee tier dan menyimpan status awal **`pending`**. Hanya admin yang `canCreate` pinjaman. |
-| **Prasyarat** | Admin login; user ketua kelompok ada; plafon max 5 jt; tenor max 3 bln. |
-| **Alur utama** | 1. Petugas mendata nasabah via panel `/petugas` (UC-11).<br>2. Admin buka form create pinjaman.<br>3. Isi peminjam (ketua), nominal, tenor, frekuensi angsuran.<br>4. Sistem hitung: angsuran 11%, admin 5%, UTJ 22% (≤2,5 jt) / 11% (≥2,6 jt), cair bersih 73%/84% (`LoanCalculator`).<br>5. Simpan status **`pending`**. |
+| **Deskripsi** | Admin mengoreksi & memproses pengajuan pinjaman. Pengajuan dibuat petugas (status `pending`); admin melengkapi/mengoreksi data (bisa kaitkan akun anggota) lalu meneruskan. Hanya admin yang `canCreate`/`canEdit` pinjaman. |
+| **Prasyarat** | Admin login; pengajuan petugas ada atau admin buat langsung; plafon max 5 jt; tenor max 3 bln. |
+| **Alur utama** | 1. Petugas ajukan pinjaman nasabah via `/petugas` (UC-11) → status `pending`.<br>2. Admin buka form pinjaman (koreksi/create).<br>3. Isi/koreksi peminjam (akun anggota opsional atau nama nasabah + KTP), nominal, tenor, frekuensi angsuran.<br>4. Sistem hitung: angsuran 11%, admin 5%, UTJ 22% (≤2,5 jt) / 11% (≥2,6 jt), cair bersih 73%/84% (`LoanCalculator`).<br>5. Simpan status **`pending`** menunggu SPV. |
 | **Alur alternatif** | A1. Nominal/tenor di luar batas → validasi tolak.<br>A2. Role non-admin → tidak ada aksi create. |
 | **Hasil** | Pinjaman `pending` menunggu SPV. |
 | **Implementasi** | `LoanResource::canCreate()` admin only; `LoanCalculator`; admin `canEdit` hanya jika status `pending`/`rejected`. |
@@ -318,29 +318,29 @@ Petugas mengakses sistem via panel `/petugas` untuk **UC-11** (input nasabah). A
 ---
 
 # E. Role: Petugas Lapangan
-**Panel:** `/petugas` (`PetugasPanelProvider`)  
-**Resource:** `Petugas\NasabahResource` (data nasabah, CRUD terbatas)
+**Panel:** `/petugas` (`PetugasPanelProvider`) — hanya menu Pengajuan Pinjaman, tanpa dasbor  
+**Resource:** `Petugas\PengajuanResource` (model `Loan`, create + view saja)
 
 ---
 
-### UC-11 — Input data nasabah
+### UC-11 — Ajukan pinjaman nasabah
 
 | Item | Isi |
 |---|---|
 | **ID** | UC-11 |
-| **Nama** | Input data nasabah |
+| **Nama** | Ajukan pinjaman nasabah |
 | **Aktor utama** | Petugas lapangan |
-| **Deskripsi** | Petugas login ke `/petugas` dan mendata nasabah baru (nama, telepon, email opsional, tanggal lahir, gender, pekerjaan, alamat, password default `nasabah123`). Nasabah yang tampil hanya yang **diinput petugas itu sendiri** (`created_by` = id petugas). |
+| **Deskripsi** | Petugas login ke `/petugas` dan mengajukan pinjaman untuk nasabah: isi **nama nasabah** + unggah **foto KTP**, lalu pilih detail pinjaman (nominal, tenor, frekuensi, tujuan). Petugas **tidak** membuat akun anggota. Pengajuan tersimpan status **`pending`** dengan `created_by` = id petugas; admin yang mengoreksi/memproses. Daftar hanya menampilkan pengajuan yang dibuat petugas itu sendiri. |
 | **Prasyarat** | Akun role `petugas` aktif; login di `/petugas`. |
-| **Alur utama** | 1. Login `/petugas`.<br>2. Buka Data Nasabah.<br>3. Create nasabah baru → isi form.<br>4. Sistem simpan dengan `created_by` = auth id.<br>5. List menampilkan nasabah milik petugas itu saja (filter `created_by` + `cooperation_id`). |
-| **Alur alternatif** | A1. Email duplikat → ditolak validasi (`unique`).<br>A2. Edit/delete → `canEdit`/`canDelete` = false (read-only plus create). |
-| **Hasil** | Data nasabah tercatat, siap dipakai Admin untuk input pinjaman. |
-| **Implementasi** | `PetugasPanelProvider`; `NasabahResource::getEloquentQuery()` filter `created_by` & `cooperation_id`; `canEdit`/`canDelete` = false. |
+| **Alur utama** | 1. Login `/petugas`.<br>2. Buka Pengajuan Pinjaman → Ajukan Pinjaman.<br>3. Isi nama nasabah + upload foto KTP.<br>4. Isi nominal/tenor/frekuensi/tujuan (fee dihitung `LoanCalculator`).<br>5. Simpan → `Loan` status `pending`, `user_id` null, `created_by` = auth id.<br>6. List menampilkan pengajuan milik petugas itu saja (filter `created_by` + `cooperation_id`). |
+| **Alur alternatif** | A1. Nominal > 5 jt / tenor > 3 bln → validasi tolak.<br>A2. Setelah diajukan → `canEdit`/`canDelete` = false (koreksi jadi wewenang admin). |
+| **Hasil** | Pengajuan pinjaman `pending` tercatat + foto KTP, siap dikoreksi Admin (UC-03). |
+| **Implementasi** | `PetugasPanelProvider` (tanpa Dashboard page); `PengajuanResource` (model `Loan`) `getEloquentQuery()` filter `created_by` & `cooperation_id`; `canEdit`/`canDelete` = false; kolom `loans.applicant_name`, `ktp_photo`, `created_by`, `user_id` nullable. |
 
-**Peran lapangan (mendukung UC-03 & UC-06):**
+**Peran lapangan:**
 | Use case | Peran petugas |
 |---|---|
-| UC-03 Input pinjaman | Cari/dampingi nasabah (data sudah mereka input online), susun pengajuan, serah data ke Admin |
+| UC-11 Ajukan pinjaman | Data nasabah (nama + KTP) + pilih pinjaman, submit ke Admin untuk dikoreksi |
 | UC-06 Catat cicilan | Tarik cicilan lapangan dari nasabah, setor uang + data ke Admin untuk di-Catat Bayar |
 
 ---
@@ -348,13 +348,9 @@ Petugas mengakses sistem via panel `/petugas` untuk **UC-11** (input nasabah). A
 ## Alur bisnis (status kode)
 
 ```
-NASABAH:
-Petugas [UC-11] input data nasabah (created_by = petugas)
-  → Admin pakai data nasabah untuk pengajuan pinjaman
-
-PINJAMAN:
-Petugas (pendataan nasabah)
-  → Admin [UC-03] status = pending
+NASABAH & PINJAMAN:
+Petugas [UC-11] ajukan pinjaman nasabah (nama + KTP + detail) → Loan pending, created_by = petugas
+  → Admin [UC-03] koreksi/proses (bisa kaitkan akun anggota)
   → SPV [UC-04] approved | rejected
   → (jika approved) Kasir [UC-05] status = disbursed + generate loan_payments
   → Anggota [UC-09] lihat milik sendiri
