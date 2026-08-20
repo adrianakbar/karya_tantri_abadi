@@ -4,95 +4,83 @@
 - cluster-only mode — file stats not available
 
 ## Summary
-- 1321 nodes · 3032 edges · 80 communities (45 shown, 35 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 60 edges (avg confidence: 0.85)
-- Token cost: 24,871 input · 9,440 output
+- 1323 nodes · 3044 edges · 68 communities (43 shown, 25 thin omitted)
+- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 61 edges (avg confidence: 0.85)
+- Token cost: 6,683 input · 2,715 output
 
 ## Graph Freshness
-- Built from commit: `fdef5998`
+- Built from commit: `c01f736b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- Maatwebsite\Excel\Concerns\WithStyles
-- User
-- Filament\Tables\Table
-- Filament\Resources\Pages\ListRecords
-- ReportDashboard
-- Filament\Actions
-- ProductSalesResource
-- SavingsTransaction
-- Illuminate\Database\Eloquent\Factories\HasFactory
-- PetugasPanelProvider.php
-- Filament\Resources\Pages\EditRecord
-- ShuReport
-- AuthenticationListener
-- Illuminate\Support\Facades\Auth
-- Resources/LoanResource.php
-- FinancialReport
-- ProductCategoryResource
-- LoanResource
-- Sale
-- InventoryReport
-- Product
-- AuditTrailPage.php
-- ExpenseCategory
-- SavingsTypeResource
-- Loan
-- PermissionResource
-- UserRoleResource
-- DataChangeLog
-- AuditTrailService
-- Filament\Infolists\Infolist
-- Purchase
-- StockMovementLog
-- UserResource
-- StockMovementLogResource
-- StockMovementLogResource
-- Illuminate\Database\Eloquent\Model
-- ActivityLog
-- AuthLogResource
-- AppServiceProvider.php
-- Filament\Widgets\ChartWidget
-- LoanTypeResource
-- Roles
-- RecentActivitiesWidget
-- Permissions
-- Illuminate\Database\Eloquent\Relations\BelongsTo
-- LoanPayment
-- ProductSalesResource
-- AuthLog
-- ActivityLogResource
-- Filament\Resources\Pages\ViewRecord
-- DataChangeLogResource
-- PengajuanResource
-- SavingResource
-- Illuminate\Database\Eloquent\Relations\HasMany
-- SystemSetting
-- RoleResource
-- .subscribe
-- LoanResource
-- SavingResource
-- LoanType
-- ListProducts
-- SendLowStockNotificationJob
-- LoanCalculator
-- EditLoan
-- ReportExportService.php
-- IncomeReport
-- CreateLoan
-- CreateProductSales.php
-- Dashboard.php
-- User.php
-- SystemSettingResource
-- LogoutResponse
-- RekapPenjualan
-- Resources/ProductSalesResource/Pages/ListProductSales.php
-- UserRoles
-- EventServiceProvider
-- Notification
-- SavingsReport
-- ViewSaving.php
+- Report Export Classes
+- User Auth & Member Cards
+- Resource Page Namespaces
+- Resource List Pages
+- Report Dashboard
+- Create Record Pages
+- Product Sales Resource
+- Member API Endpoints
+- Core Models
+- Filament Panel Setup
+- Edit Record Pages
+- Income & Loan Reports
+- Authentication Events
+- Report Pages & PDF
+- Resource Forms & Pages
+- Product Purchase Calculations
+- Product Category Resource
+- Loan Resource
+- Sale Printing & Observer
+- Inventory Report
+- Low Stock Notifications
+- Audit Trail Page
+- Product Purchase Forms
+- Savings Type Resource
+- Loan Creation
+- Permission Resource
+- User Role Resource
+- Data Change Log
+- Audit Trail Service
+- View Record Pages
+- Purchase Stock Updates
+- Stock Movement Tracking
+- User Resource
+- Product Resource
+- Stock Movement Log Resource
+- Audit Trail Observer
+- Audit Log Cleanup
+- Auth Log Resource
+- Purchase Detail Stock
+- Dashboard Recap Charts
+- Loan Type Resource
+- Logout Handling
+- Recent Activities Widget
+- Product & Stock Commands
+- SHU Distribution Report
+- Role List Page
+- Product Sales Resource
+- Activity Log Resource
+- Product Sales View Page
+- Data Change Log Resource
+- Loan Application Resource
+- Savings Resource
+- SHU Calculation
+- Role Resource
+- Auth Events
+- Loan Resource
+- Savings Resource
+- Product List Page
+- Loan Application & Calculator
+- Report Export Service
+- Create Loan Page
+- Dashboard Page
+- System Settings Resource
+- Logout Response
+- User Roles Pivot
+- Event Service Provider
+- Backup Management
 
 ## God Nodes (most connected - your core abstractions)
 1. `User` - 72 edges
@@ -101,12 +89,14 @@
 4. `Loan` - 46 edges
 5. `Purchase` - 39 edges
 6. `AuditTrailService` - 34 edges
-7. `SavingsTransaction` - 28 edges
+7. `SavingsTransaction` - 30 edges
 8. `InventoryReport` - 27 edges
 9. `StockMovementLog` - 27 edges
 10. `ProductSalesResource` - 27 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `MemberCardController` --inherits--> `Controller`  [EXTRACTED]
+  Http/Controllers/MemberCardController.php → Http/Controllers/Controller.php
 - `Customer` --inherits--> `User`  [EXTRACTED]
   Models/Customer.php → Models/User.php
 - `SalePrintController` --inherits--> `Controller`  [EXTRACTED]
@@ -115,207 +105,199 @@
   Http/Controllers/Api/MemberApiController.php → Http/Controllers/Controller.php
 - `LoginController` --inherits--> `Controller`  [EXTRACTED]
   Http/Controllers/Auth/LoginController.php → Http/Controllers/Controller.php
-- `BackupDownloadController` --inherits--> `Controller`  [EXTRACTED]
-  Http/Controllers/BackupDownloadController.php → Http/Controllers/Controller.php
 
 ## Import Cycles
 - None detected.
 
-## Communities (80 total, 35 thin omitted)
+## Communities (68 total, 25 thin omitted)
 
-### Community 0 - "Maatwebsite\Excel\Concerns\WithStyles"
+### Community 0 - "Report Export Classes"
 Cohesion: 0.08
 Nodes (18): FinancialReportExport, IncomeReportExport, InventoryReportExport, LoanPaymentExport, LoanReportExport, ReportExport, SavingsReportExport, ShuCalculationExport (+10 more)
 
-### Community 1 - "User"
-Cohesion: 0.20
-Nodes (3): Illuminate\Foundation\Auth\User, HasMany, User
+### Community 1 - "User Auth & Member Cards"
+Cohesion: 0.06
+Nodes (19): Filament\Facades\Filament, Filament\Models\Contracts\FilamentUser, MemberCardController, Illuminate\Database\Eloquent\Relations\BelongsToMany, Illuminate\Foundation\Auth\User, Illuminate\Foundation\Support\Providers\AuthServiceProvider, Illuminate\Http\Exceptions\HttpResponseException, Illuminate\Notifications\Notifiable (+11 more)
 
-### Community 2 - "Filament\Tables\Table"
-Cohesion: 0.14
-Nodes (27): App\Filament\Resources\ActivityLogResource\Pages, App\Filament\Resources\Anggota\LoanResource\Pages, App\Filament\Resources\Anggota\ProductSalesResource\Pages, App\Filament\Resources\Anggota\SavingResource\Pages, App\Filament\Resources\AuthLogResource\Pages, App\Filament\Resources\DataChangeLogResource\Pages, App\Filament\Resources\LoanTypeResource\Pages, App\Filament\Resources\LoanTypeResource\RelationManagers (+19 more)
+### Community 2 - "Resource Page Namespaces"
+Cohesion: 0.12
+Nodes (26): App\Filament\Resources\ActivityLogResource\Pages, App\Filament\Resources\Anggota\LoanResource\Pages, App\Filament\Resources\Anggota\ProductSalesResource\Pages, App\Filament\Resources\Anggota\SavingResource\Pages, App\Filament\Resources\AuthLogResource\Pages, App\Filament\Resources\DataChangeLogResource\Pages, App\Filament\Resources\LoanTypeResource\Pages, App\Filament\Resources\LoanTypeResource\RelationManagers (+18 more)
 
-### Community 3 - "Filament\Resources\Pages\ListRecords"
+### Community 3 - "Resource List Pages"
 Cohesion: 0.05
 Nodes (14): ListActivityLogs, ListLoans, ListProductSales, ListSavings, ListAuthLogs, ListDataChangeLogs, ListLoans, Filament\Resources\Pages\ListRecords (+6 more)
 
-### Community 4 - "ReportDashboard"
+### Community 4 - "Report Dashboard"
 Cohesion: 0.19
 Nodes (4): Carbon, ReportDashboard, Illuminate\Support\Carbon, Illuminate\Support\Collection
 
-### Community 5 - "Filament\Actions"
+### Community 5 - "Create Record Pages"
 Cohesion: 0.07
-Nodes (14): Filament\Actions, CreateLoan, CreateLoanType, Filament\Resources\Pages\CreateRecord, CreatePermission, CreateProduct, CreateRole, CreateSaving (+6 more)
+Nodes (14): Filament\Actions, CreateLoanType, Filament\Resources\Pages\CreateRecord, CreatePermission, CreateProductCategory, CreateProduct, CreateRole, CreateSaving (+6 more)
 
-### Community 6 - "ProductSalesResource"
-Cohesion: 0.06
-Nodes (6): Filament\Forms\Components\Section, Filament\Forms\Get, Filament\Forms\Set, ProductPurchaseResource, ProductSalesResource, Section
+### Community 6 - "Product Sales Resource"
+Cohesion: 0.11
+Nodes (3): Filament\Forms\Components\Section, ProductSalesResource, Section
 
-### Community 7 - "SavingsTransaction"
-Cohesion: 0.05
-Nodes (20): Closure, RekapKeuanganStats, MemberApiController, LoginController, BackupDownloadController, Controller, MemberCardController, SavingsReceiptController (+12 more)
+### Community 7 - "Member API Endpoints"
+Cohesion: 0.08
+Nodes (16): Closure, MemberApiController, LoginController, BackupDownloadController, Controller, SavingsReceiptController, LogUserActivity, Illuminate\Contracts\View\View (+8 more)
 
-### Community 8 - "Illuminate\Database\Eloquent\Factories\HasFactory"
-Cohesion: 0.23
-Nodes (5): Illuminate\Database\Eloquent\Factories\HasFactory, Cooperation, Customer, SavingsType, Supplier
+### Community 8 - "Core Models"
+Cohesion: 0.14
+Nodes (7): Illuminate\Database\Eloquent\Factories\HasFactory, Illuminate\Support\Str, Cooperation, Customer, LoanType, ProductCategory, Supplier
 
-### Community 9 - "PetugasPanelProvider.php"
+### Community 9 - "Filament Panel Setup"
 Cohesion: 0.18
 Nodes (21): Filament\Http\Middleware\Authenticate, Filament\Http\Middleware\AuthenticateSession, Filament\Http\Middleware\DisableBladeIconComponents, Filament\Http\Middleware\DispatchServingFilamentEvent, Filament\Pages, Filament\Panel, Filament\PanelProvider, Filament\Support\Colors\Color (+13 more)
 
-### Community 10 - "Filament\Resources\Pages\EditRecord"
-Cohesion: 0.08
-Nodes (8): Filament\Resources\Pages\EditRecord, EditProductCategory, EditProduct, EditProductSales, EditRole, EditSaving, EditStockMovementLog, EditSystemSetting
+### Community 10 - "Edit Record Pages"
+Cohesion: 0.07
+Nodes (9): EditLoanType, Filament\Resources\Pages\EditRecord, EditProduct, EditProductSales, EditRole, EditSaving, EditStockMovementLog, EditSystemSetting (+1 more)
 
-### Community 11 - "ShuReport"
-Cohesion: 0.10
-Nodes (3): ShuReport, ShuDistribution, ShuMemberShare
+### Community 11 - "Income & Loan Reports"
+Cohesion: 0.07
+Nodes (5): Filament\Forms\Contracts\HasForms, IncomeReport, LoanReport, ShuReport, Filament\Tables\Contracts\HasTable
 
-### Community 12 - "AuthenticationListener"
-Cohesion: 0.17
-Nodes (9): Illuminate\Auth\Events\Failed, Illuminate\Auth\Events\Lockout, Illuminate\Auth\Events\Login, Illuminate\Auth\Events\Logout, Illuminate\Auth\Events\PasswordReset, Illuminate\Auth\Events\Registered, Illuminate\Auth\Events\Verified, AuthenticationListener (+1 more)
+### Community 12 - "Authentication Events"
+Cohesion: 0.25
+Nodes (7): Illuminate\Auth\Events\Failed, Illuminate\Auth\Events\Lockout, Illuminate\Auth\Events\Login, Illuminate\Auth\Events\PasswordReset, Illuminate\Auth\Events\Registered, Illuminate\Auth\Events\Verified, AuthenticationListener
 
-### Community 13 - "Illuminate\Support\Facades\Auth"
-Cohesion: 0.33
-Nodes (14): Barryvdh\DomPDF\Facade\Pdf, Carbon\Carbon, Filament\Forms\Components\DatePicker, Filament\Forms\Components\Select, Filament\Forms\Concerns\InteractsWithForms, Filament\Notifications\Notification, Filament\Pages\Page, Filament\Tables\Actions\Action (+6 more)
+### Community 13 - "Report Pages & PDF"
+Cohesion: 0.23
+Nodes (16): Barryvdh\DomPDF\Facade\Pdf, Carbon\Carbon, Filament\Forms\Components\DatePicker, Filament\Forms\Components\Select, Filament\Forms\Concerns\InteractsWithForms, Filament\Notifications\Notification, Filament\Pages\Page, Pengaturan (+8 more)
 
-### Community 14 - "Resources/LoanResource.php"
-Cohesion: 0.11
+### Community 14 - "Resource Forms & Pages"
+Cohesion: 0.12
 Nodes (22): App\Filament\Resources\LoanResource\Pages, App\Filament\Resources\Petugas\PengajuanResource\Pages, App\Filament\Resources\ProductPurchaseResource\Pages, App\Filament\Resources\ProductResource\Pages, App\Filament\Resources\ProductSalesResource\Pages, App\Filament\Resources\UserResource\Pages, App\Filament\Resources\UserResource\RelationManagers, Filament\Forms\Components\FileUpload (+14 more)
 
-### Community 15 - "FinancialReport"
-Cohesion: 0.18
-Nodes (4): FinancialReport, Illuminate\Database\Eloquent\Relations\MorphTo, CashFlow, TransactionSummary
+### Community 15 - "Product Purchase Calculations"
+Cohesion: 0.12
+Nodes (3): Filament\Forms\Get, Filament\Forms\Set, ProductPurchaseResource
 
-### Community 16 - "ProductCategoryResource"
+### Community 16 - "Product Category Resource"
 Cohesion: 0.09
-Nodes (3): CreateProductCategory, ListProductCategories, ProductCategoryResource
+Nodes (3): EditProductCategory, ListProductCategories, ProductCategoryResource
 
-### Community 18 - "Sale"
+### Community 18 - "Sale Printing & Observer"
 Cohesion: 0.18
 Nodes (3): SalePrintController, Sale, SaleObserver
 
-### Community 20 - "Product"
-Cohesion: 0.18
-Nodes (4): StockOverviewWidget, Illuminate\Support\Facades\Log, Product, ProductObserver
+### Community 19 - "Inventory Report"
+Cohesion: 0.11
+Nodes (3): InventoryReport, SaleDetail, SaleDetailObserver
 
-### Community 21 - "AuditTrailPage.php"
-Cohesion: 0.13
-Nodes (6): StockMovementStatsWidget, AuditTrailStatsWidget, InventoryOverview, RekapPinjamanStats, Filament\Widgets\StatsOverviewWidget, Filament\Widgets\StatsOverviewWidget\Stat
+### Community 20 - "Low Stock Notifications"
+Cohesion: 0.24
+Nodes (7): Illuminate\Bus\Queueable, Illuminate\Contracts\Queue\ShouldQueue, Illuminate\Foundation\Bus\Dispatchable, Illuminate\Queue\InteractsWithQueue, Illuminate\Queue\SerializesModels, SendLowStockNotificationJob, ProductObserver
 
-### Community 23 - "SavingsTypeResource"
+### Community 21 - "Audit Trail Page"
+Cohesion: 0.05
+Nodes (13): AuditTrailPage, FinancialReport, StockOverviewWidget, StockMovementStatsWidget, AuditTrailStatsWidget, InventoryOverview, RekapKeuanganStats, RekapPinjamanStats (+5 more)
+
+### Community 22 - "Product Purchase Forms"
+Cohesion: 0.11
+Nodes (4): CreateProductPurchase, EditProductPurchase, Expense, ExpenseCategory
+
+### Community 23 - "Savings Type Resource"
 Cohesion: 0.12
 Nodes (3): EditSavingsType, ListSavingsTypes, SavingsTypeResource
 
-### Community 25 - "PermissionResource"
+### Community 24 - "Loan Creation"
+Cohesion: 0.12
+Nodes (3): CreateLoan, Loan, LoanService
+
+### Community 25 - "Permission Resource"
 Cohesion: 0.12
 Nodes (3): EditPermission, ListPermissions, PermissionResource
 
-### Community 26 - "UserRoleResource"
-Cohesion: 0.12
-Nodes (3): EditUserRole, ListUserRoles, UserRoleResource
+### Community 29 - "View Record Pages"
+Cohesion: 0.13
+Nodes (9): Filament\Infolists, Filament\Infolists\Infolist, ViewActivityLog, ViewLoan, ViewSaving, ViewAuthLog, ViewDataChangeLog, Filament\Resources\Pages\ViewRecord (+1 more)
 
-### Community 27 - "DataChangeLog"
-Cohesion: 0.11
-Nodes (3): Illuminate\Support\Facades\Config, Illuminate\Support\Facades\Request, DataChangeLog
+### Community 31 - "Stock Movement Tracking"
+Cohesion: 0.18
+Nodes (3): Illuminate\Support\Facades\Log, StockMovementLog, StockMovementService
 
-### Community 29 - "Filament\Infolists\Infolist"
-Cohesion: 0.17
-Nodes (5): Filament\Infolists, Filament\Infolists\Infolist, ViewLoan, ViewLoan, ViewPengajuan
-
-### Community 30 - "Purchase"
-Cohesion: 0.16
-Nodes (3): CreateProductPurchase, Purchase, PurchaseObserver
-
-### Community 32 - "UserResource"
+### Community 32 - "User Resource"
 Cohesion: 0.16
 Nodes (5): Filament\Actions\Action, Filament\Forms\Components\CheckboxList, EditUser, ListUsers, UserResource
 
-### Community 33 - "StockMovementLogResource"
+### Community 33 - "Product Resource"
 Cohesion: 0.07
 Nodes (3): ProductResource, ViewStockMovementLog, StockMovementLogResource
 
-### Community 35 - "Illuminate\Database\Eloquent\Model"
-Cohesion: 0.41
-Nodes (3): Illuminate\Database\Eloquent\Model, RolePermissions, AuditTrailObserver
+### Community 35 - "Audit Trail Observer"
+Cohesion: 0.30
+Nodes (4): Illuminate\Database\Eloquent\Model, RolePermissions, StockAdjusmentDetail, AuditTrailObserver
 
-### Community 36 - "ActivityLog"
-Cohesion: 0.11
-Nodes (5): CheckLowStockCommand, CleanupAuditLogs, GenerateAuditTestData, Illuminate\Console\Command, ActivityLog
+### Community 36 - "Audit Log Cleanup"
+Cohesion: 0.08
+Nodes (5): CleanupAuditLogs, Illuminate\Support\Facades\Config, Illuminate\Support\Facades\Request, ActivityLog, AuthLog
 
-### Community 38 - "AppServiceProvider.php"
-Cohesion: 0.15
-Nodes (6): Illuminate\Support\ServiceProvider, PurchaseDetail, SaleDetail, PurchaseDetailObserver, SaleDetailObserver, AppServiceProvider
+### Community 38 - "Purchase Detail Stock"
+Cohesion: 0.24
+Nodes (4): Illuminate\Support\ServiceProvider, PurchaseDetail, PurchaseDetailObserver, AppServiceProvider
 
-### Community 39 - "Filament\Widgets\ChartWidget"
-Cohesion: 0.12
-Nodes (5): Filament\Widgets\ChartWidget, RekapAnggota, RekapAnggotaBaru, RekapPinjaman, RekapSimpanan
+### Community 39 - "Dashboard Recap Charts"
+Cohesion: 0.09
+Nodes (6): Filament\Widgets\ChartWidget, RekapAnggota, RekapAnggotaBaru, RekapPenjualan, RekapPinjaman, RekapSimpanan
 
-### Community 40 - "LoanTypeResource"
-Cohesion: 0.12
-Nodes (3): LoanTypeResource, EditLoanType, ListLoanTypes
-
-### Community 42 - "RecentActivitiesWidget"
+### Community 42 - "Recent Activities Widget"
 Cohesion: 0.19
 Nodes (3): RecentActivitiesWidget, RecentLoanRequests, Filament\Widgets\TableWidget
 
-### Community 43 - "Permissions"
-Cohesion: 0.21
-Nodes (3): Illuminate\Database\Eloquent\Relations\BelongsToMany, Permissions, PermissionPolicy
-
-### Community 44 - "Illuminate\Database\Eloquent\Relations\BelongsTo"
+### Community 43 - "Product & Stock Commands"
 Cohesion: 0.15
-Nodes (5): Illuminate\Database\Eloquent\Relations\BelongsTo, Expense, Report, StockAdjusmentDetail, UserRole
+Nodes (5): CheckLowStockCommand, GenerateAuditTestData, CreateProductSales, Illuminate\Console\Command, Product
 
-### Community 49 - "Filament\Resources\Pages\ViewRecord"
-Cohesion: 0.19
-Nodes (5): ViewActivityLog, ViewProductSales, ViewAuthLog, ViewDataChangeLog, Filament\Resources\Pages\ViewRecord
+### Community 44 - "SHU Distribution Report"
+Cohesion: 0.12
+Nodes (5): Illuminate\Database\Eloquent\Relations\BelongsTo, LoanPayment, Report, ShuMemberShare, UserRole
 
-### Community 54 - "SystemSetting"
-Cohesion: 0.17
-Nodes (5): Illuminate\Foundation\Support\Providers\AuthServiceProvider, Illuminate\Support\Facades\Gate, SystemSetting, SystemSettingPolicy, AuthServiceProvider
+### Community 52 - "Savings Resource"
+Cohesion: 0.11
+Nodes (3): SavingResource, SavingsTransaction, SavingsType
 
-### Community 56 - ".subscribe"
+### Community 53 - "SHU Calculation"
+Cohesion: 0.13
+Nodes (3): Illuminate\Database\Eloquent\Relations\HasMany, ShuDistribution, StockAdjusment
+
+### Community 56 - "Auth Events"
 Cohesion: 0.25
 Nodes (7): Failed, Logout, Lockout, Login, PasswordReset, Registered, Verified
 
-### Community 61 - "SendLowStockNotificationJob"
-Cohesion: 0.36
-Nodes (6): Illuminate\Bus\Queueable, Illuminate\Contracts\Queue\ShouldQueue, Illuminate\Foundation\Bus\Dispatchable, Illuminate\Queue\InteractsWithQueue, Illuminate\Queue\SerializesModels, SendLowStockNotificationJob
+### Community 62 - "Loan Application & Calculator"
+Cohesion: 0.12
+Nodes (3): ViewLoan, CreatePengajuan, LoanCalculator
 
-### Community 68 - "Dashboard.php"
-Cohesion: 0.40
-Nodes (3): Filament\Pages\Concerns\HasWidgets, Dashboard, Filament\Widgets\AccountWidget
-
-### Community 69 - "User.php"
-Cohesion: 0.29
-Nodes (5): Filament\Facades\Filament, Filament\Models\Contracts\FilamentUser, Illuminate\Http\Exceptions\HttpResponseException, Illuminate\Notifications\Notifiable, Laravel\Sanctum\HasApiTokens
-
-### Community 71 - "LogoutResponse"
+### Community 71 - "Logout Response"
 Cohesion: 0.50
 Nodes (3): Filament\Http\Responses\Auth\Contracts\LogoutResponse, LogoutResponse, Illuminate\Http\RedirectResponse
 
-### Community 78 - "SavingsReport"
-Cohesion: 0.33
-Nodes (3): Filament\Forms\Contracts\HasForms, SavingsReport, Filament\Tables\Contracts\HasTable
+### Community 77 - "Backup Management"
+Cohesion: 0.18
+Nodes (3): BackupManagement, Illuminate\Database\Eloquent\Relations\MorphTo, Notification
 
 ## Knowledge Gaps
-- **35 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **1 isolated node(s):** `Dashboard`
+  These have ≤1 connection - possible missing edges or undocumented components.
+- **25 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `User` connect `User` to `UserResource`, `AppServiceProvider.php`, `Filament\Tables\Table`, `ReportDashboard`, `ActivityLog`, `ProductSalesResource`, `Filament\Widgets\ChartWidget`, `Illuminate\Database\Eloquent\Factories\HasFactory`, `SavingsTransaction`, `User.php`, `ShuReport`, `Permissions`, `Illuminate\Support\Facades\Auth`, `SavingsReport`, `Resources/LoanResource.php`, `Roles`, `SystemSetting`, `SendLowStockNotificationJob`?**
-  _High betweenness centrality (0.111) - this node is a cross-community bridge._
-- **Why does `Product` connect `Product` to `Maatwebsite\Excel\Concerns\WithStyles`, `Filament\Tables\Table`, `ReportDashboard`, `ProductSalesResource`, `Illuminate\Database\Eloquent\Factories\HasFactory`, `Illuminate\Support\Facades\Auth`, `Resources/LoanResource.php`, `Sale`, `InventoryReport`, `AuditTrailPage.php`, `Purchase`, `StockMovementLog`, `Illuminate\Database\Eloquent\Model`, `ActivityLog`, `AppServiceProvider.php`, `ListProducts`, `SendLowStockNotificationJob`, `ReportExportService.php`, `CreateProductSales.php`?**
-  _High betweenness centrality (0.063) - this node is a cross-community bridge._
-- **Why does `ProductResource` connect `StockMovementLogResource` to `Filament\Tables\Table`, `Filament\Actions`, `Filament\Resources\Pages\EditRecord`, `Resources/LoanResource.php`, `Product`?**
-  _High betweenness centrality (0.047) - this node is a cross-community bridge._
-- **Should `Maatwebsite\Excel\Concerns\WithStyles` be split into smaller, more focused modules?**
+- **Why does `User` connect `User Auth & Member Cards` to `User Resource`, `Resource Page Namespaces`, `Report Dashboard`, `Product Sales Resource`, `Dashboard Recap Charts`, `Member API Endpoints`, `Core Models`, `Purchase Detail Stock`, `Product & Stock Commands`, `Income & Loan Reports`, `Report Pages & PDF`, `Resource Forms & Pages`, `Savings Resource`, `Low Stock Notifications`, `Product Purchase Forms`?**
+  _High betweenness centrality (0.095) - this node is a cross-community bridge._
+- **Why does `Product` connect `Product & Stock Commands` to `Report Export Classes`, `Resource Page Namespaces`, `Report Dashboard`, `Product Sales Resource`, `Core Models`, `Report Pages & PDF`, `Resource Forms & Pages`, `Product Purchase Calculations`, `Sale Printing & Observer`, `Inventory Report`, `Low Stock Notifications`, `Audit Trail Page`, `Product Purchase Forms`, `Purchase Stock Updates`, `Stock Movement Tracking`, `Audit Trail Observer`, `Purchase Detail Stock`, `Product List Page`, `Report Export Service`?**
+  _High betweenness centrality (0.078) - this node is a cross-community bridge._
+- **Why does `Loan` connect `Loan Creation` to `Report Export Classes`, `Resource Page Namespaces`, `Create Loan Page`, `Report Dashboard`, `Audit Trail Observer`, `Purchase Detail Stock`, `Dashboard Recap Charts`, `Member API Endpoints`, `Core Models`, `Recent Activities Widget`, `Income & Loan Reports`, `Report Pages & PDF`, `Resource Forms & Pages`, `Audit Trail Page`, `SHU Calculation`, `Product Purchase Forms`, `Loan Application & Calculator`?**
+  _High betweenness centrality (0.057) - this node is a cross-community bridge._
+- **What connects `Dashboard` to the rest of the system?**
+  _1 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Report Export Classes` be split into smaller, more focused modules?**
   _Cohesion score 0.08283730158730158 - nodes in this community are weakly interconnected._
-- **Should `Filament\Tables\Table` be split into smaller, more focused modules?**
-  _Cohesion score 0.13530655391120508 - nodes in this community are weakly interconnected._
-- **Should `Filament\Resources\Pages\ListRecords` be split into smaller, more focused modules?**
-  _Cohesion score 0.05187074829931973 - nodes in this community are weakly interconnected._
-- **Should `Filament\Actions` be split into smaller, more focused modules?**
-  _Cohesion score 0.06659619450317125 - nodes in this community are weakly interconnected._
+- **Should `User Auth & Member Cards` be split into smaller, more focused modules?**
+  _Cohesion score 0.055811571940604196 - nodes in this community are weakly interconnected._
+- **Should `Resource Page Namespaces` be split into smaller, more focused modules?**
+  _Cohesion score 0.12403100775193798 - nodes in this community are weakly interconnected._
