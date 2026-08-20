@@ -36,6 +36,7 @@ class KepalayayasanPanelProvider extends PanelProvider
             ->pages([
                 \App\Filament\Pages\LoanReport::class,
                 \App\Filament\Pages\FinancialReport::class,
+                \App\Filament\Pages\SavingsReport::class,
                 // SHU dihapus
             ])
             ->brandLogo(fn () => view('components.custom-brand', [

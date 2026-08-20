@@ -13,6 +13,7 @@ class Dashboard extends BaseDashboard
     protected function getHeaderWidgets(): array
     {
         return [
+            \App\Filament\Widgets\RekapPinjamanStats::class,
             // Inventory/POS dinonaktifkan untuk Karya Tantri Abadi
             // \App\Filament\Widgets\InventoryOverview::class,
             // \App\Filament\Widgets\RekapPenjualan::class,
