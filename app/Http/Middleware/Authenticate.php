@@ -61,4 +61,9 @@ class Authenticate extends BaseAuthenticate
             abort(403);
         }
     }
+
+    protected function redirectTo($request): ?string
+    {
+        return route('login');
+    }
 }

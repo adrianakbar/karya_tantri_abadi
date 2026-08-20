@@ -24,7 +24,6 @@ class KepalayayasanPanelProvider extends PanelProvider
         return $panel
             ->id('spv')
             ->path('/spv')
-            ->login()
             ->colors([
                 'primary' => Color::Indigo,
             ])

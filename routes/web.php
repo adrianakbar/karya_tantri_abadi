@@ -1,16 +1,15 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MemberCardController;
 use App\Http\Controllers\SavingsReceiptController;
 use App\Http\Controllers\BackupDownloadController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
-// Home: landing pilihan role
-Route::get('/', fn () => view('role-select'))->name('home');
-
-
-Route::get('/login', fn () => view('role-select'))->name('login');
+// Satu halaman login universal — deteksi role otomatis, redirect ke panel sesuai.
+Route::get('/', fn () => redirect()->route('login'))->name('home');
+Route::get('/login', [LoginController::class, 'show'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.attempt');
 
 Route::middleware('auth')->group(function () {
     Route::get('/member/{user}/card/print', [MemberCardController::class, 'printSingle'])
@@ -23,6 +22,5 @@ Route::middleware('auth')->group(function () {
         ->name('savings.print');
 
     Route::get('/download-backup/{fileName}', [BackupDownloadController::class, 'download'])
-        ->middleware('auth')
         ->name('backup.download');
 });

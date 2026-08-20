@@ -23,7 +23,6 @@ class AnggotaPanelProvider extends PanelProvider
         return $panel
             ->id('anggota')
             ->path('/anggota')
-            ->login()
             ->colors([
                 'primary' => Color::Green,
             ])

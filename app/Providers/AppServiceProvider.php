@@ -29,8 +29,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Binding login/logout response default Filament (role-based redirect
-        // ditangani canAccessPanel di User model, bukan custom response).
+        // Logout dari panel manapun kembali ke /login universal.
+        $this->app->bind(
+            \Filament\Http\Responses\Auth\Contracts\LogoutResponse::class,
+            \App\Http\Responses\LogoutResponse::class,
+        );
     }
 
     /**
