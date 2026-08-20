@@ -286,7 +286,7 @@
                                 <span>Rp {{ number_format($salesRevenue, 0, ',', '.') }}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span>Simpanan Anggota</span>
+                                <span>Simpanan Koperasi</span>
                                 <span>Rp {{ number_format($savingsRevenue, 0, ',', '.') }}</span>
                             </div>
                         </div>
@@ -341,7 +341,7 @@
                     </p>
                     <div class="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                         <p class="text-xs text-blue-600 dark:text-blue-400">
-                            Formula: (Simpanan Anggota / Total Simpanan) × {{ number_format($savingsPercentage, 1) }}% × Total SHU
+                            Formula: (Simpanan Koperasi / Total Simpanan) × {{ number_format($savingsPercentage, 1) }}% × Total SHU
                         </p>
                         <p class="text-xs text-blue-600 dark:text-blue-400 mt-1">
                             Kontribusi: Rp {{ number_format($savingsContribution, 0, ',', '.') }}

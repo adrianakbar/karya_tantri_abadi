@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class RekapSimpanan extends ChartWidget
 {
-    protected static ?string $heading = 'Statistik Tabungan (6 Bulan Terakhir)';
+    protected static ?string $heading = 'Statistik Simpanan Koperasi (6 Bulan)';
 
     protected function getData(): array
     {
@@ -50,7 +50,7 @@ class RekapSimpanan extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Total Tabungan (Rp)',
+                    'label' => 'Total Simpanan (Rp)',
                     'data' => $totals,
                     'backgroundColor' => 'rgba(34, 197, 94, 0.7)', // green
                     'borderColor' => 'rgba(34, 197, 94, 1)',

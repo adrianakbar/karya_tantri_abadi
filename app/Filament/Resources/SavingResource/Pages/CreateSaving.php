@@ -17,6 +17,6 @@ class CreateSaving extends CreateRecord
 
     public function getTitle(): string
     {
-        return 'Tambah Tabungan';
+        return 'Tambah Simpanan';
     }
 }

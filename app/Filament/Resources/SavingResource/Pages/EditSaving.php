@@ -25,6 +25,6 @@ class EditSaving extends EditRecord
 
     public function getTitle(): string
     {
-        return 'Edit Tabungan';
+        return 'Edit Simpanan';
     }
 }

@@ -196,7 +196,7 @@ class ReportDashboard extends Page
                 'number' => $st->transaction_number,
                 'date' => Carbon::parse($st->transaction_date),
                 'amount' => $st->amount,
-                'type' => 'Tabungan',
+                'type' => 'Simpanan',
             ]);
 
         return $sales->concat($purchases)->concat($savings)

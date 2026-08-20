@@ -17,8 +17,8 @@ class SavingsTypeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     protected static ?string $navigationGroup = 'Transaksi';
-    protected static ?string $navigationLabel = 'Jenis Tabungan';
-    protected static ?string $pluralModelLabel = 'Jenis Tabungan';
+    protected static ?string $navigationLabel = 'Jenis Simpanan';
+    protected static ?string $pluralModelLabel = 'Jenis Simpanan';
 
     public static function form(Form $form): Form
     {

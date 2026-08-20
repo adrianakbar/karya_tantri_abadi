@@ -60,10 +60,10 @@ class TransactionSummary extends Model
             ->where('status', 'completed')
             ->select([
                 'transaction_date',
-                DB::raw("CONCAT('Tabungan Anggota - ', transaction_number) as description"),
+                DB::raw("CONCAT('Simpanan Koperasi - ', transaction_number) as description"),
                 DB::raw("'inflow' as type"),
                 'amount',
-                DB::raw("'Tabungan Anggota' as category"),
+                DB::raw("'Simpanan Koperasi' as category"),
                 DB::raw("'SavingsTransaction' as reference_type"),
                 'id as transaction_id',
                 'transaction_date as sort_date'

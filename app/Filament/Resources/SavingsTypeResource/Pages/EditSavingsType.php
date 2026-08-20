@@ -25,6 +25,6 @@ class EditSavingsType extends EditRecord
 
     public function getTitle(): string
     {
-        return 'Edit Jenis Tabungan';
+        return 'Edit Jenis Simpanan';
     }
 }

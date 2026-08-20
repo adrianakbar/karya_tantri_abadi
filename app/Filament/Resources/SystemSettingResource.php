@@ -164,6 +164,6 @@ class SystemSettingResource extends Resource
 
     public static function shouldRegisterNavigation(): bool
     {
-        return auth()->user()->hasAnyPermission(['view_settings', 'manage_settings']);
+        return false;
     }
 }

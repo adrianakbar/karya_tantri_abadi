@@ -243,7 +243,7 @@
 
                                         if ($categoryName == 'Penjualan Produk') {
                                             $categoryClasses = 'bg-primary-100 text-primary-800';
-                                        } elseif ($categoryName == 'Simpanan Anggota') {
+                                        } elseif ($categoryName == 'Simpanan Koperasi') {
                                             $categoryClasses = 'bg-success-100 text-success-800';
                                         } elseif ($categoryName == 'Pembelian/Restok') {
                                             $categoryClasses = 'bg-danger-100 text-danger-800';

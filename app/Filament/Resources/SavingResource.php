@@ -3,9 +3,11 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SavingResource\Pages;
+use App\Models\LoanPayment;
 use App\Models\SavingsTransaction;
 use App\Models\SavingsType;
 use App\Models\User;
+use Filament\Notifications\Notification;
 use Filament\Forms;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Form;
@@ -13,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class SavingResource extends Resource
@@ -23,8 +26,8 @@ class SavingResource extends Resource
     protected static ?string $navigationGroup = 'Transaksi';
 
     // saya ingin buat sub navigasi dibawah grup transaksi 
-    protected static ?string $navigationLabel = 'Daftar Tabungan';
-    protected static ?string $pluralModelLabel = 'Daftar Tabungan';
+    protected static ?string $navigationLabel = 'Daftar Simpanan';
+    protected static ?string $pluralModelLabel = 'Daftar Simpanan';
 
     public static function form(Form $form): Form
     {
@@ -64,7 +67,7 @@ class SavingResource extends Resource
                             }
                         }
                     })
-                    ->label('Jenis Tabungan'),
+                    ->label('Jenis Simpanan'),
 
                 Forms\Components\TextInput::make('amount')
                     ->label('Nominal')
@@ -110,7 +113,7 @@ class SavingResource extends Resource
                     ->label('Anggota')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('savingsType.name')
-                    ->label('Jenis Tabungan')
+                    ->label('Jenis Simpanan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('amount')
                     ->label('Nominal')
@@ -143,7 +146,7 @@ class SavingResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('savings_type_id')
                     ->relationship('savingsType', 'name')
-                    ->label('Jenis Tabungan')
+                    ->label('Jenis Simpanan')
                     ->preload()
                     ->multiple(),
                 Tables\Filters\SelectFilter::make('status')
@@ -257,6 +260,73 @@ class SavingResource extends Resource
             ])
             ->emptyStateHeading('Data tidak ditemukan')
             ->emptyStateDescription('Belum ada data tabungan yang tersedia.')
+            ->headerActions([
+                Tables\Actions\Action::make('catatDariCicilan')
+                    ->label('Catat dari Cicilan')
+                    ->icon('heroicon-o-banknotes')
+                    ->color('success')
+                    ->modalHeading('Catat Simpanan dari Cicilan')
+                    ->modalSubmitActionLabel('Catat')
+                    ->form([
+                        Forms\Components\Select::make('loan_payment_id')
+                            ->label('Pembayaran Cicilan')
+                            ->options(fn () => static::unrecordedPaymentOptions())
+                            ->searchable()
+                            ->required()
+                            ->placeholder('Pilih cicilan yang belum dicatat')
+                            ->helperText('Hanya cicilan berstatus lunas yang belum tercatat sebagai simpanan.'),
+                    ])
+                    ->action(function (array $data): void {
+                        $payment = LoanPayment::with('loan')->find($data['loan_payment_id']);
+
+                        if (! $payment) {
+                            Notification::make()->title('Cicilan tidak ditemukan')->danger()->send();
+                            return;
+                        }
+
+                        // Guard duplikasi (UNIQUE transaction_number juga melindungi di DB).
+                        if (SavingsTransaction::where('transaction_number', $payment->payment_number)->exists()) {
+                            Notification::make()->title('Cicilan ini sudah dicatat sebagai simpanan')->warning()->send();
+                            return;
+                        }
+
+                        $memberId = $payment->loan?->user_id;
+                        if (! $memberId) {
+                            Notification::make()
+                                ->title('Pinjaman tidak terhubung ke akun anggota')
+                                ->body('Cicilan ' . $payment->payment_number . ' berasal dari pinjaman tanpa akun anggota, tidak dapat dicatat otomatis.')
+                                ->danger()->send();
+                            return;
+                        }
+
+                        $type = SavingsType::where('is_active', true)
+                            ->orderByRaw('CASE WHEN id = 2 THEN 0 ELSE 1 END')
+                            ->orderBy('id')
+                            ->first();
+                        if (! $type) {
+                            Notification::make()->title('Tidak ada jenis simpanan aktif')->danger()->send();
+                            return;
+                        }
+
+                        SavingsTransaction::create([
+                            'cooperation_id' => Auth::user()->cooperation_id,
+                            'user_id' => $memberId,
+                            'savings_type_id' => $type->id,
+                            'transaction_number' => $payment->payment_number,
+                            'amount' => $payment->total_amount,
+                            'transaction_date' => $payment->payment_date ?? now(),
+                            'notes' => 'Dari cicilan: ' . $payment->payment_number . ' / Pinjaman: ' . ($payment->loan?->loan_number ?? '-'),
+                            'receipt_number' => null,
+                            'processed_by' => Auth::id(),
+                            'status' => 'completed',
+                        ]);
+
+                        Notification::make()
+                            ->title('Simpanan berhasil dicatat')
+                            ->body('Cicilan ' . $payment->payment_number . ' dicatat sebagai ' . $type->name . '.')
+                            ->success()->send();
+                    }),
+            ])
             ->actions([
                 Tables\Actions\ViewAction::make()->label('Lihat'),
                 Tables\Actions\EditAction::make()->label('Edit'),
@@ -278,6 +348,33 @@ class SavingResource extends Resource
         return [
             //
         ];
+    }
+
+    /**
+     * Opsi cicilan lunas (paid) milik koperasi aktif yang BELUM tercatat sebagai simpanan.
+     * Deteksi belum-tercatat: tidak ada SavingsTransaction dengan transaction_number = payment_number.
+     */
+    protected static function unrecordedPaymentOptions(): array
+    {
+        $recorded = SavingsTransaction::whereNotNull('transaction_number')
+            ->pluck('transaction_number')
+            ->all();
+
+        return LoanPayment::with('loan')
+            ->where('cooperation_id', Auth::user()?->cooperation_id)
+            ->where('status', 'paid')
+            ->when(! empty($recorded), fn (Builder $q) => $q->whereNotIn('payment_number', $recorded))
+            ->orderByDesc('payment_date')
+            ->get()
+            ->mapWithKeys(function (LoanPayment $p): array {
+                $name = $p->loan?->borrower_name ?? '-';
+                $label = $p->payment_number
+                    . ' - Rp ' . number_format((float) $p->total_amount, 0, ',', '.')
+                    . ' - An. ' . $name;
+
+                return [$p->id => $label];
+            })
+            ->all();
     }
 
     public static function getPages(): array

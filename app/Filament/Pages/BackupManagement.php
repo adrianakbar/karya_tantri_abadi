@@ -20,6 +20,11 @@ class BackupManagement extends Page
     protected static string $view = 'filament.pages.backup-management';
     protected static ?int $navigationSort = 10;
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     public $backupFiles = [];
 
     public function mount()

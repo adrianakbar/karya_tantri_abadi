@@ -21,6 +21,6 @@ class ListSavingsTypes extends ListRecords
 
     public function getTitle(): string
     {
-        return 'Jenis Tabungan';
+        return 'Jenis Simpanan';
     }
 }

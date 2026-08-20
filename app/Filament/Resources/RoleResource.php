@@ -149,7 +149,7 @@ class RoleResource extends Resource
 
     public static function canAccess(): bool
     {
-        return false;
+        return auth()->user()?->hasRole('admin') ?? false;
     }
 
     public static function shouldRegisterNavigation(): bool
@@ -159,6 +159,6 @@ class RoleResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return false;
+        return auth()->user()?->hasRole('admin') ?? false;
     }
 }

@@ -36,7 +36,10 @@ class AdminPanelProvider extends PanelProvider
                 \App\Filament\Resources\SavingResource::class,
                 \App\Filament\Resources\SavingsTypeResource::class,
                 \App\Filament\Resources\SystemSettingResource::class,
-                // Hak akses (Role/Permission/UserRole) dihapus dari UI
+                // Role/Permission/UserRole: route CRUD utk edit link dari tab Pengaturan; disembunyikan dari nav
+                \App\Filament\Resources\RoleResource::class,
+                \App\Filament\Resources\PermissionResource::class,
+                \App\Filament\Resources\UserRoleResource::class,
                 \App\Filament\Resources\LoanResource::class,
                 // LoanTypeResource dihapus — jenis pinjaman tunggal: Kelompok
                 \App\Filament\Resources\ActivityLogResource::class,
@@ -50,6 +53,7 @@ class AdminPanelProvider extends PanelProvider
                 \App\Filament\Pages\LoanReport::class,
                 \App\Filament\Pages\SavingsReport::class,
                 \App\Filament\Pages\BackupManagement::class,
+                \App\Filament\Pages\Pengaturan::class,
             ])
             ->brandLogo(fn () => view('components.custom-brand', [
                 'logo' => asset('img/logo-karya-tantri-abadi.png'),

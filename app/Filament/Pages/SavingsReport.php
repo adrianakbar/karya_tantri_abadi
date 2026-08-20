@@ -30,10 +30,10 @@ class SavingsReport extends Page implements Tables\Contracts\HasTable, Forms\Con
     use InteractsWithTable, InteractsWithForms;
 
     protected static ?string $navigationIcon = 'heroicon-o-building-library';
-    protected static ?string $navigationLabel = 'Laporan Tabungan';
+    protected static ?string $navigationLabel = 'Laporan Simpanan';
     protected static ?string $navigationGroup = 'Laporan';
     protected static string $view = 'filament.pages.savings-report';
-    protected static ?string $title = 'Laporan Tabungan';
+    protected static ?string $title = 'Laporan Simpanan';
 
     public static function getNavigationGroup(): ?string
     {
@@ -61,13 +61,13 @@ class SavingsReport extends Page implements Tables\Contracts\HasTable, Forms\Con
                     ->label('No. Anggota')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('savingsType.name')
-                    ->label('Jenis Tabungan')
+                    ->label('Jenis Simpanan')
                     ->badge()
                     ->colors([
                         'primary' => 'Simpanan Pokok',
                         'success' => 'Simpanan Wajib',
                         'warning' => 'Simpanan Sukarela',
-                        'info' => 'Tabungan',
+                        'info' => 'Simpanan',
                     ]),
                 Tables\Columns\TextColumn::make('amount')
                     ->label('Jumlah')
@@ -118,7 +118,7 @@ class SavingsReport extends Page implements Tables\Contracts\HasTable, Forms\Con
                 Filter::make('jenis_tabungan')
                     ->form([
                         Select::make('savings_type_id')
-                            ->label('Jenis Tabungan')
+                            ->label('Jenis Simpanan')
                             ->options(SavingsType::all()->pluck('name', 'id'))
                             ->placeholder('Semua Jenis'),
                     ])
@@ -229,6 +229,6 @@ class SavingsReport extends Page implements Tables\Contracts\HasTable, Forms\Con
 
     public function getTitle(): string
     {
-        return 'Laporan Tabungan';
+        return 'Laporan Simpanan';
     }
 }

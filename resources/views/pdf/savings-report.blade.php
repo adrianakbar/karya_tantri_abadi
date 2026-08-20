@@ -23,7 +23,7 @@
 <body>
     <div class="header">
         <h1>KARYA TANTRI ABADI</h1>
-        <p>Laporan Simpanan Anggota</p>
+        <p>Laporan Simpanan Koperasi</p>
         <p>Dicetak pada: {{ date('d/m/Y H:i') }}</p>
     </div>
 
