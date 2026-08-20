@@ -45,7 +45,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             // Jangan auto-discover pages (supaya AuditTrail/SHU tidak muncul)
             ->pages([
-                Pages\Dashboard::class,
+                \App\Filament\Pages\Dashboard::class,
                 \App\Filament\Pages\FinancialReport::class,
                 \App\Filament\Pages\LoanReport::class,
                 \App\Filament\Pages\SavingsReport::class,
