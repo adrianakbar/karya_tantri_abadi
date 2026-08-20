@@ -57,9 +57,13 @@ class AdminPanelProvider extends PanelProvider
             ]))
             ->renderHook('panels::head.end', fn () => view('filament.head-with-tour'))
             ->widgets([
+                \App\Filament\Widgets\RekapKeuanganStats::class,
+                \App\Filament\Widgets\RekapPinjamanStats::class,
                 \App\Filament\Widgets\RekapAnggota::class,
+                \App\Filament\Widgets\RekapAnggotaBaru::class,
                 \App\Filament\Widgets\RekapPinjaman::class,
                 \App\Filament\Widgets\RekapSimpanan::class,
+                \App\Filament\Widgets\RecentLoanRequests::class,
             ])
             ->middleware([
                 EncryptCookies::class,
