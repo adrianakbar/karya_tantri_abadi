@@ -1,9 +1,9 @@
 # Form UAT — Karya Tantri Abadi
 
-**Diisi oleh:** Responden mitra (Admin / SPV / Kasir / **Anggota = Ketua Kelompok**)  
+**Diisi oleh:** Responden mitra (Admin / SPV / Kasir / **Anggota = Ketua Kelompok** / **Petugas Lapangan**)  
 **Fasilitator:** Peneliti — Adrian Akbar Ramadhani (NIM 222410102010)  
 **File Word utama:** `FORM_UAT_KARYA_TANTRI_ABADI.docx` (+ `.doc`)  
-**Sumber sistem:** multi-panel Filament (`/admin`, `/spv`, `/kasir`, `/anggota`); login `/auth/login` (email + password, **tanpa CAPTCHA**)
+**Sumber sistem:** multi-panel Filament (`/admin`, `/spv`, `/kasir`, `/anggota`, `/petugas`); login `/login` (email + password, **tanpa CAPTCHA**)
 
 ---
 
@@ -11,7 +11,7 @@
 
 - Nama lengkap:
 - Jabatan di mitra:
-- Peran sistem: [ ] Admin  [ ] SPV  [ ] Kasir  [ ] Anggota (Ketua Kelompok)
+- Peran sistem: [ ] Admin  [ ] SPV  [ ] Kasir  [ ] Anggota (Ketua Kelompok)  [ ] Petugas Lapangan
 - Tanggal uji: ____ / ____ / 2026
 - Tempat:
 - No. HP/WA (opsional):
@@ -73,7 +73,7 @@ Peneliti: Adrian Akbar Ramadhani — NIM 222410102010
 
 ## F. Walkthrough singkat sebelum isi kuesioner
 
-Login bersama di `/auth/login` (tanpa CAPTCHA). Password demo seed: `password`.
+Login bersama di `/login` (tanpa CAPTCHA). Password demo seed: `password`.
 
 | Peran | Panel | Yang dicoba di sistem |
 |---|---|---|
@@ -81,22 +81,22 @@ Login bersama di `/auth/login` (tanpa CAPTCHA). Password demo seed: `password`.
 | SPV | `/spv` | Buka pinjaman pending; **Setujui** / **Tolak**; pantau laporan pinjaman/keuangan |
 | Kasir | `/kasir` | Catat **Tabungan**; **Cairkan** pinjaman approved; pastikan jadwal cicilan muncul; **tidak** ada Catat Bayar; buka laporan |
 | Anggota (Ketua Kelompok) | `/anggota` | Lihat pinjaman milik sendiri saja; cek cair bersih, angsuran, sisa, status; pastikan tidak bisa create/edit pinjaman |
-| Petugas lapangan | — (offline) | Tidak login. Disimulasikan: serahkan data pengajuan + uang cicilan ke admin |
+| Petugas lapangan | `/petugas` | Catat draf nama nasabah + upload foto KTP + ajukan pinjaman draf; serahkan uang cicilan ke admin secara offline |
 
 ### Parameter fee pinjaman (untuk demo fasilitator)
 
 | Nominal contoh | Admin | UTJ | Cair bersih | Total dilunasi (nominal+11%) |
-|---:|---:|---:|---:|---:|
+|---:|---:|---:|---:|---:|---:|
 | Rp1.000.000 | 5% | 22% | Rp730.000 | Rp1.110.000 |
 | Rp2.600.000 | 5% | 11% | Rp2.184.000 | Rp2.886.000 |
 
 Plafon max Rp5.000.000; tenor max 3 bulan; weekly 3 bln = 12 cicilan (jadwal dibuat saat pencairan).
 
-Akun demo: `admin@karya-tantri-abadi.test`, `spv@…`, `kasir@…`, `anggota@…` / `password`  
+Akun demo: `admin@karya-tantri-abadi.test`, `spv@…`, `kasir@…`, `anggota@…`, `petugas@…` / `password`  
 (alternatif: `*@test.com`)
 
 ## G. Print
 
-- Minimal: **4 lembar** (1 admin + 1 SPV + 1 kasir + 1 ketua kelompok)
+- Minimal: **5 lembar** (1 admin + 1 SPV + 1 kasir + 1 ketua kelompok + 1 petugas)
 - Ideal: **6–10 lembar**
 - Black box/checklist demo: **1 set** (diisi peneliti, form terpisah)

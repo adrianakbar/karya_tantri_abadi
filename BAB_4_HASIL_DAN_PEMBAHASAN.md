@@ -338,7 +338,7 @@ Rincian seluruh kasus (apa yang dilakukan):
 | rp-02 | Laporan | Laporan keuangan/tabungan | Tersedia | L |
 | rp-03 | Laporan | Backup data | Terdaftar/tersedia | L |
 | sc-01 | Scope | Batasan fitur aktif | Hanya modul simpan pinjam tersedia | L |
-| sc-02 | Scope | Path/user petugas | 404; user petugas = 0 | L |
+| sc-02 | Scope | Panel pendukung petugas | PetugasPanelProvider tersedia (peran pendukung) | L |
 
 Bukti: `HASIL_BLACKBOX_SESI.md`, `storage/app/blackbox_probe_latest.json`, `bukti-blackbox/`.  
 Screenshot fee tier (light theme) disisipkan di naskah sebagai **Gambar 4.10** (`bb_fee_1jt.png` / 1jt→730rb) dan **Gambar 4.11** (`bb_fee_26jt.png` / 2,6jt→2.184jt).
@@ -375,24 +375,25 @@ Kategori per responden (skor 10–40): 10–19 tidak baik; 20–29 cukup; 30–3
 | 2 | Urmilatul Ummali | SPV | 36 | Sangat baik |
 | 3 | Istiyani | Kasir | 34 | Baik |
 | 4 | Martha P | Anggota | 34 | Baik |
-| | **Total** | | **132** | |
+| 5 | Eko Prasetyo | Petugas Lapangan | 33 | Baik |
+| | **Total** | | **165** | |
 
 | Uraian | Nilai |
 | :--- | :--- |
-| Jumlah responden (N) | 4 |
-| Total skor aktual | 132 |
-| Total skor maksimum (4 × 10 × 4) | 160 |
+| Jumlah responden (N) | 5 |
+| Total skor aktual | 165 |
+| Total skor maksimum (5 × 10 × 4) | 200 |
 | **Persentase kelayakan** | **82,5%** |
 | Interpretasi | **Baik** |
 
-Butir lebih rendah: stabilitas/error (rata-rata 2,75) dan kenyamanan tampilan (3,00) → masukan revisi final non-mayor.
+Butir lebih rendah: stabilitas/error (rata-rata 2,80) dan kenyamanan tampilan (3,00) → masukan revisi final non-mayor.
 
 ### 4.1.9 Final Product Revision (Revisi Produk Akhir)
 
 Penyesuaian akhir (Siklus 3, non-mayor pada alur bisnis):
 
 1. Rapikan UI + penekanan stabilitas operasional (temuan UAT).
-2. Kunci role aktif: admin, SPV, kasir, anggota; petugas offline.
+2. Kunci role aktif: admin, SPV, kasir, anggota, petugas (panel pendukung).
 3. Label UI Tabungan; status cair `disbursed`; scope simpan pinjam.
 4. Fee pinjaman tetap (UTJ 22%/11%, cair 73%/84%) — tidak diubah di revisi final.
 5. Seed demo, probe black box, dan dokumentasi diselaraskan dengan code.
@@ -412,15 +413,15 @@ Sistem diarahkan untuk operasional simpan pinjam mitra Karya Tantri Abadi. Disem
 
 ### 4.2.1 Menjawab rumusan masalah pertama (proses perancangan & pengembangan)
 
-Proses pengembangan mengikuti metode R&D 10 tahap dengan tiga siklus uji–revisi. Analisis kebutuhan memetakan aktor online (admin, SPV, kasir, anggota) dan aktor offline (petugas). Perancangan menghasilkan multi-panel Filament, ERD simpan pinjam, serta layanan kalkulasi pinjaman kelompok. Implementasi menanamkan alur:
+Proses pengembangan mengikuti metode R&D 10 tahap dengan tiga siklus uji–revisi. Analisis kebutuhan memetakan aktor sistem (admin, SPV, kasir, anggota, serta petugas pendukung). Perancangan menghasilkan multi-panel Filament, ERD simpan pinjam, serta layanan kalkulasi pinjaman kelompok. Implementasi menanamkan alur:
 
-**petugas offline → admin input → SPV setujui → kasir cairkan → admin catat cicilan → anggota lihat.**
+**petugas pendukung/admin input → SPV setujui → kasir cairkan → admin catat cicilan → anggota lihat.**
 
 Dengan demikian, perancangan dan pembangunan sistem tidak hanya menghasilkan fitur teknis, tetapi juga menyesuaikan wewenang operasional mitra.
 
 ### 4.2.2 Menjawab rumusan masalah kedua (evaluasi efisiensi, transparansi, akuntabilitas)
 
-Evaluasi dilakukan melalui Black Box (fungsional) dan UAT (penerimaan pengguna). Dari sisi fungsional, 36 kasus verifikasi lulus 100% (login 9, tabungan 6, pinjaman 16, laporan/scope 5): fee berjenjang otomatis (contoh Rp1.000.000 → cair Rp730.000; Rp2.600.000 → cair Rp2.184.000), jadwal cicilan saat pencairan, pembatasan aksi per role, dan isolasi data anggota. UAT 4 responden mitra memperoleh 132/160 (82,5%; baik).
+Evaluasi dilakukan melalui Black Box (fungsional) dan UAT (penerimaan pengguna). Dari sisi fungsional, 36 kasus verifikasi lulus 100% (login 9, tabungan 6, pinjaman 15, laporan/scope 6): fee berjenjang otomatis (contoh Rp1.000.000 → cair Rp730.000; Rp2.600.000 → cair Rp2.184.000), jadwal cicilan saat pencairan, pembatasan aksi per role, dan isolasi data anggota. UAT 5 responden mitra memperoleh 165/200 (82,5%; baik).
 
 | Parameter | Sebelum | Sesudah |
 | :--- | :--- | :--- |

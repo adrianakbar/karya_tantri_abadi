@@ -68,17 +68,10 @@
             border: 1px solid rgb(229 231 235);
             padding: 2rem;
         }
-        
-        @media (prefers-color-scheme: dark) {
-            .fi-simple-form {
-                background: rgb(17 24 39);
-                border-color: rgb(55 65 81);
-            }
-        }
     </style>
 </head>
 
-<body class="fi-body fi-panel-app min-h-screen bg-gray-50 font-sans antialiased dark:bg-gray-950">
+<body class="fi-body fi-panel-app min-h-screen bg-gray-50 font-sans antialiased">
     <div class="fi-simple-layout flex min-h-screen flex-col items-center">
         <div class="fi-simple-main-ctn flex w-full flex-1 flex-col items-center justify-center">
             <main class="fi-simple-main">
@@ -87,12 +80,12 @@
                         <div class="fi-logo">
                             <div class="flex items-center gap-2 whitespace-nowrap">
                                 <img src="{{ asset('img/logo-karya-tantri-abadi.png') }}" alt="Logo" class="h-12 w-auto">
-                                <span class="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                                <span class="text-xl font-semibold text-gray-800">
                                     Karya Tantri Abadi
                                 </span>
                             </div>
                         </div>
-                        <h1 class="fi-simple-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white">
+                        <h1 class="fi-simple-header-heading text-2xl font-bold tracking-tight text-gray-950">
                             Login
                         </h1>
                     </header>
@@ -100,7 +93,7 @@
                     <div class="fi-simple-form">
                         @if ($errors->any())
                             <div class="fi-section mb-6">
-                                <div class="rounded-lg bg-danger-50 p-4 dark:bg-danger-950/50">
+                                <div class="rounded-lg bg-danger-50 p-4">
                                     <div class="flex">
                                         <div class="flex-shrink-0">
                                             <svg class="h-5 w-5 text-danger-400" fill="currentColor" viewBox="0 0 20 20">
@@ -108,10 +101,10 @@
                                             </svg>
                                         </div>
                                         <div class="ml-3">
-                                            <h3 class="text-sm font-medium text-danger-800 dark:text-danger-200">
+                                            <h3 class="text-sm font-medium text-danger-800">
                                                 Terjadi kesalahan saat login
                                             </h3>
-                                            <div class="mt-2 text-sm text-danger-700 dark:text-danger-300">
+                                            <div class="mt-2 text-sm text-danger-700">
                                                 <ul class="list-disc pl-5 space-y-1">
                                                     @foreach ($errors->all() as $error)
                                                         <li>{{ $error }}</li>
@@ -131,14 +124,14 @@
                                 <div class="grid gap-y-2">
                                     <div class="flex items-center gap-x-3 justify-between">
                                         <label for="email" class="fi-fo-field-wrp-label inline-flex items-center gap-x-3">
-                                            <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
+                                            <span class="text-sm font-medium leading-6 text-gray-950">
                                                 Email address
-                                                <sup class="text-danger-600 dark:text-danger-400 font-medium">*</sup>
+                                                <sup class="text-danger-600 font-medium">*</sup>
                                             </span>
                                         </label>
                                     </div>
                                     
-                                    <div class="fi-input-wrp flex rounded-lg shadow-sm ring-1 transition duration-75 bg-white dark:bg-white/5 ring-gray-950/10 dark:ring-white/20 focus-within:ring-2 focus-within:ring-primary-600 dark:focus-within:ring-primary-500">
+                                    <div class="fi-input-wrp flex rounded-lg shadow-sm ring-1 transition duration-75 bg-white ring-gray-950/10 focus-within:ring-2 focus-within:ring-primary-600">
                                         <input
                                             id="email"
                                             name="email"
@@ -147,13 +140,13 @@
                                             required
                                             autofocus
                                             autocomplete="username"
-                                            class="fi-input block w-full border-none py-1.5 text-base text-gray-950 transition duration-75 placeholder:text-gray-400 focus:ring-0 disabled:text-gray-500 disabled:[-webkit-text-fill-color:theme(colors.gray.500)] disabled:placeholder:[-webkit-text-fill-color:theme(colors.gray.400)] dark:text-white dark:placeholder:text-gray-500 dark:disabled:text-gray-400 dark:disabled:[-webkit-text-fill-color:theme(colors.gray.400)] dark:disabled:placeholder:[-webkit-text-fill-color:theme(colors.gray.500)] sm:text-sm sm:leading-6 bg-white/0 ps-3 pe-3 @error('email') ring-danger-600 dark:ring-danger-500 @enderror"
+                                            class="fi-input block w-full border-none py-1.5 text-base text-gray-950 transition duration-75 placeholder:text-gray-400 focus:ring-0 disabled:text-gray-500 disabled:[-webkit-text-fill-color:theme(colors.gray.500)] disabled:placeholder:[-webkit-text-fill-color:theme(colors.gray.400)] sm:text-sm sm:leading-6 bg-white/0 ps-3 pe-3 @error('email') ring-danger-600 @enderror"
                                             placeholder="Masukkan alamat email Anda"
                                         >
                                     </div>
                                     
                                     @error('email')
-                                        <div class="text-sm text-danger-600 dark:text-danger-400 mt-2">
+                                        <div class="text-sm text-danger-600 mt-2">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -164,27 +157,27 @@
                                 <div class="grid gap-y-2">
                                     <div class="flex items-center gap-x-3 justify-between">
                                         <label for="password" class="fi-fo-field-wrp-label inline-flex items-center gap-x-3">
-                                            <span class="text-sm font-medium leading-6 text-gray-950 dark:text-white">
+                                            <span class="text-sm font-medium leading-6 text-gray-950">
                                                 Password
-                                                <sup class="text-danger-600 dark:text-danger-400 font-medium">*</sup>
+                                                <sup class="text-danger-600 font-medium">*</sup>
                                             </span>
                                         </label>
                                     </div>
                                     
-                                    <div class="fi-input-wrp flex rounded-lg shadow-sm ring-1 transition duration-75 bg-white dark:bg-white/5 ring-gray-950/10 dark:ring-white/20 focus-within:ring-2 focus-within:ring-primary-600 dark:focus-within:ring-primary-500">
+                                    <div class="fi-input-wrp flex rounded-lg shadow-sm ring-1 transition duration-75 bg-white ring-gray-950/10 focus-within:ring-2 focus-within:ring-primary-600">
                                         <input
                                             id="password"
                                             name="password"
                                             type="password"
                                             required
                                             autocomplete="current-password"
-                                            class="fi-input block w-full border-none py-1.5 text-base text-gray-950 transition duration-75 placeholder:text-gray-400 focus:ring-0 disabled:text-gray-500 disabled:[-webkit-text-fill-color:theme(colors.gray.500)] disabled:placeholder:[-webkit-text-fill-color:theme(colors.gray.400)] dark:text-white dark:placeholder:text-gray-500 dark:disabled:text-gray-400 dark:disabled:[-webkit-text-fill-color:theme(colors.gray.400)] dark:disabled:placeholder:[-webkit-text-fill-color:theme(colors.gray.500)] sm:text-sm sm:leading-6 bg-white/0 ps-3 pe-3 @error('password') ring-danger-600 dark:ring-danger-500 @enderror"
+                                            class="fi-input block w-full border-none py-1.5 text-base text-gray-950 transition duration-75 placeholder:text-gray-400 focus:ring-0 disabled:text-gray-500 disabled:[-webkit-text-fill-color:theme(colors.gray.500)] disabled:placeholder:[-webkit-text-fill-color:theme(colors.gray.400)] sm:text-sm sm:leading-6 bg-white/0 ps-3 pe-3 @error('password') ring-danger-600 @enderror"
                                             placeholder="Masukkan password Anda"
                                         >
                                     </div>
                                     
                                     @error('password')
-                                        <div class="text-sm text-danger-600 dark:text-danger-400 mt-2">
+                                        <div class="text-sm text-danger-600 mt-2">
                                             {{ $message }}
                                         </div>
                                     @enderror
@@ -197,10 +190,10 @@
                                         id="remember"
                                         name="remember"
                                         type="checkbox"
-                                        class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded dark:border-gray-600 dark:bg-gray-700"
+                                        class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                                         {{ old('remember') ? 'checked' : '' }}
                                     >
-                                    <label for="remember" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                                    <label for="remember" class="ml-2 block text-sm text-gray-900">
                                         Remember me
                                     </label>
                                 </div>
@@ -210,7 +203,7 @@
                                 <div class="fi-ac-action-wrp">
                                     <button
                                         type="submit"
-                                        class="fi-btn relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus-visible:ring-2 rounded-lg fi-color-custom fi-btn-color-primary fi-color-primary fi-size-md fi-btn-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-custom-600 text-white hover:bg-custom-500 focus-visible:ring-custom-500/50 dark:bg-custom-500 dark:hover:bg-custom-400 dark:focus-visible:ring-custom-400/50 fi-ac-action fi-ac-btn-action w-full"
+                                        class="fi-btn relative grid-flow-col items-center justify-center font-semibold outline-none transition duration-75 focus-visible:ring-2 rounded-lg fi-color-custom fi-btn-color-primary fi-color-primary fi-size-md fi-btn-size-md gap-1.5 px-3 py-2 text-sm inline-grid shadow-sm bg-custom-600 text-white hover:bg-custom-500 focus-visible:ring-custom-500/50 fi-ac-action fi-ac-btn-action w-full"
                                         style="--c-400:var(--primary-400);--c-500:var(--primary-500);--c-600:var(--primary-600);"
                                     >
                                         <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="animate-spin fi-btn-icon transition duration-75 h-5 w-5 text-white" wire:loading="" wire:target="authenticate" style="display: none;">

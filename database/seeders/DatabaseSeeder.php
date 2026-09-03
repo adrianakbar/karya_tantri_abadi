@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
             // ProductCategorySeeder::class,
             // ProductSeeder::class,
             SavingsTransactionSeeder::class,
-            LoanSeeder::class,
+            PinjamanSeeder::class,
+            PetugasNasabahSeeder::class,
         ]);
         
         // To use CompleteSystemSeeder, uncomment line above and comment out individual seeders

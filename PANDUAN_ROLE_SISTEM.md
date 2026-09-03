@@ -58,7 +58,7 @@ Siap print / demo / UAT.
 
 ## 5. Akun demo
 `*@karya-tantri-abadi.test` / `password` (admin, spv, kasir, anggota, petugas)  
-Login: landing pilih role di `/` atau `/<role>/login` (tanpa CAPTCHA)
+Login: satu halaman login di `/login` (tanpa CAPTCHA)
 
 ## 6. Di luar scope
-POS/retail, SHU, role legacy login.
+POS/retail, SHU.

@@ -4,9 +4,8 @@
 Dokumen ini dipersiapkan sebagai panduan praktis dan lembar fisik yang dibawa saat uji coba bersama pengelola dan ketua kelompok.
 
 Sesuai sistem aktif:
-- Login `/auth/login` (email + password, **tanpa CAPTCHA**)
-- Role online: Admin, SPV, Kasir, Anggota (ketua kelompok)
-- Petugas lapangan: **offline**
+- Login `/login` (email + password, **tanpa CAPTCHA**)
+- Role online: Admin, SPV, Kasir, Anggota (ketua kelompok), Petugas Lapangan (panel pendukung)
 - Label UI: **Tabungan** (formal naskah: simpanan)
 - Scope: simpan pinjam saja (POS/SHU nonaktif)
 
@@ -21,11 +20,10 @@ Sesuai sistem aktif:
 
 ## 1. Skenario Panduan Uji Coba Sistem
 
-Responden online: **Admin, SPV, Kasir, Anggota (Ketua Kelompok)**.  
-Petugas lapangan: **offline** (tidak login); perannya disimulasikan dengan menyerahkan data/uang ke admin.
+Responden online: **Admin, SPV, Kasir, Anggota (Ketua Kelompok), Petugas Lapangan**.
 
 ### A. Admin (`/admin`)
-1. Login di `/auth/login` → masuk panel `/admin`.
+1. Login di `/login` → masuk panel `/admin`.
 2. Kelola/cek data anggota (user anggota / ketua kelompok).
 3. Input pinjaman kelompok (pending): nominal, tenor, frekuensi weekly/monthly.
 4. Pastikan fee tampil sesuai tier:
@@ -55,11 +53,10 @@ Petugas lapangan: **offline** (tidak login); perannya disimulasikan dengan menye
 3. Lihat cair bersih, angsuran, sisa hutang, status.
 4. Pastikan tidak bisa membuat/edit pinjaman dan tidak mengelola tabungan di panel ini.
 
-### E. Simulasi petugas offline (bukan login)
-1. Peneliti/mitra menjelaskan: petugas mencari/mendampingi nasabah & menarik cicilan di lapangan.
-2. Data pengajuan diserahkan ke admin untuk diinput.
-3. Uang cicilan diserahkan ke admin untuk dicatat di sistem.
-4. Tidak ada akun/panel `/petugas`.
+### E. Petugas Lapangan (`/petugas`)
+1. Login → `/petugas`.
+2. Input draf pengajuan pinjaman nasabah baru (nama nasabah + upload foto KTP).
+3. Serahkan uang fisik setoran cicilan dari lapangan ke admin untuk direkonsiliasi.
 
 ### F. Akun demo (seed)
 Password default: `password`
@@ -70,6 +67,7 @@ Password default: `password`
 | SPV | `spv@karya-tantri-abadi.test` | `/spv` |
 | Kasir | `kasir@karya-tantri-abadi.test` | `/kasir` |
 | Anggota (ketua) | `anggota@karya-tantri-abadi.test` | `/anggota` |
+| Petugas | `petugas@karya-tantri-abadi.test` | `/petugas` |
 
 Alternatif: `*@test.com`.
 

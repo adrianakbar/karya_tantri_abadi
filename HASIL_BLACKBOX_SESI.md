@@ -52,8 +52,9 @@ Catatan probe: sc-02 dijalankan via HTTP lokal container :80 (host map :8000).
 | rp-01 | L | LoanResource available |
 | rp-02 | L | Financial/Savings report available |
 | rp-03 | L | spatie/laravel-backup registered/present |
+| ui-01 | L | dashboard admin 7 widget & pengaturan bertab tampil |
 | sc-01 | L | fitur aktif hanya domain simpan pinjam |
-| sc-02 | L | HTTP /petugas=404; petugas users=0 |
+| sc-02 | L | PetugasPanelProvider tersedia; petugas users=1 (peran pendukung) |
 | seed-tier-high | L | 5jt utj=550000 net=4200000 |
 | seed-tier-low | L | 1jt utj=220000 net=730000 |
 
@@ -65,7 +66,7 @@ Catatan probe: sc-02 dijalankan via HTTP lokal container :80 (host map :8000).
    - 2,6jt: UTJ 11% / cair 2.184.000
    - 5jt: UTJ 11% / cair 4.200.000
 3. Alur create → approve → reject sample → cair → 12 cicilan → bayar 1 berjalan.
-4. Panel/akun petugas tidak disediakan (`/petugas` 404; petugas users=0).
+4. Panel pendukung petugas (`/petugas`) tersedia untuk input draf nasabah & upload KTP secara digital.
 5. Anggota hanya lihat pinjaman sendiri; tidak create tabungan/pinjaman.
 
 ## Bukti
