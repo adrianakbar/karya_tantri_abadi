@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gambar 2.2 - Tahapan Metode R&D</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Times New Roman',serif;background:#f1f5f9;display:flex;justify-content:center;padding:30px}
+  .container{background:#fff;padding:40px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.12);max-width:750px;width:100%}
+  h2{text-align:center;font-size:18px;color:#1e293b;margin-bottom:4px}
+  .sub{text-align:center;font-size:13px;color:#64748b;margin-bottom:30px}
+  .flow{position:relative;display:flex;flex-direction:column;align-items:center}
+  .box{padding:14px 20px;border-radius:10px;color:#fff;text-align:center;font-size:13px;font-weight:bold;width:100%;max-width:460px;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  .box .small{font-weight:normal;font-size:11px;display:block;margin-top:3px;opacity:.85}
+  .arrow{width:2px;height:22px;background:#94a3b8;position:relative;margin:0 auto}
+  .arrow::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#94a3b8}
+  .loop-row{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;margin:6px 0}
+  .loop-row .line{flex:1;height:1.5px;border-top:1.5px dashed #f59e0b;position:relative}
+  .loop-row .label{font-size:10px;color:#d97706;font-style:italic;white-space:nowrap}
+  .decision{display:flex;align-items:center;justify-content:center;gap:16px;width:100%;margin:6px 0}
+  .decision .line-yes{flex:1;height:1.5px;border-top:1.5px solid #059669}
+  .decision .label-yes{font-size:10px;color:#047857;font-weight:bold}
+  .decision .line-no{flex:1;height:1.5px;border-top:1.5px dashed #d97706}
+  .decision .label-no{font-size:10px;color:#d97706;font-weight:bold}
+  .blue{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+  .cyan{background:linear-gradient(135deg,#0891b2,#0e7490)}
+  .green{background:linear-gradient(135deg,#059669,#047857)}
+  .orange{background:linear-gradient(135deg,#d97706,#b45309)}
+  .red{background:linear-gradient(135deg,#dc2626,#b91c1c)}
+  .legend{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:30px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:12px}
+  .legend-item{display:flex;align-items:center;gap:6px}
+  .legend-dot{width:14px;height:14px;border-radius:4px;flex-shrink:0}
+  .revisi-label{color:#d97706;font-size:10px;font-style:italic;margin-right:8px}
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Gambar 2.2 Tahapan Metode Research and Development (R&amp;D)</h2>
+  <p class="sub">Diadaptasi dari Borg &amp; Gall (1983) oleh Mufadhol dkk. (2017)</p>
+
+  <div class="flow">
+
+    <!-- 1 -->
+    <div class="box blue">1. Research &amp; Information Collection<span class="small">(Studi Literatur, Observasi, Wawancara)</span></div>
+    <div class="arrow"></div>
+
+    <!-- 2 -->
+    <div class="box blue">2. Planning<span class="small">(Tujuan, Jadwal, Infrastruktur, Jobdesc)</span></div>
+    <div class="arrow"></div>
+
+    <!-- 3 -->
+    <div class="box blue">3. Develop Preliminary Form of Product<span class="small">(Desain ERD, UCD, AD, SD + Coding Prototipe)</span></div>
+    <div class="arrow"></div>
+
+    <!-- 4 -->
+    <div class="box cyan">4. Preliminary Field Testing<span class="small">(Uji Coba Terbatas + Black Box Testing)</span></div>
+
+    <!-- Decision 1 -->
+    <div class="decision">
+      <div class="line-no"></div>
+      <span class="label-no">Tidak ✓ Revisi</span>
+      <div style="background:#fef3c7;border:1.5px solid #d97706;border-radius:6px;padding:6px 16px;font-size:12px;font-weight:bold;color:#92400e">Lolos?</div>
+      <span class="label-yes">Ya</span>
+      <div class="line-yes"></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="box orange">5. Main Product Revision<span class="small">(Revisi Kualitatif)</span></div>
+    <div class="arrow"></div>
+
+    <!-- 6 -->
+    <div class="box cyan">6. Main Field Testing<span class="small">(Uji Coba Lapangan Skala Luas)</span></div>
+
+    <!-- Decision 2 -->
+    <div class="decision">
+      <div class="line-no"></div>
+      <span class="label-no">Tidak ✓ Revisi</span>
+      <div style="background:#fef3c7;border:1.5px solid #d97706;border-radius:6px;padding:6px 16px;font-size:12px;font-weight:bold;color:#92400e">Lolos?</div>
+      <span class="label-yes">Ya</span>
+      <div class="line-yes"></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="box orange">7. Operational Product Revision<span class="small">(Revisi Kuantitatif)</span></div>
+    <div class="arrow"></div>
+
+    <!-- 8 -->
+    <div class="box green">8. Operational Field Testing<span class="small">(UAT + Skala Besar)</span></div>
+
+    <!-- Decision 3 -->
+    <div class="decision">
+      <div class="line-no"></div>
+      <span class="label-no">Tidak ✓ Revisi</span>
+      <div style="background:#fef3c7;border:1.5px solid #d97706;border-radius:6px;padding:6px 16px;font-size:12px;font-weight:bold;color:#92400e">Lolos?</div>
+      <span class="label-yes">Ya</span>
+      <div class="line-yes"></div>
+    </div>
+
+    <!-- 9 -->
+    <div class="box orange">9. Final Product Revision</div>
+    <div class="arrow"></div>
+
+    <!-- 10 -->
+    <div class="box red">10. Dissemination &amp; Implementation<span class="small">(Publikasi Ilmiah + Implementasi Sistem)</span></div>
+
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)"></div> Perencanaan &amp; Desain</div>
+    <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(135deg,#0891b2,#0e7490)"></div> Pengujian Fungsional</div>
+    <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(135deg,#059669,#047857)"></div> UAT &amp; Validasi</div>
+    <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(135deg,#d97706,#b45309)"></div> Revisi</div>
+    <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(135deg,#dc2626,#b91c1c)"></div> Implementasi</div>
+  </div>
+</div>
+</body>
+</html>

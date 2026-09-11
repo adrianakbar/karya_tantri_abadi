@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gambar 4.1 - Flowchart Tahapan Penelitian</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Times New Roman',serif;background:#f1f5f9;display:flex;justify-content:center;padding:30px}
+  .container{background:#fff;padding:40px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.12);max-width:650px;width:100%}
+  h2{text-align:center;font-size:18px;color:#1e293b;margin-bottom:24px}
+  .flow{display:flex;flex-direction:column;align-items:center}
+  
+  /* Terminal nodes */
+  .terminal{background:#e2e8f0;border:2px solid #475569;border-radius:50px;padding:10px 40px;font-weight:bold;font-size:13px;color:#1e293b;margin:6px 0}
+  
+  /* Process boxes */
+  .box{padding:14px 24px;border-radius:10px;color:#fff;text-align:center;font-size:13px;font-weight:bold;width:100%;max-width:480px;box-shadow:0 2px 8px rgba(0,0,0,.12);margin:4px 0}
+  .sub{font-weight:normal;font-size:11px;display:block;margin-top:3px;opacity:.85}
+  
+  /* Decision diamond */
+  .diamond-wrap{display:flex;align-items:center;justify-content:center;width:100%;margin:6px 0;gap:10px}
+  .diamond{background:#fef3c7;border:2px solid #d97706;border-radius:8px;padding:8px 20px;font-size:13px;font-weight:bold;color:#92400e;text-align:center;min-width:100px}
+  .diamond-arrow{flex:1;height:1.5px;position:relative}
+  .diamond-arrow.yes{border-top:2px solid #059669}
+  .diamond-arrow.no{border-top:2px dashed #d97706}
+  .diamond-label{font-size:10px;font-weight:bold;position:absolute;top:-14px}
+  .diamond-label.yes{color:#047857;right:0}
+  .diamond-label.no{color:#d97706;left:0}
+  
+  .arrow-v{width:2px;height:20px;background:#94a3b8;position:relative;margin:0 auto}
+  .arrow-v::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#94a3b8}
+  
+  .loops{position:relative;width:100%;margin:8px 0}
+  .loop-line{display:flex;align-items:center;gap:8px;justify-content:flex-start;margin:2px 0}
+  .loop-line .dash{flex:0 0 60px;border-top:2px dashed #d97706}
+  .loop-line .txt{font-size:10px;color:#d97706;font-style:italic}
+
+  /* Colors */
+  .blue{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+  .cyan{background:linear-gradient(135deg,#0891b2,#0e7490)}
+  .green{background:linear-gradient(135deg,#059669,#047857)}
+  .orange{background:linear-gradient(135deg,#d97706,#b45309)}
+  .red{background:linear-gradient(135deg,#dc2626,#b91c1c)}
+
+  .legend{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:28px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:12px}
+  .legend-item{display:flex;align-items:center;gap:6px}
+  .dot{width:14px;height:14px;border-radius:4px;flex-shrink:0}
+
+  .revisi-badge{font-size:10px;color:#d97706;font-style:italic;background:#fffbeb;border:1px dashed #d97706;border-radius:4px;padding:2px 8px;display:inline-block}
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Gambar 4.1 Tahapan Penelitian</h2>
+
+  <div class="flow">
+
+    <!-- START -->
+    <div class="terminal">MULAI</div>
+    <div class="arrow-v"></div>
+
+    <!-- 1 -->
+    <div class="box blue">1. Research &amp; Information Collection<span class="sub">(Studi Literatur, Observasi, Wawancara)</span></div>
+    <div class="arrow-v"></div>
+
+    <!-- 2 -->
+    <div class="box blue">2. Planning<span class="sub">(Tujuan, Jadwal, Infrastruktur, Jobdesc)</span></div>
+    <div class="arrow-v"></div>
+
+    <!-- 3 -->
+    <div class="box blue">3. Develop Preliminary Form of Product<span class="sub">(Desain ERD, UCD, AD, SD + Coding Prototipe)</span></div>
+    <div class="arrow-v"></div>
+
+    <!-- 4 -->
+    <div class="box cyan">4. Preliminary Field Testing<span class="sub">(Uji Coba Terbatas + Black Box Testing)</span></div>
+
+    <!-- Decision 1 -->
+    <div class="diamond-wrap">
+      <div class="diamond-arrow no"><span class="diamond-label no">Tidak</span></div>
+      <div class="diamond">Lolos?</div>
+      <div class="diamond-arrow yes"><span class="diamond-label yes">Ya</span></div>
+    </div>
+
+    <div class="loops">
+      <div class="loop-line"><span class="dash"></span><span class="txt">← Revisi ke tahap 3</span></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="box orange">5. Main Product Revision<span class="sub">(Revisi Kualitatif)</span></div>
+    <div class="arrow-v"></div>
+
+    <!-- 6 -->
+    <div class="box cyan">6. Main Field Testing<span class="sub">(Uji Coba Skala Luas)</span></div>
+
+    <!-- Decision 2 -->
+    <div class="diamond-wrap">
+      <div class="diamond-arrow no"><span class="diamond-label no">Tidak</span></div>
+      <div class="diamond">Lolos?</div>
+      <div class="diamond-arrow yes"><span class="diamond-label yes">Ya</span></div>
+    </div>
+
+    <div class="loops">
+      <div class="loop-line"><span class="dash"></span><span class="txt">← Revisi ke tahap 5</span></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="box orange">7. Operational Product Revision<span class="sub">(Revisi Kuantitatif)</span></div>
+    <div class="arrow-v"></div>
+
+    <!-- 8 -->
+    <div class="box green">8. Operational Field Testing<span class="sub">(UAT + Skala Besar)</span></div>
+
+    <!-- Decision 3 -->
+    <div class="diamond-wrap">
+      <div class="diamond-arrow no"><span class="diamond-label no">Tidak</span></div>
+      <div class="diamond">Lolos?</div>
+      <div class="diamond-arrow yes"><span class="diamond-label yes">Ya</span></div>
+    </div>
+
+    <div class="loops">
+      <div class="loop-line"><span class="dash"></span><span class="txt">← Revisi ke tahap 7</span></div>
+    </div>
+
+    <!-- 9 -->
+    <div class="box orange">9. Final Product Revision</div>
+    <div class="arrow-v"></div>
+
+    <!-- 10 -->
+    <div class="box red">10. Dissemination &amp; Implementation<span class="sub">(Publikasi Ilmiah + Implementasi Sistem)</span></div>
+    <div class="arrow-v"></div>
+
+    <!-- END -->
+    <div class="terminal">SELESAI</div>
+
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><div class="dot" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)"></div> Perencanaan &amp; Desain</div>
+    <div class="legend-item"><div class="dot" style="background:linear-gradient(135deg,#0891b2,#0e7490)"></div> Pengujian Fungsional</div>
+    <div class="legend-item"><div class="dot" style="background:linear-gradient(135deg,#059669,#047857)"></div> UAT &amp; Validasi</div>
+    <div class="legend-item"><div class="dot" style="background:linear-gradient(135deg,#d97706,#b45309)"></div> Revisi</div>
+    <div class="legend-item"><div class="dot" style="background:linear-gradient(135deg,#dc2626,#b91c1c)"></div> Implementasi</div>
+  </div>
+</div>
+</body>
+</html>

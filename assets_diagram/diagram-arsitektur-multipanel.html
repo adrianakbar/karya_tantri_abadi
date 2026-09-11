@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Arsitektur Multi-Panel</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Times New Roman',serif;background:#f1f5f9;display:flex;justify-content:center;padding:30px}
+  .container{background:#fff;padding:36px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.12);width:820px}
+  h2{text-align:center;font-size:18px;color:#1e293b;margin-bottom:24px}
+  .tier{display:flex;flex-direction:column;align-items:center}
+  .label{font-size:11px;font-weight:bold;color:#64748b;text-transform:uppercase;letter-spacing:1px;align-self:flex-start;margin:14px 0 6px}
+  .row{display:flex;gap:12px;justify-content:center;width:100%;flex-wrap:wrap}
+  .box{padding:12px 14px;border-radius:10px;color:#fff;text-align:center;font-size:12px;font-weight:bold;box-shadow:0 2px 8px rgba(0,0,0,.12);flex:1;min-width:120px}
+  .sub{font-weight:normal;font-size:10px;display:block;margin-top:3px;opacity:.9}
+  .panel{background:linear-gradient(135deg,#2563eb,#1d4ed8)}
+  .panel.spv{background:linear-gradient(135deg,#0891b2,#0e7490)}
+  .panel.kasir{background:linear-gradient(135deg,#059669,#047857)}
+  .panel.petugas{background:linear-gradient(135deg,#d97706,#b45309)}
+  .panel.anggota{background:linear-gradient(135deg,#7c3aed,#6d28d9)}
+  .core{background:linear-gradient(135deg,#475569,#334155)}
+  .data{background:linear-gradient(135deg,#dc2626,#b91c1c)}
+  .client{background:#e2e8f0;color:#1e293b;border:2px solid #475569}
+  .arrow-v{width:2px;height:22px;background:#94a3b8;position:relative;margin:2px auto}
+  .arrow-v::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#94a3b8}
+  .full{width:100%}
+  .brace{font-size:10px;color:#94a3b8;text-align:center;margin-top:4px}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:26px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:11px}
+  .legend-item{display:flex;align-items:center;gap:6px}
+  .dot{width:14px;height:14px;border-radius:4px;flex-shrink:0}
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Gambar 4.x Arsitektur Multi-Panel Sistem Koperasi</h2>
+  <div class="tier">
+
+    <div class="label">Client Layer</div>
+    <div class="row">
+      <div class="box client full">Browser Pengguna <span class="sub">Desktop &amp; Mobile · HTTP/HTTPS</span></div>
+    </div>
+    <div class="arrow-v"></div>
+
+    <div class="label">Presentation Layer — 5 Panel Filament</div>
+    <div class="row">
+      <div class="box panel">Admin<span class="sub">/admin · role admin, manager</span></div>
+      <div class="box panel spv">Kepala Yayasan<span class="sub">/spv · role spv</span></div>
+      <div class="box panel kasir">Bendahara<span class="sub">/kasir · role kasir, bendahara</span></div>
+      <div class="box panel petugas">Petugas<span class="sub">/petugas · role petugas</span></div>
+      <div class="box panel anggota">Anggota<span class="sub">/anggota · role anggota</span></div>
+    </div>
+    <div class="brace">canAccessPanel() + Middleware Authenticate → guard akses per role (spatie/laravel-permission)</div>
+    <div class="arrow-v"></div>
+
+    <div class="label">Application Layer</div>
+    <div class="row">
+      <div class="box core">Livewire Components<span class="sub">Resource · Page · Widget</span></div>
+      <div class="box core">Domain Services<span class="sub">Loan · Sale · SHU · Report</span></div>
+      <div class="box core">Policies &amp; Jobs<span class="sub">Authorization · Queue</span></div>
+    </div>
+    <div class="brace">Laravel 12 · Filament 3.3 · Eloquent ORM</div>
+    <div class="arrow-v"></div>
+
+    <div class="label">Data Layer</div>
+    <div class="row">
+      <div class="box data full">Database (MySQL / SQLite) <span class="sub">users · roles · loans · sales · savings · settings</span></div>
+    </div>
+
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="dot" style="background:#2563eb"></span>Panel Filament</div>
+    <div class="legend-item"><span class="dot" style="background:#475569"></span>Aplikasi</div>
+    <div class="legend-item"><span class="dot" style="background:#dc2626"></span>Data</div>
+    <div class="legend-item"><span class="dot" style="background:#e2e8f0;border:1px solid #475569"></span>Client</div>
+  </div>
+</div>
+</body>
+</html>

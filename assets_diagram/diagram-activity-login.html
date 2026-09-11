@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Activity Diagram - Login</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Times New Roman',serif;background:#f1f5f9;display:flex;justify-content:center;padding:30px}
+  .container{background:#fff;padding:36px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,.12);width:720px}
+  h2{text-align:center;font-size:18px;color:#1e293b;margin-bottom:24px}
+  .swim{display:flex;border:1.5px solid #cbd5e1;border-radius:10px;overflow:hidden}
+  .lane{flex:1;padding:0}
+  .lane-title{background:#475569;color:#fff;text-align:center;font-size:12px;font-weight:bold;padding:8px}
+  .lane.sys .lane-title{background:#2563eb}
+  .lane-body{padding:18px 14px 28px;display:flex;flex-direction:column;align-items:center}
+  .node{margin:4px 0;text-align:center}
+  .start,.end{width:22px;height:22px;border-radius:50%;background:#334155;margin:4px auto}
+  .end{background:#334155;border:3px solid #fff;box-shadow:0 0 0 2px #334155}
+  .act{background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;font-size:12px;font-weight:bold;padding:10px 14px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.12);max-width:200px}
+  .lane.usr .act{background:linear-gradient(135deg,#059669,#047857)}
+  .dec{background:#fef3c7;border:2px solid #d97706;color:#92400e;font-size:11px;font-weight:bold;padding:8px 14px;border-radius:8px;max-width:190px}
+  .arrow-v{width:2px;height:20px;background:#94a3b8;position:relative;margin:2px auto}
+  .arrow-v::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#94a3b8}
+  .branch{font-size:10px;color:#d97706;font-style:italic;margin:2px 0}
+  .branch.ok{color:#047857}
+  .loopback{font-size:10px;color:#dc2626;font-style:italic;border:1px dashed #dc2626;border-radius:4px;padding:2px 8px;margin:4px 0}
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Gambar 4.x Activity Diagram Proses Login</h2>
+  <div class="swim">
+
+    <div class="lane usr">
+      <div class="lane-title">Pengguna</div>
+      <div class="lane-body">
+        <div class="start"></div>
+        <div class="arrow-v"></div>
+        <div class="act node">Buka halaman login panel</div>
+        <div class="arrow-v"></div>
+        <div class="act node">Input email &amp; password</div>
+        <div class="arrow-v"></div>
+        <div class="act node">Submit form</div>
+        <div class="arrow-v"></div>
+        <div class="loopback">← kredensial salah / role tak sesuai: ulangi input</div>
+        <div style="flex:1"></div>
+        <div class="act node">Diarahkan ke dashboard panel</div>
+        <div class="arrow-v"></div>
+        <div class="end"></div>
+      </div>
+    </div>
+
+    <div class="lane sys">
+      <div class="lane-title">Sistem</div>
+      <div class="lane-body">
+        <div style="height:88px"></div>
+        <div class="act node">Validasi input form</div>
+        <div class="arrow-v"></div>
+        <div class="dec node">Kredensial valid?</div>
+        <div class="branch">tidak → pesan error</div>
+        <div class="branch ok">ya ↓</div>
+        <div class="arrow-v"></div>
+        <div class="dec node">canAccessPanel()<br>role cocok panel?</div>
+        <div class="branch">tidak → tolak akses</div>
+        <div class="branch ok">ya ↓</div>
+        <div class="arrow-v"></div>
+        <div class="act node">Buat sesi &amp; catat AuthLog</div>
+        <div class="arrow-v"></div>
+        <div class="act node">Redirect ke dashboard sesuai role</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
