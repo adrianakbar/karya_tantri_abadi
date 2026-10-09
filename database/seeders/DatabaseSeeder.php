@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             CooperationSeeder::class,
             PermissionAndRoleSeeder::class,
             UserSeeder::class,
-            TestUserSeeder::class,
+            // TestUserSeeder::class,
             SystemSettingsSeeder::class,
             // Modul barang/inventaris dinonaktifkan untuk Karya Tantri Abadi
             // ProductCategorySeeder::class,
