@@ -15,6 +15,8 @@ class SavingsTypeResource extends Resource
 {
     protected static ?string $model = SavingsType::class;
 
+    protected static bool $shouldRegisterNavigation = false;
+
     protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     protected static ?string $navigationGroup = 'Transaksi';
     protected static ?string $navigationLabel = 'Jenis Simpanan';

@@ -32,9 +32,9 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Karya Tantri Abadi - Admin')
             ->resources([
                 \App\Filament\Resources\UserResource::class,
-                // Simpanan/tabungan: admin pantau, kasir catat
+                // Simpanan/tabungan: admin pantau, kasir catat (jenis simpanan di-hide)
                 \App\Filament\Resources\SavingResource::class,
-                \App\Filament\Resources\SavingsTypeResource::class,
+                // \App\Filament\Resources\SavingsTypeResource::class,
                 \App\Filament\Resources\SystemSettingResource::class,
                 // Role/Permission/UserRole: route CRUD utk edit link dari tab Pengaturan; disembunyikan dari nav
                 \App\Filament\Resources\RoleResource::class,

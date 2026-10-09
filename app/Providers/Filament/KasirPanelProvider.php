@@ -33,7 +33,7 @@ class KasirPanelProvider extends PanelProvider
                 // Kasir: daftar pinjaman + pencairan + catat tabungan/simpanan
                 \App\Filament\Resources\LoanResource::class,
                 \App\Filament\Resources\SavingResource::class,
-                \App\Filament\Resources\SavingsTypeResource::class,
+                // \App\Filament\Resources\SavingsTypeResource::class,
             ])
             ->pages([
                 \App\Filament\Pages\LoanReport::class,
