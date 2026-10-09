@@ -12,6 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustProxies(at: '*');
+
         // Register audit trail middleware for web routes
         $middleware->web(append: [
             \App\Http\Middleware\LogUserActivity::class,

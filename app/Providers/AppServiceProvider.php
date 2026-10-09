@@ -41,6 +41,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if ($this->app->environment('production')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
         // Listen for logout events to reset tour
         \Illuminate\Support\Facades\Event::listen(
             Logout::class,

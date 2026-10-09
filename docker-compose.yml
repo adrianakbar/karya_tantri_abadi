@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: koperasi_app
+    cpus: '0.7'
+    mem_limit: 700m
     restart: unless-stopped
     ports:
       - "8000:80"
@@ -19,6 +21,8 @@ services:
   db:
     image: mysql:8.0
     container_name: koperasi_db
+    cpus: '0.5'
+    mem_limit: 500m
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: db_koperasi_karya_tantri_abadi
