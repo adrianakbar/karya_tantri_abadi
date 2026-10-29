@@ -77,7 +77,7 @@
             @foreach($loanData as $loan)
             <tr>
                 <td>{{ $loan->loan_number }}</td>
-                <td>{{ $loan->user->name ?? 'Unknown' }}</td>
+                <td>{{ $loan->borrower_name }}</td>
                 <td class="text-center">{{ $loan->user->member_number ?? '-' }}</td>
                 <td>{{ $loan->loanType->name ?? 'Unknown' }}</td>
                 <td class="text-right">Rp {{ number_format($loan->loan_amount, 0, ',', '.') }}</td>

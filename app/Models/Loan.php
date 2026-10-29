@@ -83,6 +83,16 @@ class Loan extends Model
         return $this->user?->name ?? $this->applicant_name ?? '-';
     }
 
+    public function getLoanAmountAttribute()
+    {
+        return $this->principal_amount;
+    }
+
+    public function getTenorAttribute()
+    {
+        return $this->tenor_months;
+    }
+
     public function payments(): HasMany
     {
         return $this->hasMany(LoanPayment::class);

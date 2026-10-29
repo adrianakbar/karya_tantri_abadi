@@ -23,7 +23,7 @@ class LoanReportExport implements FromCollection, WithHeadings, WithStyles, With
             ->map(function ($loan) {
                 return [
                     'No. Pinjaman' => $loan->loan_number,
-                    'Nama Anggota' => $loan->user->name ?? 'Unknown',
+                    'Nama Anggota' => $loan->borrower_name,
                     'No. Anggota' => $loan->user->member_number ?? '-',
                     'Jenis Pinjaman' => $loan->loanType->name ?? 'Unknown',
                     'Jumlah Pinjaman' => 'Rp ' . number_format($loan->loan_amount, 0, ',', '.'),

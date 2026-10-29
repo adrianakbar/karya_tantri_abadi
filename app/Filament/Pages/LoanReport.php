@@ -63,11 +63,15 @@ class LoanReport extends Page implements Tables\Contracts\HasTable, Forms\Contra
                 Tables\Columns\TextColumn::make('loan_number')
                     ->label('No. Pinjaman')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->label('Nama Anggota')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('borrower_name')
+                    ->label('Nama Peminjam')
+                    ->getStateUsing(fn (Loan $record) => $record->borrower_name)
+                    ->searchable(query: fn (Builder $q, string $search) => $q
+                        ->where('applicant_name', 'like', "%{$search}%")
+                        ->orWhereHas('user', fn ($u) => $u->where('name', 'like', "%{$search}%"))),
                 Tables\Columns\TextColumn::make('user.member_number')
                     ->label('No. Anggota')
+                    ->placeholder('-')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('loanType.name')
                     ->label('Jenis Pinjaman'),

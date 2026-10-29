@@ -252,6 +252,7 @@
                     <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                         @php
                             $topBorrowers = \App\Models\Loan::where('cooperation_id', $cooperationId)
+                                ->whereNotNull('user_id')
                                 ->with('user')
                                 ->select('user_id', \DB::raw('SUM(principal_amount) as total_loans'), \DB::raw('SUM(remaining_balance) as total_remaining'))
                                 ->groupBy('user_id')
@@ -260,13 +261,13 @@
                                 ->get();
                         @endphp
                         
-                        @foreach($topBorrowers as $index => $borrower)
+                        @forelse($topBorrowers as $index => $borrower)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                                 {{ $index + 1 }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{{ $borrower->user->name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ $borrower->user->member_number ?? '-' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{{ $borrower->user?->name ?? '-' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ $borrower->user?->member_number ?? '-' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
                                 Rp {{ number_format($borrower->total_loans, 0, ',', '.') }}
                             </td>
@@ -274,7 +275,13 @@
                                 Rp {{ number_format($borrower->total_remaining, 0, ',', '.') }}
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                                Belum ada data pinjaman anggota
+                            </td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
